@@ -1,6 +1,4 @@
 ﻿using CliniCorp.DataContext;
-using CliniCorp.Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
@@ -97,6 +95,21 @@ namespace CliniCorp.Controllers
 
         }
 
+        [HttpPut]
+        [Route("updatestatus")]
+        public IActionResult updateStatus(Consulta consulta)
+        {
+            var query = _context.Consultas.FirstOrDefault(X => X.Id == consulta.Id);
+
+            if (query == null) return BadRequest("consulta não existente");
+
+            query.StatusConsulta = consulta.StatusConsulta;
+
+            _context.Update(query);
+            _context.SaveChanges();
+            return Ok(query);
+        }
+
         [HttpGet]
         [Route("detalhes/{id}")]
         public IActionResult detalhes(int id)
@@ -110,9 +123,10 @@ namespace CliniCorp.Controllers
         }
 
 
+        // metodos em teste
         [HttpPut]
-        [Route("updateDate/{id}")]
-        public IActionResult updateDate(DateTime date,int id)
+        [Route("dates")]
+        public IActionResult updateDate(int id, DateTime date )
         {
             var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
 
@@ -125,18 +139,20 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPut]
-        [Route("updatestatus")]
-        public IActionResult updateStatus(Param param)
+        [Route("updateDates")]
+        public IActionResult updateDates(Consulta consulta)
         {
-            var query = _context.Consultas.FirstOrDefault(X => X.Id == param.Id);
+            var query = _context.Consultas.FirstOrDefault(X => X.Id == consulta.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            query.StatusConsulta = param.Status;
-           
+            query.DataConsulta = consulta.DataConsulta;
             _context.Update(query);
             _context.SaveChanges();
             return Ok(query);
         }
+
+      
+
     }
 }
