@@ -21,8 +21,7 @@
       <td>{{ consulta.status }}</td>
       <td>
         <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
-        <button type="button" class="btn btn-secondary" (click)="datemodal(alterStatus,consulta.id)">Mudar Status</button>
-        <button type="button" class="btn btn-info" (click)="update(updateDate,consulta.id)">Remarcar Consulta</button>
+        <button type="button" class="btn btn-primary" [routerLink]="['/edit', consulta.id]">Editar</button>
       </td>
     </tr>
   </tbody>
@@ -45,41 +44,3 @@
   </div>
 </ng-template>
 
-<ng-template #alterStatus>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Alterar Status</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group col-md-6">
-      
-      <input type="radio" name="agendada" id="radioNoLabel1" value="0" [(ngModel)]="status">
-      <label>Cancelar</label><br>
-
-      <input type="radio" name="finalizar" id="radioNoLabel1" value="1" [(ngModel)]="status">
-      <label>Finalizar</label>
-      <br>
-
-      <button type="button" class="btn btn-secondary" (click)="updateStatus()">Salvar</button>
-    </div>
-
-  </div>
-</ng-template>
-
-<ng-template #updateDate>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Remarcar Consulta</h4>
-    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-      <span aria-hidden="true" class="visually-hidden">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="form-group col-md-6">
-      <input type="text"  class="form-control" id="date" [(ngModel)]="updates">
-      <button type="button" class="btn btn-secondary" (click)="click()">click</button>
-    </div>
- 
-  </div>
-</ng-template>

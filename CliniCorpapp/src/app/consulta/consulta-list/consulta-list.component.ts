@@ -14,17 +14,15 @@ export class ConsultaListComponent implements OnInit {
   public consultas!: Consulta[];
   public consulta!: Consulta;
 
-  public status!: number;
   public id!: number;
-
-  public updates!: Date;
 
   errorMessage!: string;
   modalRef?: BsModalRef;
 
   constructor(
     private consultaService: ConsultaService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService,
+) { }
 
   ngOnInit(): void {
     this.getList();
@@ -51,24 +49,4 @@ export class ConsultaListComponent implements OnInit {
       this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     })
   }
-
-  datemodal(template: TemplateRef<any>, id: number) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-    this.id = id;
-  }
-
-  updateStatus() {
-    this.consultaService.update(this.status, this.id)
-      .subscribe(sucesso => { console.log(sucesso) });
-  }
-
-  update(template: TemplateRef<any>, id: number) {
-    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
-    this.id = id;
-  }
-
-  click() {
-    console.log(this.updates);
-  }
-
 }

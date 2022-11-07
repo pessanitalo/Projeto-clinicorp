@@ -22,13 +22,12 @@ export class ConsultaService {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
-  update(param: number, id: number) {
-    const status = {
+     update(id: number, status: number ) {
+    const param = {
       id: id,
-      status: param
+      StatusConsulta: status
     }
-    return this.http.put(`${this.baseUrl}/updatestatus`, status);
+    return this.http.put(`${this.baseUrl}/updatestatus`, param);
   }
 
-
-}
+ }
