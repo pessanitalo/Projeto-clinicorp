@@ -26,7 +26,7 @@ namespace CliniCorp.Controllers
                         select new
                         {
                             c.Id,
-                            c.DataConsulta,
+                            c.dataConsulta,
                             c.DescricaoConsulta,
                             c.StatusConsulta,
                             m.Nome,
@@ -36,25 +36,6 @@ namespace CliniCorp.Controllers
             return Ok(query);
         }
 
-        [HttpGet]
-        [Route("getjoin")]
-        public IActionResult getjoin()
-        {
-            var query = from c in _context.Consultas
-                        join m in _context.Medicos on c.Id equals m.Id
-                        join p in _context.Pacientes on m.Id equals p.Id
-                        select new
-                        {
-                            c.Id,
-                            c.DataConsulta,
-                            c.DescricaoConsulta,
-                            c.StatusConsulta,
-                            m.Nome,
-                            m.Especializacao,
-                            NomePaciente = p.Nome
-                        };
-            return Ok(query);
-        }
 
         [HttpPost]
         [Route("created")]
@@ -67,32 +48,12 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet]
-        [Route("query")]
-        public IActionResult getquery()
+        [Route("queryid/{id}")]
+        public IActionResult getqueryid(int id)
         {
+            var ret1 = _context.Consultas.FirstOrDefault(X => X.Id == id);
 
-            var query = from c in _context.Consultas
-                        join m in _context.Medicos on c.Id equals m.Id
-                        select new
-                        {
-                            c.Id,
-                            c.DataConsulta,
-                            c.StatusConsulta,
-                            m.Nome,
-                            m.Especializacao
-
-                        };
-
-            return Ok(query);
-        }
-
-        [HttpGet]
-        [Route("linq")]
-        public IActionResult getlinq()
-        {
-            var ret = _context.Consultas.Include(c => c.Medico).ToList();
-            return Ok(ret);
-
+            return Ok(ret1);
         }
 
         [HttpPut]
@@ -122,37 +83,21 @@ namespace CliniCorp.Controllers
             return Ok(consulta);
         }
 
-
-        // metodos em teste
         [HttpPut]
-        [Route("dates")]
-        public IActionResult updateDate(int id, DateTime date )
-        {
-            var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
-
-            if (query == null) return BadRequest("consulta não existente");
-
-            query.DataConsulta = date;
-            _context.Update(query);
-            _context.SaveChanges();
-            return Ok(query);
-        }
-
-        [HttpPut]
-        [Route("updateDates")]
-        public IActionResult updateDates(Consulta consulta)
+        [Route("updatedate")]
+        public IActionResult updatedate(Consulta consulta)
         {
             var query = _context.Consultas.FirstOrDefault(X => X.Id == consulta.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            query.DataConsulta = consulta.DataConsulta;
+            query.dataConsulta = consulta.dataConsulta;
+
             _context.Update(query);
             _context.SaveChanges();
             return Ok(query);
         }
 
-      
 
     }
 }

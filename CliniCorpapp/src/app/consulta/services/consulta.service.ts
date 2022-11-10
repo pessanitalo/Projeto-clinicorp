@@ -22,7 +22,11 @@ export class ConsultaService {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
-     update(id: number, status: number ) {
+  edit(id: number): Observable<Consulta> {
+    return this.http.get<Consulta>(`${this.baseUrl}/queryid/${id}`);
+  }
+
+  update(id: number, status: number) {
     const param = {
       id: id,
       StatusConsulta: status
@@ -30,4 +34,11 @@ export class ConsultaService {
     return this.http.put(`${this.baseUrl}/updatestatus`, param);
   }
 
- }
+  updateDate(id: number,  data: Date) {
+    const param = {
+      id: id,
+      DataConsulta: data
+    }
+    return this.http.put(`${this.baseUrl}/updatedate`, param);
+  }
+}
