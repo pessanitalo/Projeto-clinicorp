@@ -1,31 +1,32 @@
-<button type="button" class="btn btn-primary">Nova Consulta</button>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Médico Responsável</th>
-      <th scope="col">Paciente</th>
-      <th scope="col">Especialização</th>
-      <th scope="col">Descrição</th>
-      <th scope="col">Data da Consulta</th>
-      <th scope="col">Status da Consulta</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let consulta of consultas">
-      <td> {{ consulta.nome}} </td>
-      <td> {{ consulta.nomePaciente}} </td>
-      <td> {{ consulta.especializacao}} </td>
-      <td> {{ consulta.descricaoConsulta}} </td>
-      <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy'}} </td>
-      <td>{{ consulta.status }}</td>
-      <td>
-        <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
-        <button type="button" class="btn btn-primary" [routerLink]="['/edit', consulta.id]">Editar</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Médico Responsável</th>
+        <th>Paciente</th>
+        <th>Especialização</th>
+        <th>Descrição</th>
+        <th>Data da Consulta</th>
+        <th>Status da Consulta</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let consulta of consultas">
+        <td> {{ consulta.nome}} </td>
+        <td> {{ consulta.nomePaciente}} </td>
+        <td> {{ consulta.especializacao}} </td>
+        <td> {{ consulta.descricaoConsulta}} </td>
+        <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy hh:mm'}} </td>
+        <td>{{ consulta.status }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
+          <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Editar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
 
 <ng-template #detalhes>
   <div class="modal-header">
@@ -38,9 +39,10 @@
     <p>Médico Responsável: <strong>{{consulta.medico.nome}}</strong></p>
     <p>Descrição: {{consulta.descricaoConsulta}}</p>
     <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p>
-    <P>Dados do Paciente:</P>
-    <p>Nome do Paciente: {{consulta.medico.paciente.nome}}</p>
-    <p>Eamil do Paciente: {{consulta.medico.paciente.email}}</p>
+    <div class="div">
+      <P>Dados do Paciente:</P>
+      <p>Nome do Paciente: {{consulta.medico.paciente.nome}}</p>
+      <p>Email do Paciente: {{consulta.medico.paciente.email}}</p>
+    </div>
   </div>
 </ng-template>
-

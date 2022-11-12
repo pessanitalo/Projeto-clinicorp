@@ -1,16 +1,25 @@
-<div class="container">
-  <p>Editar Consulta: {{ consulta.dataConsulta | date: 'dd/MM/yyyy' }}</p>
+<div class="edit-consul">
+  <div class="row g-1">
 
-  <div class="form-group col-md-6">
-    <input type="text" class="form-control" id="date" [(ngModel)]="date" mask="d0/M0/0000"
-      [dropSpecialCharacters]="false" placeholder="Digite aqui a nova data!">
-    <button type="button" class="btn btn-secondary" (click)="updateDate()">salvar</button>
-  </div>
+    <p class="spacing-top">Editar Consulta: {{ consulta.dataConsulta | date: 'dd/MM/yyyy' }}</p>
 
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="date" [(ngModel)]="date" mask="d0/M0/0000"
+        [dropSpecialCharacters]="false" placeholder="Digite aqui a nova data!">
+    </div>
 
-  <p>Editar Consulta {{ consulta.statusConsulta }}</p>
-  <div class="form-group col-md-6">
-    <input type="text" class="form-control" id="status" [(ngModel)]="status">
-    <button type="button" class="btn btn-secondary" (click)="updateStatus()">salvar</button>
-  </div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-secondary" (click)="updateDate()">salvar</button>
+    </div>
+
+    <p class="spacing-top">Editar Consulta: {{ consulta.statusConsulta }}</p>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="status" [(ngModel)]="status">
+      </div>
+  
+      <div class="col-md-1">
+        <button type="button" class="btn btn-secondary" (click)="updateStatus()">salvar</button>
+      </div>
+   </div>
+  <button type="button" class="btn btn-primary" style="margin-top: 10px">voltar</button>
 </div>

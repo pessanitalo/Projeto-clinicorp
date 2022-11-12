@@ -1,0 +1,14 @@
+.edit-consul{
+    width: 70%;
+    margin: auto;
+    align-items: center;
+}
+
+.spacing-top{
+    margin-bottom: 5px;
+    margin-top: 20px;
+}
+
+.margin{
+    margin-top: -10px;
+}
