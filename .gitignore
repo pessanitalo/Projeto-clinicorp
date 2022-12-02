@@ -28,9 +28,6 @@ dlldata.c
 *.vspx
 *.sap
 
-# front-end
-CliniCorpapp/src/app/app.module.ts
-
 
 # Compiled output
 /dist
