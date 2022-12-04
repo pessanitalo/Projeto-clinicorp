@@ -13,8 +13,8 @@ import { MenuComponent } from './navegacao/menu/menu.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
-
+import { NgxMaskModule } from 'ngx-mask'
+import {  BsModalService } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
   ],
-  providers: [ConsultaResolve],
+  providers: [ConsultaResolve,BsModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
