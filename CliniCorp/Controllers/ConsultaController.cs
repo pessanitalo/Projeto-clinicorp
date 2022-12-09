@@ -1,7 +1,10 @@
-﻿using CliniCorp.DataContext;
+﻿using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
+using CliniCorp.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
+
 
 namespace CliniCorp.Controllers
 {
@@ -9,33 +12,21 @@ namespace CliniCorp.Controllers
     [ApiController]
     public class ConsultaController : ControllerBase
     {
-        private readonly Context _context;
+        private readonly DataContext _context;
+        private readonly IRepository _repository;
 
-        public ConsultaController(Context context)
+        public ConsultaController(DataContext context, IRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
-        [Route("get")]
-        public IActionResult get()
+        [Route("list")]
+        public async Task <IEnumerable<consultaLista>> get()
         {
-            var query = from c in _context.Consultas
-                        join m in _context.Medicos on c.Id equals m.Id
-                        join p in _context.Pacientes on m.Id equals p.Id
-                        select new
-                        {
-                            c.Id,
-                            c.dataConsulta,
-                            c.DescricaoConsulta,
-                            c.StatusConsulta,
-                            m.Nome,
-                            m.Especializacao,
-                            NomePaciente = p.Nome
-                        };
-            return Ok(query);
+            return await _repository.ListarTodos();
         }
-
 
         [HttpPost]
         [Route("created")]
@@ -52,6 +43,7 @@ namespace CliniCorp.Controllers
         public IActionResult getqueryid(int id)
         {
             var ret1 = _context.Consultas.FirstOrDefault(X => X.Id == id);
+            if (ret1 == null) return BadRequest("consulta não existente");
 
             return Ok(ret1);
         }

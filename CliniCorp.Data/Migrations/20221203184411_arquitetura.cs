@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 #nullable disable
 
-namespace CliniCorp.Migrations
+namespace CliniCorp.Data.Migrations
 {
-    public partial class inicioProject : Migration
+    public partial class arquitetura : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,10 +13,10 @@ namespace CliniCorp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,11 +29,11 @@ namespace CliniCorp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Crm = table.Column<int>(type: "int", nullable: false),
-                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PacienteId = table.Column<int>(type: "int", nullable: true),
-                    Especializacao = table.Column<int>(type: "int", nullable: false)
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PacienteId = table.Column<int>(type: "int", nullable: false),
+                    Especializacao = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,7 +42,8 @@ namespace CliniCorp.Migrations
                         name: "FK_Medicos_Pacientes_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Pacientes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,11 +52,10 @@ namespace CliniCorp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PacienteId = table.Column<int>(type: "int", nullable: true),
-                    MedicoId = table.Column<int>(type: "int", nullable: true),
-                    DataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DescricaoConsulta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MedicoEspecialista = table.Column<int>(type: "int", nullable: false),
+                    PacienteId = table.Column<int>(type: "int", nullable: false),
+                    MedicoId = table.Column<int>(type: "int", nullable: false),
+                    dataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DescricaoConsulta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StatusConsulta = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -67,12 +65,14 @@ namespace CliniCorp.Migrations
                         name: "FK_Consultas_Medicos_MedicoId",
                         column: x => x.MedicoId,
                         principalTable: "Medicos",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Consultas_Pacientes_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Pacientes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

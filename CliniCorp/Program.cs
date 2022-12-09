@@ -1,4 +1,6 @@
-using CliniCorp.DataContext;
+using CliniCorp.Business.Interfaces;
+using CliniCorp.Data.Context;
+using CliniCorp.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<Context>(options =>
+builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IRepository, ConsultaRepository>();
 
 var app = builder.Build();
 

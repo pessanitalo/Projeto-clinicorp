@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CliniCorp", "CliniCorp\CliniCorp.csproj", "{0B35E137-D5B9-4227-9E1F-28576DF655FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CliniCorp", "CliniCorp\CliniCorp.csproj", "{0B35E137-D5B9-4227-9E1F-28576DF655FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CliniCorp.Data", "CliniCorp.Data\CliniCorp.Data.csproj", "{EDBF7F53-F6EB-4D09-85EC-A524ECFA4885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CliniCorp.Business", "CliniCorp.Business\CliniCorp.Business.csproj", "{8BC2A106-04AC-433E-95E7-8A48C2305C4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{0B35E137-D5B9-4227-9E1F-28576DF655FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B35E137-D5B9-4227-9E1F-28576DF655FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B35E137-D5B9-4227-9E1F-28576DF655FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDBF7F53-F6EB-4D09-85EC-A524ECFA4885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDBF7F53-F6EB-4D09-85EC-A524ECFA4885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDBF7F53-F6EB-4D09-85EC-A524ECFA4885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDBF7F53-F6EB-4D09-85EC-A524ECFA4885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BC2A106-04AC-433E-95E7-8A48C2305C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BC2A106-04AC-433E-95E7-8A48C2305C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BC2A106-04AC-433E-95E7-8A48C2305C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BC2A106-04AC-433E-95E7-8A48C2305C4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

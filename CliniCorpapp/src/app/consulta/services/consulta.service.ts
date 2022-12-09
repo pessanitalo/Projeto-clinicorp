@@ -15,7 +15,7 @@ export class ConsultaService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<Consulta[]> {
-    return this.http.get<Consulta[]>(`${this.baseUrl}/get`);
+    return this.http.get<Consulta[]>(`${this.baseUrl}/list`);
   }
 
   detalhes(id: number): Observable<Consulta> {
