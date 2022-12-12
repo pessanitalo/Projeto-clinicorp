@@ -1,6 +1,8 @@
 ﻿using CliniCorp.Business.Interfaces;
 using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using ProjetoDemo;
 
 namespace CliniCorp.Data.Repository
 {
@@ -12,6 +14,8 @@ namespace CliniCorp.Data.Repository
         {
             _context = context;
         }
+
+       
 
         public async Task<IEnumerable<consultaLista>> ListarTodos()
         {
@@ -31,6 +35,20 @@ namespace CliniCorp.Data.Repository
 
             List<consultaLista> lista = query.ToList();
             return lista;
+        }
+
+        public Consulta BuscarPorId(int id)
+        {
+            var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
+
+            return query;
+        }
+
+        public Consulta Adicionar(Consulta consulta)
+        {
+            _context.Add(consulta);
+            _context.SaveChanges();
+            return consulta;
         }
     }
 }

@@ -32,8 +32,7 @@ namespace CliniCorp.Controllers
         [Route("created")]
         public IActionResult create(Consulta consulta)
         {
-            _context.Consultas.Add(consulta);
-            _context.SaveChanges();
+            _repository.Adicionar(consulta);
             return Ok(consulta);
 
         }
@@ -42,10 +41,10 @@ namespace CliniCorp.Controllers
         [Route("queryid/{id}")]
         public IActionResult getqueryid(int id)
         {
-            var ret1 = _context.Consultas.FirstOrDefault(X => X.Id == id);
-            if (ret1 == null) return BadRequest("consulta não existente");
+            var query = _repository.BuscarPorId(id);
+            if (query == null) return BadRequest("consulta não existente");
 
-            return Ok(ret1);
+            return Ok(query);
         }
 
         [HttpPut]
