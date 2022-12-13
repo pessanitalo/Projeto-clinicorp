@@ -1,8 +1,6 @@
 ﻿using CliniCorp.Business.Interfaces;
 using CliniCorp.Business.Models;
-using CliniCorp.Data.Context;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
 
 
@@ -12,83 +10,60 @@ namespace CliniCorp.Controllers
     [ApiController]
     public class ConsultaController : ControllerBase
     {
-        private readonly DataContext _context;
         private readonly IRepository _repository;
 
-        public ConsultaController(DataContext context, IRepository repository)
+        public ConsultaController(IRepository repository)
         {
-            _context = context;
             _repository = repository;
         }
 
-        [HttpGet]
-        [Route("list")]
-        public async Task <IEnumerable<consultaLista>> get()
+        [HttpGet("list")]
+        public async Task<IEnumerable<consultaLista>> get()
         {
             return await _repository.ListarTodos();
         }
 
-        [HttpPost]
-        [Route("created")]
+        [HttpPost("created")]
         public IActionResult create(Consulta consulta)
         {
             _repository.Adicionar(consulta);
             return Ok(consulta);
-
         }
 
-        [HttpGet]
-        [Route("queryid/{id}")]
-        public IActionResult getqueryid(int id)
-        {
-            var query = _repository.BuscarPorId(id);
-            if (query == null) return BadRequest("consulta não existente");
-
-            return Ok(query);
-        }
-
-        [HttpPut]
-        [Route("updatestatus")]
-        public IActionResult updateStatus(Consulta consulta)
-        {
-            var query = _context.Consultas.FirstOrDefault(X => X.Id == consulta.Id);
-
-            if (query == null) return BadRequest("consulta não existente");
-
-            query.StatusConsulta = consulta.StatusConsulta;
-
-            _context.Update(query);
-            _context.SaveChanges();
-            return Ok(query);
-        }
-
-        [HttpGet]
-        [Route("detalhes/{id}")]
+        [HttpGet("detalhes/{id}")]
         public IActionResult detalhes(int id)
         {
-            var consulta = _context.Consultas.Include(c => c.Medico)
-                            .Include(p => p.Medico.Paciente).
-                            FirstOrDefault(X => X.Id == id);
-
+            var consulta = _repository.Detalhes(id);
             if (consulta == null) return BadRequest("consulta não existente");
+
             return Ok(consulta);
         }
 
-        [HttpPut]
-        [Route("updatedate")]
-        public IActionResult updatedate(Consulta consulta)
+
+        [HttpPut("updatestatus")]
+        public IActionResult updateStatus(Consulta consulta)
         {
-            var query = _context.Consultas.FirstOrDefault(X => X.Id == consulta.Id);
+            var query = _repository.AtualizarStatus(consulta.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            query.dataConsulta = consulta.dataConsulta;
+            _repository.AtualizarStatus(consulta);
 
-            _context.Update(query);
-            _context.SaveChanges();
-            return Ok(query);
+            return Ok(consulta);
+
         }
 
+        [HttpPut("updatedate")]
+        public IActionResult updatedate(Consulta consulta)
+        {
+            var query = _repository.Detalhes(consulta.Id);
+
+            if (query == null) return BadRequest("consulta não existente");
+
+            _repository.AtualizarDataConsulta(consulta);
+
+            return Ok(consulta);
+        }
 
     }
 }

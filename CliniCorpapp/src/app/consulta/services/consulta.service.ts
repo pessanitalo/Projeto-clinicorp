@@ -23,7 +23,7 @@ export class ConsultaService {
   }
 
   edit(id: number): Observable<Consulta> {
-    return this.http.get<Consulta>(`${this.baseUrl}/queryid/${id}`);
+    return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
   update(id: number, status: number) {

@@ -15,8 +15,6 @@ namespace CliniCorp.Data.Repository
             _context = context;
         }
 
-       
-
         public async Task<IEnumerable<consultaLista>> ListarTodos()
         {
             var query = from c in _context.Consultas
@@ -37,10 +35,9 @@ namespace CliniCorp.Data.Repository
             return lista;
         }
 
-        public Consulta BuscarPorId(int id)
+        public Consulta AtualizarStatus(int id)
         {
             var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
-
             return query;
         }
 
@@ -49,6 +46,36 @@ namespace CliniCorp.Data.Repository
             _context.Add(consulta);
             _context.SaveChanges();
             return consulta;
+        }
+
+        public Consulta Detalhes(int id)
+        {
+            var consulta = _context.Consultas.Include(c => c.Medico)
+                            .Include(p => p.Medico.Paciente).
+                            FirstOrDefault(X => X.Id == id);
+            return consulta;
+        }
+
+        public Consulta AtualizarStatus(Consulta consulta)
+        {
+            var query = AtualizarStatus(consulta.Id);
+
+            query.StatusConsulta = consulta.StatusConsulta;
+
+            _context.Update(query);
+            _context.SaveChanges();
+            return query;
+        }
+
+        public Consulta AtualizarDataConsulta(Consulta consulta)
+        {
+            var query = AtualizarStatus(consulta.Id);
+
+            query.dataConsulta = consulta.dataConsulta;
+
+            _context.Update(query);
+            _context.SaveChanges();
+            return query;
         }
     }
 }
