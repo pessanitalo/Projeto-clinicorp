@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
 #nullable disable
 
 namespace CliniCorp.Data.Migrations
 {
-    public partial class arquitetura : Migration
+    public partial class inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +45,7 @@ namespace CliniCorp.Data.Migrations
                         column: x => x.PacienteId,
                         principalTable: "Pacientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,9 +55,9 @@ namespace CliniCorp.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PacienteId = table.Column<int>(type: "int", nullable: false),
-                    MedicoId = table.Column<int>(type: "int", nullable: false),
+                    MedicoId = table.Column<int>(type: "int", nullable: true),
                     dataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DescricaoConsulta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DescricaoConsulta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StatusConsulta = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -66,13 +68,13 @@ namespace CliniCorp.Data.Migrations
                         column: x => x.MedicoId,
                         principalTable: "Medicos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Consultas_Pacientes_PacienteId",
                         column: x => x.PacienteId,
                         principalTable: "Pacientes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
