@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CliniCorp.Data.Mappings;
+using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
-using System.Reflection.Metadata;
 
 namespace CliniCorp.Data.Context
 {
@@ -20,6 +20,11 @@ namespace CliniCorp.Data.Context
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            modelBuilder.ApplyConfiguration(new ConsultaMapping());
+            modelBuilder.ApplyConfiguration(new MedicoMapping());
+            modelBuilder.ApplyConfiguration(new PacienteMapping());
+
         }
     }
 }

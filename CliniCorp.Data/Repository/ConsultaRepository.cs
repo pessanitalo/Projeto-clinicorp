@@ -43,6 +43,8 @@ namespace CliniCorp.Data.Repository
 
         public Consulta Adicionar(Consulta consulta)
         {
+            var medico = buscarMedico(consulta.PacienteId);
+            consulta.Medico = medico;
             _context.Add(consulta);
             _context.SaveChanges();
             return consulta;
@@ -76,6 +78,12 @@ namespace CliniCorp.Data.Repository
             _context.Update(query);
             _context.SaveChanges();
             return query;
+        }
+
+        public Medico buscarMedico(int id)
+        {
+            var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
+            return medico;
         }
     }
 }
