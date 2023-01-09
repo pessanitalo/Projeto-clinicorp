@@ -11,6 +11,8 @@ bld/
 [Oo]bj/
 
 # User-specific files
+*.dll
+*.exe
 *.suo
 *.user
 *.userosscache
@@ -21,12 +23,14 @@ bld/
 [Rr]eleasePS/
 dlldata.c
 
+\FileContentIndex
 
 # Visual Studio profiler
 *.psess
 *.vsp
 *.vspx
 *.sap
+*.vsidx
 
 
 # Compiled output
@@ -75,3 +79,4 @@ protractor-results*.txt
 # System files
 .DS_Store
 Thumbs.db
+
