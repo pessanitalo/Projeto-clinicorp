@@ -1,5 +1,7 @@
-﻿using CliniCorp.Business.Interfaces;
+﻿using AutoMapper;
+using CliniCorp.Business.Interfaces;
 using CliniCorp.Business.Models;
+using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
@@ -11,10 +13,12 @@ namespace CliniCorp.Controllers
     public class ConsultaController : ControllerBase
     {
         private readonly IRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ConsultaController(IRepository repository)
+        public ConsultaController(IRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         [HttpGet("list")]
@@ -24,8 +28,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPost("created")]
-        public IActionResult create(Consulta consulta)
+        public IActionResult create(ConsultaViewModel consultaModel)
         {
+            var consulta = _mapper.Map<Consulta>(consultaModel);
             _repository.Adicionar(consulta);
             return Ok(consulta);
         }

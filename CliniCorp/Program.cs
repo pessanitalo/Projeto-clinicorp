@@ -1,4 +1,6 @@
+using AutoMapper;
 using CliniCorp.Business.Interfaces;
+using CliniCorp.Configurations;
 using CliniCorp.Data.Context;
 using CliniCorp.Data.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,14 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IRepository, ConsultaRepository>();
+
+var mappingConfig = new MapperConfiguration(c =>
+{
+    c.AddProfile(new AutomapperConfig());
+});
+
+IMapper mapper = mappingConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 
