@@ -48,10 +48,9 @@ namespace CliniCorp.Data.Context
 
             builder.Entity<Medico>()
                 .HasKey(e => e.Id);
-
+                
             builder.Entity<Medico>()
-                .HasOne(c => c.Paciente);
-
+                .HasMany(c => c.Pacientes);
        
             builder.Entity<Medico>(p =>
             {
@@ -61,8 +60,6 @@ namespace CliniCorp.Data.Context
                 p.Property(b => b.Especializacao).HasColumnType("varchar(50)");
 
             });
-
-
 
             //table paciente
             builder.Entity<Paciente>(p =>
