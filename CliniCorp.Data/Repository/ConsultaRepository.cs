@@ -1,9 +1,8 @@
 ﻿using CliniCorp.Business.Interfaces;
-using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
-using System.Collections.Generic;
+
 
 namespace CliniCorp.Data.Repository
 {

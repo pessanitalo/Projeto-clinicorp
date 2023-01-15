@@ -1,5 +1,4 @@
-﻿using CliniCorp.Business.Models;
-using ProjetoDemo;
+﻿using ProjetoDemo;
 
 namespace CliniCorp.Business.Interfaces
 {
