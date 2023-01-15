@@ -8,13 +8,19 @@ namespace CliniCorp.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Paciente> builder)
         {
-            builder.HasKey(p => p.Id);
+            //builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Nome)
-                    .HasColumnType("varchar(200)");
+            //builder.Property(p => p.Nome)
+            //        .HasColumnType("varchar")
+            //        .HasMaxLength(50);
 
-            builder.Property(p => p.Cpf)
-                    .HasColumnType("varchar(14)");
+            //builder.Property(p => p.Cpf)
+            //        .HasColumnType("varchar")
+            //        .HasMaxLength(11);
+
+            //builder.Property(p => p.Email)
+            //        .HasColumnType("varchar");
+                   
 
         }
     }

@@ -3,6 +3,7 @@ using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
+using System.Collections.Generic;
 
 namespace CliniCorp.Data.Repository
 {
@@ -15,24 +16,28 @@ namespace CliniCorp.Data.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<consultaLista>> ListarTodos()
+        public async Task<IEnumerable<Consulta>> ListarTodos()
         {
-            var query = from c in _context.Consultas
-                        join m in _context.Medicos on c.Id equals m.Id
-                        join p in _context.Pacientes on m.Id equals p.Id
-                        select new consultaLista
-                        {
-                            Id = c.Id,
-                            dataConsulta = c.dataConsulta,
-                            DescricaoConsulta = c.DescricaoConsulta,
-                            StatusConsulta = c.StatusConsulta,
-                            Nome = m.Nome,
-                            Especializacao = m.Especializacao,
-                            NomePaciente = p.Nome
-                        };
+            //var query = from c in _context.Consultas
+            //            join m in _context.Medicos on c.Id equals m.Id
+            //            join p in _context.Pacientes on m.Id equals p.Id
+            //            select new consultaLista
+            //            {
+            //                Id = c.Id,
+            //                dataConsulta = c.dataConsulta,
+            //                DescricaoConsulta = c.DescricaoConsulta,
+            //                StatusConsulta = c.StatusConsulta,
+            //                Nome = m.Nome,
+            //                Especializacao = m.Especializacao,
+            //                NomePaciente = p.Nome
+            //            };
 
-            List<consultaLista> lista = query.ToList();
-            return lista;
+            //List<consultaLista> lista = query.ToList();
+            //return lista;
+
+          return await _context.Consultas.Include(c => c.Medico).Include(c => c.Medico.Pacientes).ToListAsync();
+              
+
         }
 
         public Consulta AtualizarStatus(int id)
@@ -43,7 +48,7 @@ namespace CliniCorp.Data.Repository
 
         public Consulta Adicionar(Consulta consulta)
         {
-            var medico = buscarMedico(consulta.PacienteId);
+            var medico = buscarMedico(consulta.Paciente.MedicoId);
             consulta.Medico = medico;
             _context.Add(consulta);
             _context.SaveChanges();
@@ -52,9 +57,11 @@ namespace CliniCorp.Data.Repository
 
         public Consulta Detalhes(int id)
         {
-            var consulta = _context.Consultas.Include(c => c.Medico)
-                            .Include(p => p.Medico.Paciente).
-                            FirstOrDefault(X => X.Id == id);
+            var consulta = _context.Consultas.Include
+                (c => c.Medico)
+                .Include(c => c.Medico.Pacientes)
+                .First(X => X.Id == id);
+
             return consulta;
         }
 

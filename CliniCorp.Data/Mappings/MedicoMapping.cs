@@ -10,23 +10,29 @@ namespace CliniCorp.Data.Mappings
         {
             builder.HasKey(p => p.Id);
 
-            //builder.Property(p => p.Nome)
-            //    .IsRequired()
+            builder.Property(p => p.Nome)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(50);
 
+            builder.Property(p => p.Cpf)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(11);
 
-            //    .HasColumnType("varchar(200)");
+            builder.Property(p => p.Crm)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(11);
 
-            //builder.Property(p => p.Cpf)
-            //    .IsRequired()
-            //    .HasColumnType("varchar(14)");
+            builder.Property(p => p.Especializacao)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(50);
 
-            //builder.Property(p => p.Crm)
-            //    .IsRequired()
-            //    .HasColumnType("varchar(11)");
+            builder.HasMany(f => f.Pacientes)
+                .WithOne(c => c.Medico).HasForeignKey(c => c.MedicoId);
 
-            //builder.Property(p => p.Especializacao)
-            //    .IsRequired()
-            //    .HasColumnType("varchar(30)");
         }
     }
 }

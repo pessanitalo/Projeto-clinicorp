@@ -10,14 +10,20 @@ namespace CliniCorp.Data.Mappings
         {
             builder.HasKey(p => p.Id);
 
-            // 1 : 1 => Consulta : Paciente
-            builder.HasOne(f => f.Paciente)
-                .WithOne(e => e.Consulta);
-               
+            builder.Property(p => p.DescricaoConsulta)
+               .IsRequired()
+               .HasColumnType("varchar")
+               .HasMaxLength(1000);
+
+            builder.Property(p => p.StatusConsulta)
+            .IsRequired();
+
+            // 1 : 1 => Consulta: Paciente
+            builder.HasOne(f => f.Paciente);
+
 
             //// 1 : 1 => Consulta : Medico
-            builder.HasOne(f => f.Medico)
-                .WithOne(e => e.Consulta);
+            builder.HasOne(f => f.Medico);
 
         }
 

@@ -4,7 +4,7 @@ using CliniCorp.Business.Models;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
-
+using System.Collections;
 
 namespace CliniCorp.Controllers
 {
@@ -22,9 +22,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IEnumerable<consultaLista>> get()
+        public async Task<IEnumerable<ConsultaViewModel>> get()
         {
-            return await _repository.ListarTodos();
+            return _mapper.Map<IEnumerable<ConsultaViewModel>>(await _repository.ListarTodos());
         }
 
         [HttpPost("created")]
