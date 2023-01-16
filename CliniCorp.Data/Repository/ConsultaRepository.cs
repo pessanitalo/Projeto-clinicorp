@@ -2,6 +2,8 @@
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
+using System;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace CliniCorp.Data.Repository
@@ -29,11 +31,39 @@ namespace CliniCorp.Data.Repository
 
         public Consulta Adicionar(Consulta consulta)
         {
+            var paciente = _context.Pacientes.FirstOrDefault(X => X.Cpf == consulta.Paciente.Cpf);
             var medico = buscarMedico(consulta.Paciente.MedicoId);
+
+            //var consul = new Consulta
+            //{
+            //    Id = 0,
+            //    DescricaoConsulta = consulta.DescricaoConsulta,
+            //    dataConsulta = consulta.dataConsulta,
+            //    StatusConsulta = consulta.StatusConsulta,
+            //};
+            if (paciente != null)
+            {
+                var consul = new Consulta
+                {
+                    Id = 0,
+                    DescricaoConsulta = consulta.DescricaoConsulta,
+                    dataConsulta = consulta.dataConsulta,
+                    StatusConsulta = consulta.StatusConsulta,
+                    Paciente = paciente,
+                    Medico = medico
+                };
+                //consulta.Medico = medico;
+                //consulta.Paciente = paciente;
+                _context.Add(consul);
+                _context.SaveChanges();
+                return consul;
+            }
+
             consulta.Medico = medico;
             _context.Add(consulta);
             _context.SaveChanges();
             return consulta;
+
         }
 
         public Consulta Detalhes(int id)
