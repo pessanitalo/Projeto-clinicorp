@@ -8,7 +8,8 @@ namespace CliniCorp.Configurations
     {
         public AutomapperConfig()
         {
-            CreateMap<Consulta, ConsultaViewModel>().ReverseMap();
+            CreateMap<Consulta, CreateConsultaViewModel>().ReverseMap();
+            CreateMap<Consulta, ListViewModel>().ReverseMap();
             CreateMap<Medico, MedicoViewModel>().ReverseMap();
             CreateMap<Paciente, PacienteViewModel>().ReverseMap();
         }
