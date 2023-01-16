@@ -37,7 +37,7 @@ namespace CliniCorp.Controllers
         [HttpGet("detalhes/{id}")]
         public IActionResult detalhes(int id)
         {
-            var consulta = _repository.Detalhes(id);
+            var consulta = _mapper.Map<ListViewModel>(_repository.Detalhes(id));
             if (consulta == null) return BadRequest("consulta não existente");
 
             return Ok(consulta);
