@@ -21,13 +21,13 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IEnumerable<ConsultaViewModel>> get()
+        public async Task<IEnumerable<ListViewModel>> get()
         {
-            return _mapper.Map<IEnumerable<ConsultaViewModel>>(await _repository.ListarTodos());
+            return _mapper.Map<IEnumerable<ListViewModel>>(await _repository.ListarTodos());
         }
 
         [HttpPost("created")]
-        public IActionResult create(ConsultaViewModel consultaModel)
+        public IActionResult create(CreateConsultaViewModel consultaModel)
         {
             var consulta = _mapper.Map<Consulta>(consultaModel);
             _repository.Adicionar(consulta);

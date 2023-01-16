@@ -9,6 +9,6 @@ namespace CliniCorp.ViewModels
         public string Cpf { get; set; }
         public string Especializacao { get; set; }
 
-        public Paciente Paciente { get; set; }
+        public PacienteViewModel Paciente { get; set; }
     }
 }
