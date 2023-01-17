@@ -23,6 +23,11 @@ namespace CliniCorp.Data.Repository
 
         }
 
+        public async Task<IEnumerable<Consulta>> ListarDemo()
+        {
+            return await _context.Consultas.ToListAsync();
+        }
+
         public Consulta AtualizarStatus(int id)
         {
             var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
@@ -101,6 +106,13 @@ namespace CliniCorp.Data.Repository
         public Medico buscarMedico(int id)
         {
             var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
+            return medico;
+        }
+
+        public Medico AdicionarMedico(Medico medico)
+        {
+            _context.Medicos.Add(medico);
+            _context.SaveChanges();
             return medico;
         }
     }
