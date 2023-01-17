@@ -1,6 +1,6 @@
 ﻿namespace CliniCorp.ViewModels
 {
-    public class ListViewModel
+    public class DetalhesConsultaViewModel
     {
         public int Id { get; set; }
         public DateTime dataConsulta { get; set; }

@@ -1,6 +1,4 @@
-﻿using ProjetoDemo;
-
-namespace CliniCorp.ViewModels
+﻿namespace CliniCorp.ViewModels
 {
     public class MedicoViewModel
     {
@@ -8,7 +6,5 @@ namespace CliniCorp.ViewModels
         public int Crm { get; set; }
         public string Cpf { get; set; }
         public string Especializacao { get; set; }
-
-        public PacienteViewModel Paciente { get; set; }
     }
 }

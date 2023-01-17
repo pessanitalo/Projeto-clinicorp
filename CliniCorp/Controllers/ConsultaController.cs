@@ -3,7 +3,6 @@ using CliniCorp.Business.Interfaces;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
-using System.Collections;
 
 namespace CliniCorp.Controllers
 {
@@ -21,23 +20,31 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IEnumerable<ListViewModel>> get()
+        public async Task<IEnumerable<ListConsultaViewModel>> obterLista()
         {
-            return _mapper.Map<IEnumerable<ListViewModel>>(await _repository.ListarTodos());
+            return _mapper.Map<IEnumerable<ListConsultaViewModel>>(await _repository.ListarTodos());
         }
 
         [HttpPost("created")]
         public IActionResult create(CreateConsultaViewModel consultaModel)
         {
-            var consulta = _mapper.Map<Consulta>(consultaModel);
-            _repository.Adicionar(consulta);
-            return Ok(consulta);
+            try
+            {
+                var consulta = _mapper.Map<Consulta>(consultaModel);
+                _repository.Adicionar(consulta);
+                return Ok(consulta);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+
         }
 
         [HttpGet("detalhes/{id}")]
         public IActionResult detalhes(int id)
         {
-            var consulta = _mapper.Map<ListViewModel>(_repository.Detalhes(id));
+            var consulta = _mapper.Map<DetalhesConsultaViewModel>(_repository.Detalhes(id));
             if (consulta == null) return BadRequest("consulta não existente");
 
             return Ok(consulta);
