@@ -22,7 +22,8 @@ namespace CliniCorp.Controllers
 
         [HttpPost]
         public IActionResult create(CreateMedicoViewModel medicoViewModel)
-        {
+        {      
+
             var medico = _mapper.Map<Medico>(medicoViewModel);
             _repository.AdicionarMedico(medico);
             return Ok(medico);

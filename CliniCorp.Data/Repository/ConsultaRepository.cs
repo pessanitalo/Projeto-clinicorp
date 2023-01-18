@@ -2,9 +2,6 @@
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
-using System;
-using static System.Net.Mime.MediaTypeNames;
-
 
 namespace CliniCorp.Data.Repository
 {
@@ -39,35 +36,37 @@ namespace CliniCorp.Data.Repository
             var paciente = _context.Pacientes.FirstOrDefault(X => X.Cpf == consulta.Paciente.Cpf);
             var medico = buscarMedico(consulta.Paciente.MedicoId);
 
-            //var consul = new Consulta
-            //{
-            //    Id = 0,
-            //    DescricaoConsulta = consulta.DescricaoConsulta,
-            //    dataConsulta = consulta.dataConsulta,
-            //    StatusConsulta = consulta.StatusConsulta,
-            //};
-            if (paciente != null)
+            if(medico == null) throw new Exception("Médico não encontrado.");
+
+            try
             {
-                var consul = new Consulta
+                if (paciente != null)
                 {
-                    Id = 0,
-                    DescricaoConsulta = consulta.DescricaoConsulta,
-                    dataConsulta = consulta.dataConsulta,
-                    StatusConsulta = consulta.StatusConsulta,
-                    Paciente = paciente,
-                    Medico = medico
-                };
-                //consulta.Medico = medico;
-                //consulta.Paciente = paciente;
-                _context.Add(consul);
+                    var consul = new Consulta
+                    {
+                        Id = 0,
+                        DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
+                        dataConsulta = consulta.dataConsulta,
+                        StatusConsulta = consulta.StatusConsulta,
+                        Paciente = paciente,
+                        Medico = medico
+                    };
+                    _context.Add(consul);
+                    _context.SaveChanges();
+                    return consul;
+                }
+
+                consulta.Medico = medico;
+                _context.Add(consulta);
                 _context.SaveChanges();
-                return consul;
+                return consulta;
             }
 
-            consulta.Medico = medico;
-            _context.Add(consulta);
-            _context.SaveChanges();
-            return consulta;
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
 
         }
 
@@ -109,8 +108,16 @@ namespace CliniCorp.Data.Repository
             return medico;
         }
 
-        public Medico AdicionarMedico(Medico medico)
+        public Medico AdicionarMedico(Medico medicoobj)
         {
+            var medico = new Medico
+            {
+                Id = 0,
+                Nome = medicoobj.Nome.ToLower(),
+                Especializacao = medicoobj.Especializacao.ToLower(),
+                Crm = medicoobj.Crm,
+                Cpf = medicoobj.Cpf,
+            };
             _context.Medicos.Add(medico);
             _context.SaveChanges();
             return medico;
