@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CliniCorp.Data.Migrations
 {
-    public partial class map1 : Migration
+    /// <inheritdoc />
+    public partial class mapping : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -32,10 +34,10 @@ namespace CliniCorp.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MedicoId = table.Column<int>(type: "int", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nome = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,6 +95,7 @@ namespace CliniCorp.Data.Migrations
                 column: "MedicoId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

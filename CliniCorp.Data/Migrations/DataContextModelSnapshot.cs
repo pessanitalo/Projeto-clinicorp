@@ -17,10 +17,10 @@ namespace CliniCorp.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("ProjetoDemo.Consulta", b =>
                 {
@@ -28,16 +28,17 @@ namespace CliniCorp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DescricaoConsulta")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("varchar");
 
-                    b.Property<int>("MedicoId")
+                    b.Property<int?>("MedicoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacienteId")
+                    b.Property<int?>("PacienteId")
                         .HasColumnType("int");
 
                     b.Property<int>("StatusConsulta")
@@ -61,29 +62,29 @@ namespace CliniCorp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cpf")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar");
 
-                    b.Property<int>("Crm")
-                        .HasColumnType("int");
+                    b.Property<string>("Crm")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Especializacao")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("int");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PacienteId");
 
                     b.ToTable("Medicos");
                 });
@@ -94,24 +95,29 @@ namespace CliniCorp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cpf")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("varchar");
 
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
+
+                    b.Property<int>("MedicoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MedicoId");
 
                     b.ToTable("Pacientes");
                 });
@@ -121,29 +127,32 @@ namespace CliniCorp.Data.Migrations
                     b.HasOne("ProjetoDemo.Medico", "Medico")
                         .WithMany()
                         .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProjetoDemo.Paciente", "Paciente")
                         .WithMany()
                         .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Medico");
 
                     b.Navigation("Paciente");
                 });
 
-            modelBuilder.Entity("ProjetoDemo.Medico", b =>
+            modelBuilder.Entity("ProjetoDemo.Paciente", b =>
                 {
-                    b.HasOne("ProjetoDemo.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("ProjetoDemo.Medico", "Medico")
+                        .WithMany("Pacientes")
+                        .HasForeignKey("MedicoId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Paciente");
+                    b.Navigation("Medico");
+                });
+
+            modelBuilder.Entity("ProjetoDemo.Medico", b =>
+                {
+                    b.Navigation("Pacientes");
                 });
 #pragma warning restore 612, 618
         }
