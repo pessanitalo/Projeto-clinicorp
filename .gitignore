@@ -23,7 +23,7 @@ bld/
 [Rr]eleasePS/
 dlldata.c
 
-\FileContentIndex
+
 
 # Visual Studio profiler
 *.psess
@@ -79,4 +79,7 @@ protractor-results*.txt
 # System files
 .DS_Store
 Thumbs.db
+
+\FileContentIndex
+
 
