@@ -110,17 +110,28 @@ namespace CliniCorp.Data.Repository
 
         public Medico AdicionarMedico(Medico medicoobj)
         {
-            var medico = new Medico
+            try
             {
-                Id = 0,
-                Nome = medicoobj.Nome.ToLower(),
-                Especializacao = medicoobj.Especializacao.ToLower(),
-                Crm = medicoobj.Crm,
-                Cpf = medicoobj.Cpf,
-            };
-            _context.Medicos.Add(medico);
-            _context.SaveChanges();
-            return medico;
+                var retorno = _context.Medicos.FirstOrDefault(X => X.Cpf == medicoobj.Cpf);
+                if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
+
+                var medico = new Medico
+                {
+                    Id = 0,
+                    Nome = medicoobj.Nome.ToLower(),
+                    Especializacao = medicoobj.Especializacao.ToLower(),
+                    Crm = medicoobj.Crm,
+                    Cpf = medicoobj.Cpf,
+                };
+                _context.Medicos.Add(medico);
+                _context.SaveChanges();
+                return medico;
+            }
+            catch (Exception ex)
+            {
+               throw new Exception(ex.Message);
+            }
+            
         }
     }
 }

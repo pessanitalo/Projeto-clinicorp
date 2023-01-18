@@ -22,11 +22,18 @@ namespace CliniCorp.Controllers
 
         [HttpPost]
         public IActionResult create(CreateMedicoViewModel medicoViewModel)
-        {      
+        {
+            try
+            {
+                var medico = _mapper.Map<Medico>(medicoViewModel);
+                _repository.AdicionarMedico(medico);
+                return Ok(medico);
+            }
+            catch (Exception ex)
+            {
 
-            var medico = _mapper.Map<Medico>(medicoViewModel);
-            _repository.AdicionarMedico(medico);
-            return Ok(medico);
+                return StatusCode(400, ex.Message);
+            }
         }
     }
 }
