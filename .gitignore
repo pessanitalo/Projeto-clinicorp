@@ -81,5 +81,5 @@ protractor-results*.txt
 Thumbs.db
 
 \FileContentIndex
-
+*.vsidx
 
