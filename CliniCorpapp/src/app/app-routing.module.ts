@@ -1,3 +1,4 @@
+import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
 import { MedicoListaComponent } from './medico/medico-lista/medico-lista.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
 import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
@@ -8,6 +9,7 @@ import { ConsultaResolve } from './consulta/services/consulta.resolve';
 const routes: Routes = [
   { path: 'consultalist', component: ConsultaListComponent },
   { path: 'medicolist', component: MedicoListaComponent },
+  { path: 'adicionar', component: AdicionarMedicoComponent },
   { path: 'edit/:id', component: ConsultaDetalhesComponent, resolve: { consulta: ConsultaResolve } },
 ];
 

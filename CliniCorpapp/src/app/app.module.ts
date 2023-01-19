@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask'
 import {  BsModalService } from 'ngx-bootstrap/modal';
 import { MedicoListaComponent } from './medico/medico-lista/medico-lista.component';
+import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MedicoListaComponent } from './medico/medico-lista/medico-lista.compone
     MenuComponent,
     ConsultaListComponent,
     ConsultaDetalhesComponent,
-    MedicoListaComponent
+    MedicoListaComponent,
+    AdicionarMedicoComponent
   ],
   imports: [
     BrowserModule,

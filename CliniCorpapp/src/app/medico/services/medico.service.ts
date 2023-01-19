@@ -16,4 +16,8 @@ export class MedicoService {
   list(): Observable<Medico[]> {
     return this.http.get<Medico[]>(`${this.baseUrl}/list`);
   }
+
+  adicionar(medico: Medico) {
+    return this.http.post<Medico>(this.baseUrl, medico);
+  }
 }
