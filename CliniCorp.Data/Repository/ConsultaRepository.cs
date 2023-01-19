@@ -36,7 +36,7 @@ namespace CliniCorp.Data.Repository
             var paciente = _context.Pacientes.FirstOrDefault(X => X.Cpf == consulta.Paciente.Cpf);
             var medico = buscarMedico(consulta.Paciente.MedicoId);
 
-            if(medico == null) throw new Exception("Médico não encontrado.");
+            if (medico == null) throw new Exception("Médico não encontrado.");
 
             try
             {
@@ -129,9 +129,14 @@ namespace CliniCorp.Data.Repository
             }
             catch (Exception ex)
             {
-               throw new Exception(ex.Message);
+                throw new Exception(ex.Message);
             }
-            
+
+        }
+
+        public async Task<IEnumerable<Medico>> ListarMedicos()
+        {
+            return await _context.Medicos.ToListAsync();
         }
     }
 }

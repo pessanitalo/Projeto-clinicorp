@@ -14,5 +14,6 @@ namespace CliniCorp.Business.Interfaces
 
         //Medico
         Medico AdicionarMedico(Medico medico);
+        Task<IEnumerable<Medico>> ListarMedicos();
     }
 }
