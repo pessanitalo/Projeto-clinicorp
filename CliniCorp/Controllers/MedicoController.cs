@@ -35,5 +35,12 @@ namespace CliniCorp.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        [HttpGet("list")]
+        public async Task<IEnumerable<Medico>> obterLista()
+        {
+            return await _repository.ListarMedicos();
+        }
+
     }
 }

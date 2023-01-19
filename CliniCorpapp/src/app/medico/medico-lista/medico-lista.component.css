@@ -1,0 +1,11 @@
+table{
+    width: 98%;
+    max-width: 98%;
+    align-items: center;
+    margin: auto;
+    margin-top: 5px;
+}
+
+thead{
+    background-color: rgb(92, 194, 197);
+}

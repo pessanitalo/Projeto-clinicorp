@@ -5,6 +5,7 @@ export interface Medico{
     nome:string,
     crm:number,
     cpf:string,
+    especializacao:string,
     paciente: Paciente,
     
 }

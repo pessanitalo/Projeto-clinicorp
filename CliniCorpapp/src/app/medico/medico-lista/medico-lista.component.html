@@ -1,0 +1,21 @@
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome Medico</th>
+        <th>Crm</th>
+        <th>Cpf</th>
+        <th>Especializacao</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let medico of medicos">
+        <td> {{ medico.nome}} </td>
+        <td> {{ medico.crm | mask:"000000000-00"}} </td>
+        <td> {{ medico.cpf | mask:"000.000.000-00"}} </td>
+        <td> {{ medico.especializacao}} </td>
+        <td> <button type="button" class="btn btn-primary">Detalhes</button></td>      
+      </tr>
+    </tbody>
+  </table>
+
