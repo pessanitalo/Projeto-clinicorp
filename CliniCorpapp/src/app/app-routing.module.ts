@@ -5,10 +5,12 @@ import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.co
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultaResolve } from './consulta/services/consulta.resolve';
+import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 
 const routes: Routes = [
   { path: 'consultalist', component: ConsultaListComponent },
   { path: 'medicolist', component: MedicoListaComponent },
+  { path: 'nova-consulta', component: ConsultaNovaComponent },
   { path: 'adicionar', component: AdicionarMedicoComponent },
   { path: 'edit/:id', component: ConsultaDetalhesComponent, resolve: { consulta: ConsultaResolve } },
 ];
