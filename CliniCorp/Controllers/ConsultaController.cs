@@ -50,6 +50,14 @@ namespace CliniCorp.Controllers
             return Ok(consulta);
         }
 
+        [HttpGet("buscarmediconome/{nome}")]
+        public IActionResult detalhes(string nome)
+        {
+            var busca = _repository.buscarMedicoPorNome(nome);
+
+            return Ok(busca);
+        }
+
 
         [HttpPut("updatestatus")]
         public IActionResult updateStatus(Consulta consulta)

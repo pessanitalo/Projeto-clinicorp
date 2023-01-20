@@ -13,10 +13,11 @@ import { MenuComponent } from './navegacao/menu/menu.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 import {  BsModalService } from 'ngx-bootstrap/modal';
 import { MedicoListaComponent } from './medico/medico-lista/medico-lista.component';
 import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
+import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 
 @NgModule({
   declarations: [
@@ -27,16 +28,18 @@ import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-me
     ConsultaListComponent,
     ConsultaDetalhesComponent,
     MedicoListaComponent,
-    AdicionarMedicoComponent
+    AdicionarMedicoComponent,
+    ConsultaNovaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    BrowserModule, 
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot(),
+    NgxMaskModule.forRoot()
   ],
   providers: [ConsultaResolve,BsModalService],
   bootstrap: [AppComponent]

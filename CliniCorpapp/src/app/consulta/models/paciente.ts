@@ -3,5 +3,6 @@ export interface Paciente{
     nome:string,
     cpf: string,
     DataNascimento:Date,
-    email: string
+    email: string,
+    medicoId:number
 }

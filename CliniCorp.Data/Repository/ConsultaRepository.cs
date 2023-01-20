@@ -47,7 +47,7 @@ namespace CliniCorp.Data.Repository
                         Id = 0,
                         DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
                         dataConsulta = consulta.dataConsulta,
-                        StatusConsulta = consulta.StatusConsulta,
+                        StatusConsulta = 0,
                         Paciente = paciente,
                         Medico = medico
                     };
@@ -105,6 +105,12 @@ namespace CliniCorp.Data.Repository
         public Medico buscarMedico(int id)
         {
             var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
+            return medico;
+        }
+
+        public Medico buscarMedicoPorNome(string nome)
+        {
+            var medico = _context.Medicos.FirstOrDefault(x => x.Nome == nome);
             return medico;
         }
 

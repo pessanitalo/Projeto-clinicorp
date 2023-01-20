@@ -1,36 +1,41 @@
 <div class="container">
-  
     <div class="col-md-6 margin-top">
-        <form novalidate>
+        <div class="d-flex col-8 ">
+            <input type="text" class="form-control" id="nome" [(ngModel)]="nome" placeholder="Pesquisar Medico">
+            <button type="button" class="btn btn-primary margin" (click)="buscarMedico()">Pesquisar</button>
+        </div>
+
+        <div class="d-flex col-8 margin-top" *ngIf="medico">
+            <input type="text" class="form-control" id="medico" [(ngModel)]="medico.nome">
+            <input type="text" class="form-control" id="medico" [(ngModel)]="medico.especializacao">
+        </div>
+        <hr>
+
+        <h4 class="margin">Consulta</h4>
+        <form novalidate (ngSubmit)="adicionar()" [formGroup]="Form">
 
             <div class="form-group">
                 <label class="control-label">Data da Consulta</label>
-                <input class="form-control" id="nome" type="dataConsulta" formControlName="dataConsulta" />
-                <!-- <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
-                    {{ErrorMessage("nome")}}
-                </span> -->
+                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta" />
             </div>
 
 
             <div class="form-group">
                 <label class="control-label">Descrição Consulta</label>
                 <div>
-                    <input class="form-control" id="descricaoConsulta" type="text" formControlName="descricaoConsulta" />
-                    <!-- <span class="text-danger" *ngIf="Form.get('descricaoConsulta')?.invalid">
-                        {{ErrorMessage("descricaoConsulta")}}
-                    </span> -->
+                    <textarea class="form-control" id="descricaoConsulta" type="text"
+                    formControlName="descricaoConsulta"></textarea>
                 </div>
             </div>
 
-            <div class="form-group">
+  
+
+            <!-- <div class="form-group">
                 <label class="control-label">Status Consulta</label>
                 <div>
-                    <input class="form-control" id="statusConsulta" type="text" formControlName="statusConsulta"  />
-                    <!-- <span class="text-danger" *ngIf="Form.get('crm')?.invalid">
-                        {{ErrorMessage("statusConsulta")}}
-                    </span> -->
+                    <input class="form-control" id="statusConsulta" type="text" formControlName="statusConsulta" />
                 </div>
-            </div>
+            </div> -->
             <hr>
             <h4>Paciente</h4>
 
@@ -38,46 +43,35 @@
                 <div class="form-group">
                     <label class="control-label">Nome</label>
                     <input class="form-control" id="nome" type="nome" formControlName="nome" />
-                    <!-- <span class="text-danger" *ngIf="Form.get('nome')?.invalid">
-                        {{ErrorMessage("nome")}}
-                    </span> -->
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="control-label">Email</label>
-                <div>
-                    <input class="form-control" id="email" type="text" formControlName="email" />
-                    <!-- <span class="text-danger" *ngIf="Form.get('email')?.invalid">
-                        {{ErrorMessage("cpf")}}
-                    </span> -->
+
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <div>
+                        <input class="form-control" id="email" type="text" formControlName="email" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="control-label">CPF</label>
-                <div>
-                    <input class="form-control" id="cpf" type="text" formControlName="cpf" mask="000.000.000-00" />
-                    <!-- <span class="text-danger" *ngIf="Form.get('cpf')?.invalid">
-                        {{ErrorMessage("cpf")}}
-                    </span> -->
+                <div class="form-group">
+                    <label class="control-label">CPF</label>
+                    <div>
+                        <input class="form-control" id="cpf" type="text" formControlName="cpf" mask="000.000.000-00" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="control-label">Data da Consulta</label>
-                <input class="form-control" id="nome" type="dataConsulta" formControlName="dataConsulta" />
-                <!-- <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
-                    {{ErrorMessage("nome")}}
-                </span> -->
-            </div>
+                <div class="form-group">
+                    <label class="control-label">Data Nascimento</label>
+                    <div>
+                        <input class="form-control" id="DataNascimento" type="text" formControlName="DataNascimento" />
+                    </div>
+                </div>
 
-            <div class="form-group margin-top">
-                <button type="submit" class="btn btn-primary salvar">Salvar</button>
-                <button type="button" class="btn btn-success voltar">Voltar</button>
+                <div class="form-group margin-btn">
+                    <button type="submit" class="btn btn-primary salvar">Salvar</button>
+                    <button type="button" class="btn btn-success voltar">Voltar</button>
+                </div>
             </div>
         </form>
     </div>
-
 </div>
-

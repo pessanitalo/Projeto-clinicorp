@@ -17,7 +17,6 @@ export class MedicoListaComponent implements OnInit {
 
   ngOnInit(): void {
     this.list();
-    console.log(this.list());
   }
 
   list() {
