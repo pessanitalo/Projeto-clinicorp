@@ -7,10 +7,6 @@ export interface Consulta {
     medico: Medico,
     dataConsulta: Date,
     descricaoConsulta: string,
-    MedicoEspecialista: number,
-    statusConsulta: number,
-    nome:string,
-    especializacao:number,
-    nomePaciente: string,
-    status: string
+    status: number,
+    statusConsulta: string
 }

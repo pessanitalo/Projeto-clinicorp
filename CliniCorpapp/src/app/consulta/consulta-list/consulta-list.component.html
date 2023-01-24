@@ -1,27 +1,27 @@
 <button type="button" class="btn btn-secondary adicionar" [routerLink]="['/nova-consulta']">Nova Consulta</button>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Médico Responsável</th>
-        <th>Paciente</th>
-        <th>Data da Consulta</th>
-        <th>Status da Consulta</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let consulta of consultas">
-        <td> {{ consulta.medico.nome | uppercase}} </td>
-        <td> {{ consulta.paciente.nome }} </td>
-        <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy hh:mm'}} </td>
-        <td>{{ consulta.status }}</td>
-        <td>
-          <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
-          <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Editar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Médico Responsável</th>
+      <th>Paciente</th>
+      <th>Data da Consulta</th>
+      <th>Status da Consulta</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let consulta of consultas">
+      <td> {{ consulta.medico.nome | uppercase}} </td>
+      <td> {{ consulta.paciente.nome }} </td>
+      <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy hh:mm'}} </td>
+      <td>{{ consulta.statusConsulta }}</td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
+        <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
 
@@ -33,13 +33,12 @@
     </button>
   </div>
   <div class="modal-body">
-    <p>Médico Responsável: <strong>{{consulta.medico.nome}}</strong></p>
+    <!-- <p>Médico Responsável: <strong>{{ consulta.paciente.nome }}</strong></p>
     <p>Descrição: {{consulta.descricaoConsulta}}</p>
-    <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p>
+    <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p> -->
     <div class="div">
-      <P>Dados do Paciente:</P>
-      <p>Nome do Paciente: {{consulta.medico.paciente.nome}}</p>
-      <p>Email do Paciente: {{consulta.medico.paciente.email}}</p>
+      <!-- <P>Dados do Paciente:</P> -->
+      <!-- <p>Nome do Paciente: {{ consulta.paciente.dataNascimento | date: 'dd/MM/yyyy'}}</p> -->
     </div>
   </div>
 </ng-template>

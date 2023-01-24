@@ -42,24 +42,37 @@ namespace CliniCorp.Data.Repository
             {
                 if (paciente != null)
                 {
-                    var consul = new Consulta
+                    var consultaNova = new Consulta
                     {
                         Id = 0,
                         DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
-                        dataConsulta = consulta.dataConsulta,
-                        StatusConsulta = 0,
+                        DataConsulta = consulta.DataConsulta,
+                        Status = 0,
+                        StatusConsulta= "Agendada",
                         Paciente = paciente,
                         Medico = medico
                     };
-                    _context.Add(consul);
+                    _context.Add(consultaNova);
                     _context.SaveChanges();
-                    return consul;
+                    return consultaNova;
                 }
-
-                consulta.Medico = medico;
-                _context.Add(consulta);
-                _context.SaveChanges();
-                return consulta;
+                else
+                {
+                    var Novaconsulta = new Consulta
+                    {
+                        Id = 0,
+                        DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
+                        DataConsulta = consulta.DataConsulta,
+                        Status = 0,
+                        StatusConsulta = "Agendada",
+                        Paciente = consulta.Paciente,
+                        Medico = medico
+                    };
+                    _context.Add(Novaconsulta);
+                    _context.SaveChanges();
+                    return consulta;
+                }
+               
             }
 
             catch (Exception ex)
@@ -95,7 +108,7 @@ namespace CliniCorp.Data.Repository
         {
             var query = AtualizarStatus(consulta.Id);
 
-            query.dataConsulta = consulta.dataConsulta;
+            query.DataConsulta = consulta.DataConsulta;
 
             _context.Update(query);
             _context.SaveChanges();

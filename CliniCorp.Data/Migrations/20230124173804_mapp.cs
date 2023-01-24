@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CliniCorp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class mapping : Migration
+    public partial class mapp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,9 +56,10 @@ namespace CliniCorp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    dataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DescricaoConsulta = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
-                    StatusConsulta = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    StatusConsulta = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
                     MedicoId = table.Column<int>(type: "int", nullable: true),
                     PacienteId = table.Column<int>(type: "int", nullable: true)
                 },

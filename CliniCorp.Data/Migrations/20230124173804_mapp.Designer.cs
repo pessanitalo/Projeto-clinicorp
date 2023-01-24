@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CliniCorp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230118182453_mapping")]
-    partial class mapping
+    [Migration("20230124173804_mapp")]
+    partial class mapp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace CliniCorp.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DataConsulta")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DescricaoConsulta")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -44,11 +47,13 @@ namespace CliniCorp.Data.Migrations
                     b.Property<int?>("PacienteId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusConsulta")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("dataConsulta")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("StatusConsulta")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar");
 
                     b.HasKey("Id");
 

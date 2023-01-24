@@ -3,6 +3,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Consulta } from '../models/consulta';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+
 @Component({
   selector: 'app-consulta-list',
   templateUrl: './consulta-list.component.html',
@@ -19,10 +20,14 @@ export class ConsultaListComponent implements OnInit {
   errorMessage!: string;
   modalRef?: BsModalRef;
 
+  numero!: number;
+  status!: string;
+  statusConsulta: any;
+
   constructor(
     private consultaService: ConsultaService,
     private modalService: BsModalService,
-) { }
+  ) { }
 
   ngOnInit(): void {
     this.getList();
@@ -31,21 +36,13 @@ export class ConsultaListComponent implements OnInit {
   getList() {
     this.consultaService.list().subscribe((res) => {
       this.consultas = res;
-      for (let item of this.consultas) {
-        if (item.statusConsulta === 0) {
-          item.status = "Consulta Cancelada";
-        }
-        else {
-          (item.statusConsulta === 1)
-          item.status = "Consulta Finalizada";
-        }
-      }
     });
   }
 
   openModal(template: TemplateRef<any>, consulta: Consulta) {
     this.consultaService.detalhes(consulta.id).subscribe((res) => {
       this.consulta = res;
+      console.log(this.consulta);
       this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     })
   }

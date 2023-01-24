@@ -15,8 +15,13 @@ namespace CliniCorp.Data.Mappings
                .HasColumnType("varchar")
                .HasMaxLength(1000);
 
-            builder.Property(p => p.StatusConsulta)
+            builder.Property(p => p.Status)
             .IsRequired();
+
+            builder.Property(p => p.StatusConsulta)
+                .IsRequired()
+                .HasColumnType("varchar")
+                .HasMaxLength(50);
 
             // 1 : 1 => Consulta: Paciente
             builder.HasOne(f => f.Paciente);
