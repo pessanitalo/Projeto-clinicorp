@@ -1,3 +1,4 @@
+import { Medico } from 'src/app/consulta/models/medico';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Consulta } from '../models/consulta';
@@ -22,6 +23,10 @@ export class ConsultaService {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
+  buscarMedicoPorNome(nome: string): Observable<Medico> {
+    return this.http.get<Medico>(`${this.baseUrl}/buscarmediconome/${nome}`);
+  }
+
   edit(id: number): Observable<Consulta> {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
@@ -40,5 +45,9 @@ export class ConsultaService {
       DataConsulta: data
     }
     return this.http.put(`${this.baseUrl}/updatedate`, param);
+  }
+
+  addCliente(consulta: Consulta) {
+    return this.http.post<Consulta>(`${this.baseUrl}/created`, consulta);
   }
 }
