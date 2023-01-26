@@ -17,7 +17,8 @@
       <td>{{ consulta.statusConsulta }}</td>
       <td>
         <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
-        <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Editar</button>
+        <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Remarcar</button>
+        <button type="button" class="btn btn-danger edit" (click)="updateStatus(consulta.id)">Cancelar</button>
       </td>
     </tr>
   </tbody>

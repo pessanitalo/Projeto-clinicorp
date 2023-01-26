@@ -31,10 +31,9 @@ export class ConsultaService {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
-  update(id: number, status: number) {
+  update(id: number) {
     const param = {
-      id: id,
-      StatusConsulta: status
+      id: id
     }
     return this.http.put(`${this.baseUrl}/updatestatus`, param);
   }

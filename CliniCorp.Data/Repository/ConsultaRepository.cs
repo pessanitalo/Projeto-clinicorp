@@ -97,7 +97,8 @@ namespace CliniCorp.Data.Repository
         {
             var query = AtualizarStatus(consulta.Id);
 
-            query.StatusConsulta = consulta.StatusConsulta;
+            query.Status = 2;
+            query.StatusConsulta = "Cancelada";
 
             _context.Update(query);
             _context.SaveChanges();
@@ -109,6 +110,8 @@ namespace CliniCorp.Data.Repository
             var query = AtualizarStatus(consulta.Id);
 
             query.DataConsulta = consulta.DataConsulta;
+            query.Status = 1;
+            query.StatusConsulta = "Reagendada";
 
             _context.Update(query);
             _context.SaveChanges();

@@ -46,4 +46,11 @@ export class ConsultaListComponent implements OnInit {
       this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     })
   }
+
+  updateStatus(id: number) {
+    console.log(id);
+    this.consultaService.update(id)
+      .subscribe(sucesso => { console.log(sucesso) })
+  }
+
 }
