@@ -42,5 +42,11 @@ namespace CliniCorp.Controllers
             return await _repository.ListarMedicos();
         }
 
+        [HttpGet("pesquisarMedico/{id}")]
+        public Medico pesquisarmedico(int id)
+        {
+            return  _repository.ListarTodosPacientesdoMedico(id);
+        }
+
     }
 }

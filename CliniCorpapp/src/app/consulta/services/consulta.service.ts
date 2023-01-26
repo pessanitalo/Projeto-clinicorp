@@ -31,14 +31,14 @@ export class ConsultaService {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
   }
 
-  update(id: number) {
+  calcelar(id: number) {
     const param = {
       id: id
     }
-    return this.http.put(`${this.baseUrl}/updatestatus`, param);
+    return this.http.put(`${this.baseUrl}/cancel`, param);
   }
 
-  updateDate(id: number,  data: Date) {
+  remarcar(id: number,  data: Date) {
     const param = {
       id: id,
       DataConsulta: data

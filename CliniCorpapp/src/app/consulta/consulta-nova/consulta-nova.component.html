@@ -12,12 +12,16 @@
         <hr>
 
         <h4 class="margin">Consulta</h4>
+
+        
         <form novalidate (ngSubmit)="adicionar()" [formGroup]="Form">
 
             <div class="form-group">
                 <label class="control-label">Data da Consulta</label>
-                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta"
-                    mask="00/00/0000" [dropSpecialCharacters]="false" />
+                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta" mask="00/00/0000" [dropSpecialCharacters]="false" />
+                <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
+                    {{ErrorMessage("dataConsulta")}}
+                </span>            
             </div>
 
             <div class="form-group">
@@ -26,6 +30,9 @@
                     <textarea class="form-control" id="descricaoConsulta" type="text"
                         formControlName="descricaoConsulta"></textarea>
                 </div>
+                <span class="text-danger" *ngIf="Form.get('descricaoConsulta')?.invalid">
+                    {{ErrorMessage("descricaoConsulta")}}
+                </span>
             </div>
 
             <hr>
@@ -35,6 +42,9 @@
                 <div class="form-group">
                     <label class="control-label">Nome</label>
                     <input class="form-control" id="nome" type="nome" formControlName="nome" />
+                    <span class="text-danger" *ngIf="Form.get('paciente.nome')?.invalid">
+                        {{ErrorMessage("paciente.nome")}}
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -42,6 +52,9 @@
                     <div>
                         <input class="form-control" id="email" type="text" formControlName="email" />
                     </div>
+                    <span class="text-danger" *ngIf="Form.get('paciente.email')?.invalid">
+                        {{ErrorMessage("paciente.email")}}
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -49,6 +62,9 @@
                     <div>
                         <input class="form-control" id="cpf" type="text" formControlName="cpf" mask="000.000.000-00" />
                     </div>
+                    <span class="text-danger" *ngIf="Form.get('paciente.cpf')?.invalid">
+                        {{ErrorMessage("paciente.cpf")}}
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -56,11 +72,14 @@
                     <div>
                         <input class="form-control" id="DataNascimento" type="text" formControlName="DataNascimento"
                             mask="00/00/0000" [dropSpecialCharacters]="false" />
+                            <span class="text-danger" *ngIf="Form.get('paciente.DataNascimento')?.invalid">
+                                {{ErrorMessage("paciente.DataNascimento")}}
+                            </span>
                     </div>
                 </div>
 
                 <div class="form-group margin-btn">
-                    <button type="submit" class="btn btn-primary salvar">Salvar</button>
+                    <button type="submit" class="btn btn-primary salvar" [disabled]="!Form.valid">Salvar</button>
                     <button type="button" class="btn btn-success voltar"
                         [routerLink]="['/consultalist']">Voltar</button>
                 </div>

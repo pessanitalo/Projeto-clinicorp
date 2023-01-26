@@ -59,7 +59,7 @@ namespace CliniCorp.Controllers
         }
 
 
-        [HttpPut("updatestatus")]
+        [HttpPut("cancel")]
         public IActionResult updateStatus(Consulta consulta)
         {
             var query = _repository.AtualizarStatus(consulta.Id);

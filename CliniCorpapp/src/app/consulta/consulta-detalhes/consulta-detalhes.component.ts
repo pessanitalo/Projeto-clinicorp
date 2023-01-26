@@ -26,16 +26,16 @@ export class ConsultaDetalhesComponent implements OnInit {
   
   }
 
-  updateStatus() {
-    this.consultaService.update(this.consulta.id)
-      .subscribe(sucesso => { console.log(sucesso) })
-  }
+  // updateStatus() {
+  //   this.consultaService.update(this.consulta.id)
+  //     .subscribe(sucesso => { console.log(sucesso) })
+  // }
 
   updateDate() {
     if(this.date == null){
       alert("Campo Data Obrigatório");
     }
-    this.consultaService.updateDate(this.consulta.id, parseDate(this.date))
+    this.consultaService.remarcar(this.consulta.id, parseDate(this.date))
       .subscribe(sucesso => { console.log(sucesso) })
   }
 

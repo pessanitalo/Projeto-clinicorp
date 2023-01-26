@@ -160,5 +160,20 @@ namespace CliniCorp.Data.Repository
         {
             return await _context.Medicos.ToListAsync();
         }
+
+        public async Task<IEnumerable<Paciente>> ListarPacientes()
+        {     
+                return await _context.Pacientes.ToListAsync();
+            
+        }
+
+        public Medico ListarTodosPacientesdoMedico(int id)
+        {
+            //var medico =  _context.Medicos.First(c => c.Id ==id);
+            //return medico;
+
+            var medico = _context.Medicos.Include(p => p.Pacientes).First(c => c.Id == id);
+            return medico;
+        }
     }
 }

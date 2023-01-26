@@ -49,7 +49,7 @@ export class ConsultaListComponent implements OnInit {
 
   updateStatus(id: number) {
     console.log(id);
-    this.consultaService.update(id)
+    this.consultaService.calcelar(id)
       .subscribe(sucesso => { console.log(sucesso) })
   }
 

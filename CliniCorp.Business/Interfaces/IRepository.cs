@@ -16,5 +16,9 @@ namespace CliniCorp.Business.Interfaces
         Medico AdicionarMedico(Medico medico);
         Task<IEnumerable<Medico>> ListarMedicos();
         Medico buscarMedicoPorNome(string nome);
+        Medico ListarTodosPacientesdoMedico(int id);
+
+        //Paciente
+        Task<IEnumerable<Paciente>> ListarPacientes();
     }
 }

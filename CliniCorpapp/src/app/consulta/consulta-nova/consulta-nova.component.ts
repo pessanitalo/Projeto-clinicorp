@@ -1,10 +1,11 @@
+import { Paciente } from './../models/paciente';
 import { Consulta } from './../models/consulta';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultaService } from '../services/consulta.service';
 import { Medico } from '../models/medico';
 import { parseDate } from '../services/parseDate';
-import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-consulta-nova',
@@ -14,6 +15,8 @@ import { DatePipe } from '@angular/common';
 export class ConsultaNovaComponent implements OnInit {
 
   Form!: FormGroup;
+  paciente!: FormGroup;
+  
   consulta!: Consulta;
 
   medico!: Medico;
@@ -31,7 +34,7 @@ export class ConsultaNovaComponent implements OnInit {
     this.Form = this.fb.group({
       dataConsulta: ['', [Validators.required]],
       descricaoConsulta: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
-
+      
       paciente: this.fb.group({
         nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
         cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
@@ -63,4 +66,24 @@ export class ConsultaNovaComponent implements OnInit {
         falha => { console.log(falha) }
       )
   }
+
+  ErrorMessage(fieldName: string) {
+    const field = this.Form.get(fieldName);
+
+    if (field?.hasError('minlength')) {
+      const requiredlength = field.errors ? field.errors['minlength']['requiredLength'] : null;
+      return `Tamanho mínimo precisa ser de ${requiredlength} caracteres.`;
+    }
+
+    if (field?.hasError('maxlength')) {
+      const requiredlength = field.errors ? field.errors['maxlength']['requiredLength'] : null;
+      return `Tamanho máximo precisa ser de ${requiredlength} caracteres.`;
+    }
+
+    if (field?.touched || field?.dirty) {
+      return 'campo obrigatório';
+    }
+    return ''
+  }
+
 }
