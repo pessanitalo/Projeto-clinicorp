@@ -42,14 +42,20 @@ export class ConsultaListComponent implements OnInit {
   openModal(template: TemplateRef<any>, consulta: Consulta) {
     this.consultaService.detalhes(consulta.id).subscribe((res) => {
       this.consulta = res;
+      this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    })
+  }
+
+  cancell(template: TemplateRef<any>, consulta: Consulta) {
+    this.consultaService.detalhes(consulta.id).subscribe((res) => {
+      this.consulta = res;
       console.log(this.consulta);
       this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
     })
   }
 
-  updateStatus(id: number) {
-    console.log(id);
-    this.consultaService.calcelar(id)
+  updateStatus() {
+    this.consultaService.calcelar(this.consulta.id)
       .subscribe(sucesso => { console.log(sucesso) })
   }
 

@@ -2,6 +2,8 @@ import { MedicoService } from './../services/medico.service';
 import { Medico } from './../../consulta/models/medico';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adicionar-medico',
@@ -15,7 +17,9 @@ export class AdicionarMedicoComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private medicoService: MedicoService
+    private medicoService: MedicoService,
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -49,9 +53,23 @@ export class AdicionarMedicoComponent implements OnInit {
   adicionar() {
     this.medico = Object.assign({}, this.medico, this.Form.value);
     this.medicoService.adicionar(this.medico)
-      .subscribe(sucesso => { console.log(sucesso) },
-        falha => { console.log(falha) }
+      .subscribe(sucesso => { this.processarSucesso(sucesso) },
+        falha => { this.processarFalha(falha) }
       )
   }
+
+  processarSucesso(response: any) {
+    this.Form.reset();
+    let toast = this.toastr.success('Médico cadastrado', 'Sucesso!');
+    if (toast) {
+      toast.onHidden.subscribe(() => {
+        this.router.navigate(['/medicolist'])
+      });
+    }
+  }
+
+  processarFalha(fail: any) {
+    this.toastr.error( fail.error, 'Error!' );
+   }
 
 }

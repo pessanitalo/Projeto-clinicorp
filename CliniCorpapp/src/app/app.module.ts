@@ -18,6 +18,7 @@ import {  BsModalService } from 'ngx-bootstrap/modal';
 import { MedicoListaComponent } from './medico/medico-lista/medico-lista.component';
 import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,13 @@ import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.co
     BrowserModule, 
     FormsModule,
     ReactiveFormsModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true
+  })
   ],
   providers: [ConsultaResolve,BsModalService],
   bootstrap: [AppComponent]

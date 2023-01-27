@@ -18,7 +18,7 @@
       <td>
         <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
         <button type="button" class="btn btn-info edit" [routerLink]="['/edit', consulta.id]">Remarcar</button>
-        <button type="button" class="btn btn-danger edit" (click)="updateStatus(consulta.id)">Cancelar</button>
+        <button type="button" class="btn btn-danger edit" (click)="cancell(cancelar,consulta)">Cancelar</button>
       </td>
     </tr>
   </tbody>
@@ -40,6 +40,24 @@
     <div class="div">
       <!-- <P>Dados do Paciente:</P> -->
       <!-- <p>Nome do Paciente: {{ consulta.paciente.dataNascimento | date: 'dd/MM/yyyy'}}</p> -->
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #cancelar>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Paciente: {{consulta.paciente.nome}}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Tem certeza que deseja cancelar a consulta ?</p>
+    <p></p>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cancelar</button>
+      <button type="button" class="btn btn-primary" (click)="updateStatus()">Confirmar</button>
     </div>
   </div>
 </ng-template>

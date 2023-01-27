@@ -5,23 +5,17 @@
             <button type="button" class="btn btn-primary margin" (click)="buscarMedico()">Pesquisar</button>
         </div>
 
-        <div class="d-flex col-8 margin-top" *ngIf="medico">
-            <input type="text" class="form-control" id="medico" [(ngModel)]="medico.nome">
-            <input type="text" class="form-control" id="medico" [(ngModel)]="medico.especializacao">
-        </div>
-        <hr>
-
         <h4 class="margin">Consulta</h4>
 
-        
         <form novalidate (ngSubmit)="adicionar()" [formGroup]="Form">
 
             <div class="form-group">
                 <label class="control-label">Data da Consulta</label>
-                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta" mask="00/00/0000" [dropSpecialCharacters]="false" />
+                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta"
+                    mask="00/00/0000" [dropSpecialCharacters]="false" />
                 <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
                     {{ErrorMessage("dataConsulta")}}
-                </span>            
+                </span>
             </div>
 
             <div class="form-group">
@@ -72,9 +66,9 @@
                     <div>
                         <input class="form-control" id="DataNascimento" type="text" formControlName="DataNascimento"
                             mask="00/00/0000" [dropSpecialCharacters]="false" />
-                            <span class="text-danger" *ngIf="Form.get('paciente.DataNascimento')?.invalid">
-                                {{ErrorMessage("paciente.DataNascimento")}}
-                            </span>
+                        <span class="text-danger" *ngIf="Form.get('paciente.DataNascimento')?.invalid">
+                            {{ErrorMessage("paciente.DataNascimento")}}
+                        </span>
                     </div>
                 </div>
 
