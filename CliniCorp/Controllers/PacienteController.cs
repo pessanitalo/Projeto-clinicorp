@@ -9,19 +9,19 @@ namespace CliniCorp.Controllers
     [ApiController]
     public class PacienteController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly IPacienteRepository _Pacienterepository;
         private readonly IMapper _mapper;
 
-        public PacienteController(IRepository repository, IMapper mapper)
+        public PacienteController(IPacienteRepository repository, IMapper mapper)
         {
-            _repository = repository;
+            _Pacienterepository = repository;
             _mapper = mapper;
         }
 
         [HttpGet("listarPacientes")]
         public async Task<IEnumerable<Paciente>> lista()
         {
-            return await _repository.ListarPacientes();
+            return await _Pacienterepository.ListarPacientes();
         }
     }
 }

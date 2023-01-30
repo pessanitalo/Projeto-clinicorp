@@ -2,7 +2,7 @@
 
 namespace CliniCorp.Business.Interfaces
 {
-    public interface IRepository
+    public interface IConsultaRepository
     {
         Task<IEnumerable<Consulta>> ListarTodos();
         Task<IEnumerable<Consulta>> ListarDemo();
@@ -11,14 +11,5 @@ namespace CliniCorp.Business.Interfaces
         Consulta Adicionar(Consulta consulta);
         Consulta AtualizarStatus(Consulta consulta);
         Consulta AtualizarDataConsulta(Consulta consulta);
-
-        //Medico
-        Medico AdicionarMedico(Medico medico);
-        Task<IEnumerable<Medico>> ListarMedicos();
-        Medico buscarMedicoPorNome(string nome);
-        Medico ListarTodosPacientesdoMedico(int id);
-
-        //Paciente
-        Task<IEnumerable<Paciente>> ListarPacientes();
     }
 }

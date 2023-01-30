@@ -11,12 +11,12 @@ namespace CliniCorp.Controllers
     [ApiController]
     public class MedicoController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly IMedicoRepository _medicorepository;
         private readonly IMapper _mapper;
 
-        public MedicoController(IRepository repository, IMapper mapper)
+        public MedicoController(IMedicoRepository repository, IMapper mapper)
         {
-            _repository = repository;
+            _medicorepository = repository;
             _mapper = mapper;
         }
 
@@ -26,7 +26,7 @@ namespace CliniCorp.Controllers
             try
             {
                 var medico = _mapper.Map<Medico>(medicoViewModel);
-                _repository.AdicionarMedico(medico);
+                _medicorepository.AdicionarMedico(medico);
                 return Ok(medico);
             }
             catch (Exception ex)
@@ -39,13 +39,13 @@ namespace CliniCorp.Controllers
         [HttpGet("list")]
         public async Task<IEnumerable<Medico>> obterLista()
         {
-            return await _repository.ListarMedicos();
+            return await _medicorepository.ListarMedicos();
         }
 
         [HttpGet("pesquisarMedico/{id}")]
         public Medico pesquisarmedico(int id)
         {
-            return  _repository.ListarTodosPacientesdoMedico(id);
+            return _medicorepository.ListarTodosPacientesdoMedico(id);
         }
 
     }

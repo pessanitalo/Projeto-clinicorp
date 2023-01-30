@@ -10,19 +10,21 @@ namespace CliniCorp.Controllers
     [ApiController]
     public class ConsultaController : ControllerBase
     {
-        private readonly IRepository _repository;
+        private readonly IConsultaRepository _consultarepository;
+        private readonly IMedicoRepository _medicorepository;
         private readonly IMapper _mapper;
 
-        public ConsultaController(IRepository repository, IMapper mapper)
+        public ConsultaController(IConsultaRepository consultarepository, IMedicoRepository medicorepository, IMapper mapper)
         {
-            _repository = repository;
+            _consultarepository = consultarepository;
+            _medicorepository = medicorepository;
             _mapper = mapper;
         }
 
         [HttpGet("list")]
         public async Task<IEnumerable<ListConsultaViewModel>> obterLista()
         {
-            return _mapper.Map<IEnumerable<ListConsultaViewModel>>(await _repository.ListarTodos());
+            return _mapper.Map<IEnumerable<ListConsultaViewModel>>(await _consultarepository.ListarTodos());
         }
 
         [HttpPost("created")]
@@ -31,7 +33,7 @@ namespace CliniCorp.Controllers
             try
             {
                 var consulta = _mapper.Map<Consulta>(consultaModel);
-                _repository.Adicionar(consulta);
+                _consultarepository.Adicionar(consulta);
                 return Ok(consulta);
             }
             catch (Exception ex)
@@ -44,7 +46,7 @@ namespace CliniCorp.Controllers
         [HttpGet("detalhes/{id}")]
         public IActionResult detalhes(int id)
         {
-            var consulta = _mapper.Map<DetalhesConsultaViewModel>(_repository.Detalhes(id));
+            var consulta = _mapper.Map<DetalhesConsultaViewModel>(_consultarepository.Detalhes(id));
             if (consulta == null) return BadRequest("consulta não existente");
 
             return Ok(consulta);
@@ -53,7 +55,7 @@ namespace CliniCorp.Controllers
         [HttpGet("buscarmediconome/{nome}")]
         public IActionResult detalhes(string nome)
         {
-            var busca = _repository.buscarMedicoPorNome(nome);
+            var busca = _medicorepository.buscarMedicoPorNome(nome);
 
             return Ok(busca);
         }
@@ -62,11 +64,11 @@ namespace CliniCorp.Controllers
         [HttpPut("cancel")]
         public IActionResult updateStatus(Consulta consulta)
         {
-            var query = _repository.AtualizarStatus(consulta.Id);
+            var query = _consultarepository.AtualizarStatus(consulta.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            _repository.AtualizarStatus(consulta);
+            _consultarepository.AtualizarStatus(consulta);
 
             return Ok(consulta);
 
@@ -75,11 +77,11 @@ namespace CliniCorp.Controllers
         [HttpPut("updatedate")]
         public IActionResult updatedate(Consulta consulta)
         {
-            var query = _repository.Detalhes(consulta.Id);
+            var query = _consultarepository.Detalhes(consulta.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            _repository.AtualizarDataConsulta(consulta);
+            _consultarepository.AtualizarDataConsulta(consulta);
 
             return Ok(consulta);
         }

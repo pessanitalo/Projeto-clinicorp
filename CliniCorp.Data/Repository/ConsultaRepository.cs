@@ -5,7 +5,7 @@ using ProjetoDemo;
 
 namespace CliniCorp.Data.Repository
 {
-    public class ConsultaRepository : IRepository
+    public class ConsultaRepository : IConsultaRepository
     {
         private readonly DataContext _context;
 
@@ -48,7 +48,7 @@ namespace CliniCorp.Data.Repository
                         DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
                         DataConsulta = consulta.DataConsulta,
                         Status = 0,
-                        StatusConsulta= "Agendada",
+                        StatusConsulta = "Agendada",
                         Paciente = paciente,
                         Medico = medico
                     };
@@ -72,7 +72,7 @@ namespace CliniCorp.Data.Repository
                     _context.SaveChanges();
                     return consulta;
                 }
-               
+
             }
 
             catch (Exception ex)
@@ -121,58 +121,6 @@ namespace CliniCorp.Data.Repository
         public Medico buscarMedico(int id)
         {
             var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
-            return medico;
-        }
-
-        public Medico buscarMedicoPorNome(string nome)
-        {
-            var medico = _context.Medicos.FirstOrDefault(x => x.Nome == nome);
-            return medico;
-        }
-
-        public Medico AdicionarMedico(Medico medicoobj)
-        {
-            try
-            {
-                var retorno = _context.Medicos.FirstOrDefault(X => X.Cpf == medicoobj.Cpf);
-                if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
-
-                var medico = new Medico
-                {
-                    Id = 0,
-                    Nome = medicoobj.Nome.ToLower(),
-                    Especializacao = medicoobj.Especializacao.ToLower(),
-                    Crm = medicoobj.Crm,
-                    Cpf = medicoobj.Cpf,
-                };
-                _context.Medicos.Add(medico);
-                _context.SaveChanges();
-                return medico;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
-        }
-
-        public async Task<IEnumerable<Medico>> ListarMedicos()
-        {
-            return await _context.Medicos.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Paciente>> ListarPacientes()
-        {     
-                return await _context.Pacientes.ToListAsync();
-            
-        }
-
-        public Medico ListarTodosPacientesdoMedico(int id)
-        {
-            //var medico =  _context.Medicos.First(c => c.Id ==id);
-            //return medico;
-
-            var medico = _context.Medicos.Include(p => p.Pacientes).First(c => c.Id == id);
             return medico;
         }
     }
