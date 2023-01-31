@@ -24,8 +24,11 @@ export class ConsultaNovaComponent implements OnInit {
   consulta!: Consulta;
 
   medico!: Medico;
+  pacienteget!: Paciente;
   nome!: string;
   errorMessage!: string;
+
+  nomePaciente!: string;
 
   especializacao: string = "";
 
@@ -60,33 +63,60 @@ export class ConsultaNovaComponent implements OnInit {
     )
   }
 
+  buscarPaciente() {
+    this.consultaService.buscarpacientePorNome(this.nomePaciente).subscribe((res) => {
+      this.pacienteget = res;
+      this.Sucesso(res)
+    },
+      falha => { this.processarFalha(falha) }
+    )
+  }
+
   adicionar() {
+    this.consulta = Object.assign({}, this.consulta, this.Form.value);
 
     let dataConsulta = this.Form.get("dataConsulta")?.value;
-    let datahoje = new Date;
-    let data = this.datepipe.transform(datahoje, "dd/MM/yyyy");
+    this.consulta.dataConsulta = parseDate(dataConsulta);
 
-    if (dataConsulta < data!) {
-      this.toastr.warning('Data de cadastro não pode ser\ menor que a data atual', 'Error!');
-    }
+    let dataNascimento = this.Form.get("paciente.DataNascimento")?.value;
+    this.consulta.paciente.DataNascimento = parseDate(dataNascimento);
 
-    else {
-      this.consulta = Object.assign({}, this.consulta, this.Form.value);
-
-      let dataConsulta = this.Form.get("dataConsulta")?.value;
-      this.consulta.dataConsulta = parseDate(dataConsulta);
-
-      let dataNascimento = this.Form.get("paciente.DataNascimento")?.value;
-      this.consulta.paciente.DataNascimento = parseDate(dataNascimento);
-
-      this.consulta.paciente.medicoId = this.medico.id;
-      this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
-        this.processarSucesso(sucesso)
-      },
-        falha => { this.processarFalha(falha) }
-      )
-    }
+    this.consulta.paciente.medicoId = this.medico.id;
+    this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
+      this.processarSucesso(sucesso)
+    },
+      falha => { this.processarFalha(falha) }
+    )
   }
+
+  // adicionar() {
+
+  //   let dataConsulta = this.Form.get("dataConsulta")?.value;
+  //   let datahoje = new Date;
+  //   let data = this.datepipe.transform(datahoje, "dd/MM/yyyy");
+
+  //   if (dataConsulta < data!) {
+  //     this.toastr.warning('Data de cadastro não pode ser\ menor que a data atual', 'Error!');
+  //   }
+
+  //   else {
+  //     this.consulta = Object.assign({}, this.consulta, this.Form.value);
+
+  //     let dataConsulta = this.Form.get("dataConsulta")?.value;
+  //     this.consulta.dataConsulta = parseDate(dataConsulta);
+
+  //     let dataNascimento = this.Form.get("paciente.DataNascimento")?.value;
+  //     this.consulta.paciente.DataNascimento = parseDate(dataNascimento);
+
+  //     this.consulta.paciente.medicoId = this.medico.id;
+  //     this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
+  //       this.processarSucesso(sucesso)
+  //     },
+  //       falha => { this.processarFalha(falha) }
+  //     )
+  //   }
+  // }
+
 
   ErrorMessage(fieldName: string) {
     const field = this.Form.get(fieldName);
