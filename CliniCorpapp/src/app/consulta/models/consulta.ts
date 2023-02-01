@@ -8,5 +8,7 @@ export interface Consulta {
     dataConsulta: Date,
     descricaoConsulta: string,
     status: number,
-    statusConsulta: string
+    statusConsulta: string,
+    medicoId: number,
+    pacienteId: number
 }

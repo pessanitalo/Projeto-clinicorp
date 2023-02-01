@@ -17,8 +17,18 @@ namespace CliniCorp.Data.Repository
        
         public Medico buscarMedicoPorNome(string nome)
         {
-            var medico = _context.Medicos.FirstOrDefault(x => x.Nome == nome);
-            return medico;
+            try
+            {
+                var medico = _context.Medicos.FirstOrDefault(x => x.Nome == nome);
+                if (medico == null) throw new Exception("Médico não encontrado.");
+                return medico;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
         }
 
         public Medico AdicionarMedico(Medico medicoobj)
@@ -33,7 +43,6 @@ namespace CliniCorp.Data.Repository
                     Id = 0,
                     Nome = medicoobj.Nome.ToLower(),
                     Especializacao = medicoobj.Especializacao.ToLower(),
-                    Crm = medicoobj.Crm,
                     Cpf = medicoobj.Cpf,
                 };
                 _context.Medicos.Add(medico);
@@ -54,10 +63,7 @@ namespace CliniCorp.Data.Repository
 
         public Medico ListarTodosPacientesdoMedico(int id)
         {
-            //var medico =  _context.Medicos.First(c => c.Id ==id);
-            //return medico;
-
-            var medico = _context.Medicos.Include(p => p.Pacientes).First(c => c.Id == id);
+            var medico = _context.Medicos.First(c => c.Id == id);
             return medico;
         }
     }

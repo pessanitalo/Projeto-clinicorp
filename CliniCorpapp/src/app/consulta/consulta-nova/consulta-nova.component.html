@@ -1,16 +1,19 @@
 <div class="container">
     <div class="col-md-6 margin-top">
-        <div class="d-flex col-8 ">
+        <div>
             <input type="text" class="form-control" id="nome" [(ngModel)]="nome" placeholder="Pesquisar Medico">
-            <button type="button" class="btn btn-primary margin" (click)="buscarMedico()">Pesquisar</button>
+            <button type="button" class="btn btn-primary margin-btn" (click)="buscarMedico()">Pesquisar</button>
+            
+            <input type="text" class="form-control margin-input" id="nomePaciente" [(ngModel)]="nomePaciente" placeholder="Pesquisar Paciente">
+            <button type="button" class="btn btn-primary margin-btn" (click)="buscarPaciente()">Pesquisar</button>
+            <button type="button" class="btn btn-info margin-btn margin-left" [routerLink]="['/novopaciente']"> Novo Paciente</button>
         </div>
 
-        <h4 class="margin">Consulta</h4>
 
         <form novalidate (ngSubmit)="adicionar()" [formGroup]="Form">
 
             <div class="form-group">
-                <label class="control-label">Data da Consulta</label>
+                <label class="control-label margin-input">Data da Consulta</label>
                 <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta"
                     mask="00/00/0000" [dropSpecialCharacters]="false" />
                 <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
@@ -29,55 +32,11 @@
                 </span>
             </div>
 
-            <hr>
-            <h4>Paciente</h4>
-
-            <div formGroupName="paciente">
-                <div class="form-group">
-                    <label class="control-label">Nome</label>
-                    <input class="form-control" id="nome" type="nome" formControlName="nome" />
-                    <span class="text-danger" *ngIf="Form.get('paciente.nome')?.invalid">
-                        {{ErrorMessage("paciente.nome")}}
-                    </span>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Email</label>
-                    <div>
-                        <input class="form-control" id="email" type="text" formControlName="email" />
-                    </div>
-                    <span class="text-danger" *ngIf="Form.get('paciente.email')?.invalid">
-                        {{ErrorMessage("paciente.email")}}
-                    </span>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">CPF</label>
-                    <div>
-                        <input class="form-control" id="cpf" type="text" formControlName="cpf" mask="000.000.000-00" />
-                    </div>
-                    <span class="text-danger" *ngIf="Form.get('paciente.cpf')?.invalid">
-                        {{ErrorMessage("paciente.cpf")}}
-                    </span>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Data Nascimento</label>
-                    <div>
-                        <input class="form-control" id="DataNascimento" type="text" formControlName="DataNascimento"
-                            mask="00/00/0000" [dropSpecialCharacters]="false" />
-                        <span class="text-danger" *ngIf="Form.get('paciente.DataNascimento')?.invalid">
-                            {{ErrorMessage("paciente.DataNascimento")}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group margin-btn">
-                    <button type="submit" class="btn btn-primary salvar" [disabled]="!Form.valid">Salvar</button>
-                    <button type="button" class="btn btn-success voltar"
-                        [routerLink]="['/consultalist']">Voltar</button>
-                </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary margin-btn" [disabled]="!Form.valid">Salvar</button>
+                <button type="button" class="btn btn-success margin-btn margin-left" [routerLink]="['/consultalist']">Voltar</button>
             </div>
+
         </form>
     </div>
 </div>

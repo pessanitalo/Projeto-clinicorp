@@ -20,4 +20,8 @@ export class MedicoService {
   adicionar(medico: Medico) {
     return this.http.post<Medico>(this.baseUrl, medico);
   }
+
+  buscarMedicoPorNome(nome: string): Observable<Medico> {
+    return this.http.get<Medico>(`${this.baseUrl}/buscarmediconome/${nome}`);
+  }
 }

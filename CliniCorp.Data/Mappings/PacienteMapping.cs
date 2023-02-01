@@ -21,8 +21,6 @@ namespace CliniCorp.Data.Mappings
             builder.Property(p => p.Email)
                     .HasColumnType("varchar")
                     .HasMaxLength(50);
-
-
         }
     }
 }

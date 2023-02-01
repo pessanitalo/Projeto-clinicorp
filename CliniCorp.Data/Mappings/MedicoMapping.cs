@@ -20,18 +20,10 @@ namespace CliniCorp.Data.Mappings
                 .HasColumnType("varchar")
                 .HasMaxLength(11);
 
-            builder.Property(p => p.Crm)
-                .IsRequired()
-                .HasColumnType("varchar")
-                .HasMaxLength(11);
-
             builder.Property(p => p.Especializacao)
                 .IsRequired()
                 .HasColumnType("varchar")
                 .HasMaxLength(50);
-
-            builder.HasMany(f => f.Pacientes)
-                .WithOne(c => c.Medico).HasForeignKey(c => c.MedicoId);
 
         }
     }

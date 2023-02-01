@@ -8,8 +8,8 @@
         public int Status { get; set; }
         public string StatusConsulta { get; set; }
 
-        public Medico Medico { get; set; }
-        public Paciente Paciente { get; set; }
+        public Medico? Medico { get; set; }
+        public Paciente? Paciente { get; set; }
 
     }
 }

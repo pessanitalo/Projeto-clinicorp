@@ -11,13 +11,11 @@ namespace CliniCorp.Controllers
     public class ConsultaController : ControllerBase
     {
         private readonly IConsultaRepository _consultarepository;
-        private readonly IMedicoRepository _medicorepository;
         private readonly IMapper _mapper;
 
-        public ConsultaController(IConsultaRepository consultarepository, IMedicoRepository medicorepository, IMapper mapper)
+        public ConsultaController(IConsultaRepository consultarepository, IMapper mapper)
         {
             _consultarepository = consultarepository;
-            _medicorepository = medicorepository;
             _mapper = mapper;
         }
 
@@ -33,7 +31,22 @@ namespace CliniCorp.Controllers
             try
             {
                 var consulta = _mapper.Map<Consulta>(consultaModel);
-                _consultarepository.Adicionar(consulta);
+                _consultarepository.AdicionarDemo(consulta);
+                return Ok(consulta);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+
+        }
+
+        [HttpPost("testeNovo")]
+        public IActionResult novo(Consulta consulta, int pacienteId, int medicoId)
+        {
+            try
+            {
+                _consultarepository.Adicionar(consulta, pacienteId, medicoId);
                 return Ok(consulta);
             }
             catch (Exception ex)
@@ -51,15 +64,6 @@ namespace CliniCorp.Controllers
 
             return Ok(consulta);
         }
-
-        [HttpGet("buscarmediconome/{nome}")]
-        public IActionResult detalhes(string nome)
-        {
-            var busca = _medicorepository.buscarMedicoPorNome(nome);
-
-            return Ok(busca);
-        }
-
 
         [HttpPut("cancel")]
         public IActionResult updateStatus(Consulta consulta)

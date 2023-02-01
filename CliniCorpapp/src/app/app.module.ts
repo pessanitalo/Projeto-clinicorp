@@ -1,3 +1,4 @@
+import { AdicionarPacienteComponent } from './paciente/adicionar-paciente/adicionar-paciente.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
 import { Consulta } from './consulta/models/consulta';
 import { ConsultaResolve } from './consulta/services/consulta.resolve';
@@ -20,6 +21,7 @@ import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-me
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ToastrModule } from 'ngx-toastr';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,8 @@ import { ToastrModule } from 'ngx-toastr';
     ConsultaDetalhesComponent,
     MedicoListaComponent,
     AdicionarMedicoComponent,
-    ConsultaNovaComponent
+    ConsultaNovaComponent,
+    AdicionarPacienteComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ import { ToastrModule } from 'ngx-toastr';
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-top-center',
       preventDuplicates: true,
       progressBar: true
   })

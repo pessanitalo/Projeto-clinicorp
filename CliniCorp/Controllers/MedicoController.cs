@@ -48,5 +48,22 @@ namespace CliniCorp.Controllers
             return _medicorepository.ListarTodosPacientesdoMedico(id);
         }
 
+        [HttpGet("buscarmediconome/{nome}")]
+        public IActionResult detalhes(string nome)
+        {
+            try
+            {
+                var busca = _medicorepository.buscarMedicoPorNome(nome);
+
+                return Ok(busca);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(400, ex.Message);
+            }
+
+        }
+
     }
 }

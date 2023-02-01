@@ -74,11 +74,6 @@ namespace CliniCorp.Data.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("varchar");
 
-                    b.Property<string>("Crm")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("varchar");
-
                     b.Property<string>("Especializacao")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -113,16 +108,11 @@ namespace CliniCorp.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MedicoId");
 
                     b.ToTable("Pacientes");
                 });
@@ -142,22 +132,6 @@ namespace CliniCorp.Data.Migrations
                     b.Navigation("Medico");
 
                     b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("ProjetoDemo.Paciente", b =>
-                {
-                    b.HasOne("ProjetoDemo.Medico", "Medico")
-                        .WithMany("Pacientes")
-                        .HasForeignKey("MedicoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Medico");
-                });
-
-            modelBuilder.Entity("ProjetoDemo.Medico", b =>
-                {
-                    b.Navigation("Pacientes");
                 });
 #pragma warning restore 612, 618
         }

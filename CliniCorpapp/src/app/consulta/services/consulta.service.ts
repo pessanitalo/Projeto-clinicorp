@@ -1,4 +1,3 @@
-import { Paciente } from './../models/paciente';
 import { Medico } from 'src/app/consulta/models/medico';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -22,14 +21,6 @@ export class ConsultaService {
 
   detalhes(id: number): Observable<Consulta> {
     return this.http.get<Consulta>(`${this.baseUrl}/detalhes/${id}`);
-  }
-
-  buscarMedicoPorNome(nome: string): Observable<Medico> {
-    return this.http.get<Medico>(`${this.baseUrl}/buscarmediconome/${nome}`);
-  }
-
-  buscarpacientePorNome(nome: string): Observable<Paciente> {
-    return this.http.get<Paciente>(`${this.baseUrl}/buscarpacientenome/${nome}`);
   }
 
   edit(id: number): Observable<Consulta> {

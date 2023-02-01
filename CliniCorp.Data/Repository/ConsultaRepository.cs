@@ -16,7 +16,7 @@ namespace CliniCorp.Data.Repository
 
         public async Task<IEnumerable<Consulta>> ListarTodos()
         {
-            return await _context.Consultas.Include(c => c.Medico).Include(c => c.Medico.Pacientes).ToListAsync();
+            return await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
 
         }
 
@@ -31,47 +31,28 @@ namespace CliniCorp.Data.Repository
             return query;
         }
 
-        public Consulta Adicionar(Consulta consulta)
+        public Consulta Adicionar(Consulta consulta, int pacienteId, int medicoId)
         {
-            var paciente = _context.Pacientes.FirstOrDefault(X => X.Cpf == consulta.Paciente.Cpf);
-            var medico = buscarMedico(consulta.Paciente.MedicoId);
+            var paciente = _context.Pacientes.FirstOrDefault(X => X.Id == pacienteId);
+            var medico = buscarMedico(medicoId);
 
             if (medico == null) throw new Exception("Médico não encontrado.");
 
             try
             {
-                if (paciente != null)
+                var consultaNova = new Consulta
                 {
-                    var consultaNova = new Consulta
-                    {
-                        Id = 0,
-                        DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
-                        DataConsulta = consulta.DataConsulta,
-                        Status = 0,
-                        StatusConsulta = "Agendada",
-                        Paciente = paciente,
-                        Medico = medico
-                    };
-                    _context.Add(consultaNova);
-                    _context.SaveChanges();
-                    return consultaNova;
-                }
-                else
-                {
-                    var Novaconsulta = new Consulta
-                    {
-                        Id = 0,
-                        DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
-                        DataConsulta = consulta.DataConsulta,
-                        Status = 0,
-                        StatusConsulta = "Agendada",
-                        Paciente = consulta.Paciente,
-                        Medico = medico
-                    };
-                    _context.Add(Novaconsulta);
-                    _context.SaveChanges();
-                    return consulta;
-                }
+                    Id = 0,
+                    DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
+                    DataConsulta = consulta.DataConsulta,
+                    Status = 0,
+                    StatusConsulta = "Agendada",
+                    Paciente = paciente,
+                    Medico = medico
+                };
+                _context.Add(consultaNova);
+                _context.SaveChanges();
+                return consultaNova;
 
             }
 
@@ -83,11 +64,43 @@ namespace CliniCorp.Data.Repository
 
         }
 
+        public Consulta AdicionarDemo(Consulta consulta)
+        {
+            var paciente = _context.Pacientes.FirstOrDefault(X => X.Id == consulta.Paciente.Id);
+            var medico = buscarMedico(consulta.Medico.Id);
+
+            if (medico == null) throw new Exception("Médico não encontrado.");
+
+            try
+            {
+                var consultaNova = new Consulta
+                {
+                    Id = 0,
+                    DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
+                    DataConsulta = consulta.DataConsulta,
+                    Status = 0,
+                    StatusConsulta = "Agendada",
+                    Paciente = paciente,
+                    Medico = medico
+                };
+                _context.Add(consultaNova);
+                _context.SaveChanges();
+                return consultaNova;
+
+            }
+
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
         public Consulta Detalhes(int id)
         {
             var consulta = _context.Consultas.Include
                 (c => c.Medico)
-                .Include(c => c.Medico.Pacientes)
+                .Include(c => c.Medico)
                 .First(X => X.Id == id);
 
             return consulta;
@@ -123,5 +136,7 @@ namespace CliniCorp.Data.Repository
             var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
             return medico;
         }
+
+
     }
 }

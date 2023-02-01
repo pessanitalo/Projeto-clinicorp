@@ -1,3 +1,5 @@
+import { MedicoService } from './../../medico/services/medico.service';
+import { PacienteService } from './../../paciente/services/paciente.service';
 import { Paciente } from './../models/paciente';
 import { Consulta } from './../models/consulta';
 import { Component, OnInit } from '@angular/core';
@@ -19,22 +21,23 @@ import { DatePipe } from '@angular/common';
 export class ConsultaNovaComponent implements OnInit {
 
   Form!: FormGroup;
-  paciente!: FormGroup;
 
   consulta!: Consulta;
-
   medico!: Medico;
-  pacienteget!: Paciente;
+
+  paciente!: Paciente;
   nome!: string;
+
+
   errorMessage!: string;
 
   nomePaciente!: string;
 
-  especializacao: string = "";
-
   constructor(
     private fb: FormBuilder,
     private consultaService: ConsultaService,
+    private pacienteService: PacienteService,
+    private medicoService: MedicoService,
     private toastr: ToastrService,
     private router: Router,
     private datepipe: DatePipe
@@ -44,32 +47,38 @@ export class ConsultaNovaComponent implements OnInit {
     this.Form = this.fb.group({
       dataConsulta: ['', [Validators.required]],
       descricaoConsulta: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(1000)]],
-
-      paciente: this.fb.group({
-        nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-        cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-        DataNascimento: ['', [Validators.required]],
-        email: ['', [Validators.required]],
-      })
     });
   }
 
   buscarMedico() {
-    this.consultaService.buscarMedicoPorNome(this.nome).subscribe((res) => {
-      this.medico = res;
-      this.Sucesso(res)
-    },
-      falha => { this.processarFalha(falha) }
-    )
+    if(this.nome == null || this.nome.length <= 0){
+      this.toastr.warning('Campo Médico Obrigatório', 'Ops!');
+    }
+    else{
+      this.medicoService.buscarMedicoPorNome(this.nome).subscribe((res) => {
+        this.medico = res;
+        this.Sucesso(res)
+      },
+        falha => { this.processarFalha(falha) }
+      )
+    }
+    
   }
 
   buscarPaciente() {
-    this.consultaService.buscarpacientePorNome(this.nomePaciente).subscribe((res) => {
-      this.pacienteget = res;
-      this.Sucesso(res)
-    },
-      falha => { this.processarFalha(falha) }
-    )
+    if(this.nomePaciente == null || this.nomePaciente.length <= 0){
+      this.toastr.warning('Campo Paciente Obrigatório', 'Ops!');
+    }
+    else{
+      this.pacienteService.buscarpacientePorNome(this.nomePaciente).subscribe((res) => {
+        this.paciente = res;
+        console.log(this.paciente);
+        this.toastr.success('Paciente adicionado com sucesso.', 'Sucesso!');
+      },
+        falha => { this.processarFalha(falha) }
+      )
+    }
+ 
   }
 
   adicionar() {
@@ -78,45 +87,14 @@ export class ConsultaNovaComponent implements OnInit {
     let dataConsulta = this.Form.get("dataConsulta")?.value;
     this.consulta.dataConsulta = parseDate(dataConsulta);
 
-    let dataNascimento = this.Form.get("paciente.DataNascimento")?.value;
-    this.consulta.paciente.DataNascimento = parseDate(dataNascimento);
-
-    this.consulta.paciente.medicoId = this.medico.id;
+    this.consulta.medicoId = this.medico.id;
+    this.consulta.pacienteId = this.paciente.id;
     this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
       this.processarSucesso(sucesso)
     },
       falha => { this.processarFalha(falha) }
     )
   }
-
-  // adicionar() {
-
-  //   let dataConsulta = this.Form.get("dataConsulta")?.value;
-  //   let datahoje = new Date;
-  //   let data = this.datepipe.transform(datahoje, "dd/MM/yyyy");
-
-  //   if (dataConsulta < data!) {
-  //     this.toastr.warning('Data de cadastro não pode ser\ menor que a data atual', 'Error!');
-  //   }
-
-  //   else {
-  //     this.consulta = Object.assign({}, this.consulta, this.Form.value);
-
-  //     let dataConsulta = this.Form.get("dataConsulta")?.value;
-  //     this.consulta.dataConsulta = parseDate(dataConsulta);
-
-  //     let dataNascimento = this.Form.get("paciente.DataNascimento")?.value;
-  //     this.consulta.paciente.DataNascimento = parseDate(dataNascimento);
-
-  //     this.consulta.paciente.medicoId = this.medico.id;
-  //     this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
-  //       this.processarSucesso(sucesso)
-  //     },
-  //       falha => { this.processarFalha(falha) }
-  //     )
-  //   }
-  // }
-
 
   ErrorMessage(fieldName: string) {
     const field = this.Form.get(fieldName);

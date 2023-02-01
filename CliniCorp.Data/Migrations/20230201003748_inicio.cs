@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CliniCorp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class mapp : Migration
+    public partial class inicio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,6 @@ namespace CliniCorp.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    Crm = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: false),
                     Especializacao = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
@@ -33,7 +32,6 @@ namespace CliniCorp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicoId = table.Column<int>(type: "int", nullable: false),
                     Nome = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
                     DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -42,12 +40,6 @@ namespace CliniCorp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pacientes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Pacientes_Medicos_MedicoId",
-                        column: x => x.MedicoId,
-                        principalTable: "Medicos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,11 +81,6 @@ namespace CliniCorp.Data.Migrations
                 name: "IX_Consultas_PacienteId",
                 table: "Consultas",
                 column: "PacienteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Pacientes_MedicoId",
-                table: "Pacientes",
-                column: "MedicoId");
         }
 
         /// <inheritdoc />
@@ -103,10 +90,10 @@ namespace CliniCorp.Data.Migrations
                 name: "Consultas");
 
             migrationBuilder.DropTable(
-                name: "Pacientes");
+                name: "Medicos");
 
             migrationBuilder.DropTable(
-                name: "Medicos");
+                name: "Pacientes");
         }
     }
 }

@@ -1,14 +1,15 @@
-.salvar, .voltar{
-    margin-top: 10px;
-}
-
-.voltar, .margin{
-    margin-left: 5px;
-}
 .margin-top{
     margin-top: 20px;
 }
 
+.margin-left{
+    margin-left: 10px;
+}
+
 .margin-btn{
-    margin-top: 5px;
+    margin-top: 10px;
+}
+
+.margin-input{
+    margin-top: 30px;
 }

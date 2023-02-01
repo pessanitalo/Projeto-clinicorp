@@ -8,7 +8,8 @@ namespace CliniCorp.Business.Interfaces
         Task<IEnumerable<Consulta>> ListarDemo();
         Consulta AtualizarStatus(int id);
         Consulta Detalhes(int id);
-        Consulta Adicionar(Consulta consulta);
+        Consulta Adicionar(Consulta consulta, int pacienteId, int medicoId);
+        Consulta AdicionarDemo(Consulta consulta);
         Consulta AtualizarStatus(Consulta consulta);
         Consulta AtualizarDataConsulta(Consulta consulta);
     }
