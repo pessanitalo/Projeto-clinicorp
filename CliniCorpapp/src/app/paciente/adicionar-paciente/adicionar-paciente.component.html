@@ -1,7 +1,7 @@
 <div class="container">
 
-    <div class="col-md-6">
-        <form novalidate [formGroup]="Form">
+    <div class="col-md-6 margin-top">
+        <form (ngSubmit)="adicionar()" novalidate [formGroup]="Form">
             <div class="form-group">
                 <label class="control-label">Nome</label>
                 <input class="form-control" id="nome" type="nome" formControlName="nome" />
@@ -24,14 +24,13 @@
             <div class="form-group">
                 <label class="control-label">Data Nascimento</label>
                 <div>
-                    <input class="form-control" id="DataNascimento" type="text" formControlName="DataNascimento"
-                        mask="00/00/0000" [dropSpecialCharacters]="false" />
+                    <input class="form-control" id="dataNascimento" type="text" formControlName="dataNascimento" mask="00/00/0000" [dropSpecialCharacters]="false" />
                 </div>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary salvar" [disabled]="!Form.valid">Salvar</button>
-                <button type="button" class="btn btn-success voltar" [routerLink]="['/consultalist']">Voltar</button>
+                <button type="submit" class="btn btn-primary margin-btn-top">Salvar</button>
+                <button type="button" class="btn btn-success margin-btn-top margin-left" [routerLink]="['/lista']">Voltar</button>
             </div>
         </form>
     </div>

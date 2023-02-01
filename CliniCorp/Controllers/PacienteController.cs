@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
-using CliniCorp.Data.Repository;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;

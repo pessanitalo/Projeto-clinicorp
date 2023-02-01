@@ -65,6 +65,7 @@ export class ConsultaNovaComponent implements OnInit {
     
   }
 
+
   buscarPaciente() {
     if(this.nomePaciente == null || this.nomePaciente.length <= 0){
       this.toastr.warning('Campo Paciente Obrigatório', 'Ops!');
@@ -72,7 +73,6 @@ export class ConsultaNovaComponent implements OnInit {
     else{
       this.pacienteService.buscarpacientePorNome(this.nomePaciente).subscribe((res) => {
         this.paciente = res;
-        console.log(this.paciente);
         this.toastr.success('Paciente adicionado com sucesso.', 'Sucesso!');
       },
         falha => { this.processarFalha(falha) }
@@ -89,6 +89,7 @@ export class ConsultaNovaComponent implements OnInit {
 
     this.consulta.medicoId = this.medico.id;
     this.consulta.pacienteId = this.paciente.id;
+    
     this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
       this.processarSucesso(sucesso)
     },

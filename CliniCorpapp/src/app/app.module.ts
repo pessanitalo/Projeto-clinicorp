@@ -20,6 +20,7 @@ import { MedicoListaComponent } from './medico/medico-lista/medico-lista.compone
 import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ListaPacienteComponent } from './paciente/lista-paciente/lista-paciente.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ToastrModule } from 'ngx-toastr';
     MedicoListaComponent,
     AdicionarMedicoComponent,
     ConsultaNovaComponent,
-    AdicionarPacienteComponent
+    AdicionarPacienteComponent,
+    ListaPacienteComponent
   ],
   imports: [
     BrowserModule,

@@ -3,10 +3,12 @@
         <div>
             <input type="text" class="form-control" id="nome" [(ngModel)]="nome" placeholder="Pesquisar Medico">
             <button type="button" class="btn btn-primary margin-btn" (click)="buscarMedico()">Pesquisar</button>
-            
-            <input type="text" class="form-control margin-input" id="nomePaciente" [(ngModel)]="nomePaciente" placeholder="Pesquisar Paciente">
+
+            <input type="text" class="form-control margin-input" id="nomePaciente" [(ngModel)]="nomePaciente"
+                placeholder="Pesquisar Paciente">
             <button type="button" class="btn btn-primary margin-btn" (click)="buscarPaciente()">Pesquisar</button>
-            <button type="button" class="btn btn-info margin-btn margin-left" [routerLink]="['/novopaciente']"> Novo Paciente</button>
+            <button type="button" class="btn btn-info margin-btn margin-left" [routerLink]="['/novopaciente']"> Novo
+                Paciente</button>
         </div>
 
 
@@ -14,8 +16,7 @@
 
             <div class="form-group">
                 <label class="control-label margin-input">Data da Consulta</label>
-                <input class="form-control" id="dataConsulta" type="dataConsulta" formControlName="dataConsulta"
-                    mask="00/00/0000" [dropSpecialCharacters]="false" />
+                <input class="form-control" id="dataConsulta" type="text" formControlName="dataConsulta" mask="00/00/0000" [dropSpecialCharacters]="false" />
                 <span class="text-danger" *ngIf="Form.get('dataConsulta')?.invalid">
                     {{ErrorMessage("dataConsulta")}}
                 </span>
@@ -34,9 +35,8 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary margin-btn" [disabled]="!Form.valid">Salvar</button>
-                <button type="button" class="btn btn-success margin-btn margin-left" [routerLink]="['/consultalist']">Voltar</button>
+                <button type="button" class="btn btn-success margin-btn margin-left"[routerLink]="['/consultalist']">Voltar</button>
             </div>
-
         </form>
     </div>
 </div>
