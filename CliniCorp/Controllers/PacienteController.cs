@@ -42,11 +42,11 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("pesquisarpaciente/{nome}")]
-        public IActionResult pesquisarpaciente(string nome)
+        public async Task<IActionResult> pesquisarpaciente(string nome)
         {
             try
             {
-                var paciente = _Pacienterepository.buscarPacientePorNome(nome);
+                var paciente = await _Pacienterepository.buscarPacientePorNome(nome);
                 return Ok(paciente);
             }
             catch (Exception ex)
