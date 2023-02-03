@@ -35,7 +35,7 @@ namespace CliniCorp.Data.Repository
         {
             try
             {
-                var retorno = await _context.Medicos.FirstAsync(X => X.Cpf == medicoobj.Cpf);
+                var retorno = await _context.Medicos.FirstOrDefaultAsync(X => X.Cpf == medicoobj.Cpf);
                 if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
                 var medico = new Medico

@@ -26,12 +26,12 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPost]
-        public IActionResult create(PacienteViewModel pacienteViewModel)
+        public async Task<IActionResult> create(PacienteViewModel pacienteViewModel)
         {
             try
             {
                 var paciente = _mapper.Map<Paciente>(pacienteViewModel);
-                _Pacienterepository.Adicionarpaciente(paciente);
+                await _Pacienterepository.Adicionarpaciente(paciente);
                 return Ok(paciente);
             }
             catch (Exception ex)
