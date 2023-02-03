@@ -26,27 +26,12 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPost("created")]
-        public IActionResult create(CreateConsultaViewModel consultaModel)
+        public async Task<IActionResult> create(CreateConsultaViewModel consultaModel)
         {
             try
             {
                 var consulta = _mapper.Map<Consulta>(consultaModel);
-                _consultarepository.AdicionarDemo(consulta);
-                return Ok(consulta);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-
-        }
-
-        [HttpPost("testeNovo")]
-        public IActionResult novo(Consulta consulta, int pacienteId, int medicoId)
-        {
-            try
-            {
-                _consultarepository.Adicionar(consulta, pacienteId, medicoId);
+                await _consultarepository.Adicionar(consulta);
                 return Ok(consulta);
             }
             catch (Exception ex)
@@ -57,9 +42,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("detalhes/{id}")]
-        public IActionResult detalhes(int id)
+        public async Task<IActionResult> detalhes(int id)
         {
-            var consulta = _mapper.Map<DetalhesConsultaViewModel>(_consultarepository.Detalhes(id));
+            var consulta = _mapper.Map<DetalhesConsultaViewModel>(await _consultarepository.Detalhes(id));
             if (consulta == null) return BadRequest("consulta não existente");
 
             return Ok(consulta);

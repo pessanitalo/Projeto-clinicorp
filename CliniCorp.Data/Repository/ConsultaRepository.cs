@@ -19,15 +19,9 @@ namespace CliniCorp.Data.Repository
             return await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
 
         }
-
-        public async Task<IEnumerable<Consulta>> ListarDemo()
-        {
-            return await _context.Consultas.ToListAsync();
-        }
-
         public Consulta AtualizarStatus(int id)
         {
-            var query = _context.Consultas.FirstOrDefault(X => X.Id == id);
+            var query =  _context.Consultas.First(X => X.Id == id);
             return query;
         }
 
@@ -64,9 +58,9 @@ namespace CliniCorp.Data.Repository
 
         }
 
-        public Consulta AdicionarDemo(Consulta consulta)
+        public async Task<Consulta> Adicionar(Consulta consulta)
         {
-            var paciente = _context.Pacientes.FirstOrDefault(X => X.Id == consulta.Paciente.Id);
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
             var medico = buscarMedico(consulta.Medico.Id);
 
             if (medico == null) throw new Exception("Médico não encontrado.");
@@ -96,12 +90,12 @@ namespace CliniCorp.Data.Repository
             }
         }
 
-        public Consulta Detalhes(int id)
+        public async  Task<Consulta> Detalhes(int id)
         {
-            var consulta = _context.Consultas.Include
+            var consulta =await _context.Consultas.Include
                 (c => c.Medico)
                 .Include(c => c.Medico)
-                .First(X => X.Id == id);
+                .FirstAsync(X => X.Id == id);
 
             return consulta;
         }

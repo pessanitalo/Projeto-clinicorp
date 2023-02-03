@@ -21,12 +21,12 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPost]
-        public IActionResult create(CreateMedicoViewModel medicoViewModel)
+        public async Task<IActionResult> create(CreateMedicoViewModel medicoViewModel)
         {
             try
             {
                 var medico = _mapper.Map<Medico>(medicoViewModel);
-                _medicorepository.AdicionarMedico(medico);
+                await _medicorepository.AdicionarMedico(medico);
                 return Ok(medico);
             }
             catch (Exception ex)
@@ -49,17 +49,16 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("buscarmediconome/{nome}")]
-        public IActionResult detalhes(string nome)
+        public async Task<IActionResult> detalhes(string nome)
         {
             try
             {
-                var busca = _medicorepository.buscarMedicoPorNome(nome);
+                var busca = await _medicorepository.buscarMedicoPorNome(nome);
 
                 return Ok(busca);
             }
             catch (Exception ex)
             {
-
                 return StatusCode(400, ex.Message);
             }
 

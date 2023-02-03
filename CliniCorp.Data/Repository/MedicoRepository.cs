@@ -15,13 +15,13 @@ namespace CliniCorp.Data.Repository
             _context = context;
         }
        
-        public Medico buscarMedicoPorNome(string nome)
+        public async Task<Medico> buscarMedicoPorNome(string nome)
         {
             try
             {
-                var medico = _context.Medicos.FirstOrDefault(x => x.Nome == nome);
+                var medico = await _context.Medicos.FirstAsync(x => x.Nome == nome);
                 if (medico == null) throw new Exception("Médico não encontrado.");
-                return medico;
+                return  medico;
             }
             catch (Exception ex)
             {
@@ -31,11 +31,11 @@ namespace CliniCorp.Data.Repository
 
         }
 
-        public Medico AdicionarMedico(Medico medicoobj)
+        public async Task<Medico> AdicionarMedico(Medico medicoobj)
         {
             try
             {
-                var retorno = _context.Medicos.FirstOrDefault(X => X.Cpf == medicoobj.Cpf);
+                var retorno = await _context.Medicos.FirstAsync(X => X.Cpf == medicoobj.Cpf);
                 if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
                 var medico = new Medico
