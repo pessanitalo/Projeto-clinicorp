@@ -1,8 +1,9 @@
 ﻿using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
-
+using System.Collections.Generic;
 
 namespace CliniCorp.Data.Repository
 {
@@ -14,14 +15,14 @@ namespace CliniCorp.Data.Repository
         {
             _context = context;
         }
-       
+
         public async Task<Medico> buscarMedicoPorNome(string nome)
         {
             try
             {
                 var medico = await _context.Medicos.FirstAsync(x => x.Nome == nome);
                 if (medico == null) throw new Exception("Médico não encontrado.");
-                return  medico;
+                return medico;
             }
             catch (Exception ex)
             {
@@ -67,18 +68,20 @@ namespace CliniCorp.Data.Repository
             return await _context.Medicos.ToListAsync();
         }
 
-        public Medico ListarTodosPacientesdoMedico(int id)
+        public IEnumerable<ListMedicoPaientes> ListarTodosPacientesdoMedico(int id)
         {
             var query = from c in _context.Consultas
                         join p in _context.Pacientes on c.Paciente.Id equals p.Id
                         where c.Medico.Id == id
-                        select new  
+                        select new ListMedicoPaientes
                         {
-                            p.Nome,
-                            p.Cpf,
-                            p.DataNascimento
+                            Id = p.Id,
+                            Nome = p.Nome,
+                            Cpf = p.Cpf,
+                            DataNascimento = p.DataNascimento
                         };
-            return (Medico)query;
+            List<ListMedicoPaientes> lista = query.ToList();
+            return lista;
         }
 
     }

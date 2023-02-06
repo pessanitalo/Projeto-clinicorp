@@ -40,11 +40,11 @@ namespace CliniCorp.Data.Repository
             }
         }
 
-        public async Task<Paciente> buscarPacientePorNome(string nome)
+        public async Task<Paciente> buscarPacientePorNome(string nome, string cpf)
         {
             try
             {
-                var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Nome == nome);
+                var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Nome == nome && x.Cpf == cpf);
 
                 if (paciente == null) throw new Exception("Paciente não encontrado");
 

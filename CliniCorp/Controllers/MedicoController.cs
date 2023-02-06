@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
+using CliniCorp.Data.Context;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
@@ -12,11 +14,13 @@ namespace CliniCorp.Controllers
     public class MedicoController : ControllerBase
     {
         private readonly IMedicoRepository _medicorepository;
+        private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public MedicoController(IMedicoRepository repository, IMapper mapper)
+        public MedicoController(IMedicoRepository medicorepository, DataContext context, IMapper mapper)
         {
-            _medicorepository = repository;
+            _medicorepository = medicorepository;
+            _context = context;
             _mapper = mapper;
         }
 
@@ -43,7 +47,7 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("pesquisarMedico/{id}")]
-        public Medico pesquisarmedico(int id)
+        public IEnumerable<ListMedicoPaientes> pesquisarmedico(int id)
         {
             return _medicorepository.ListarTodosPacientesdoMedico(id);
         }
@@ -61,6 +65,26 @@ namespace CliniCorp.Controllers
             {
                 return StatusCode(400, ex.Message);
             }
+
+        }
+
+        [HttpGet("medicospacientes/{id}")]
+        public IActionResult medicosPacintes(int id)
+        {
+
+            //var query = from c in _context.Consultas
+            //            join p in _context.Pacientes on c.Paciente.Id equals p.Id
+            //            where c.Medico.Id == id
+            //            select new
+            //            {
+            //                p.Nome,
+            //                p.Cpf,
+            //                p.DataNascimento
+            //            };
+            //return Ok(query);
+
+            var busca =  _medicorepository.ListarTodosPacientesdoMedico(id);
+            return Ok(busca);
 
         }
 
