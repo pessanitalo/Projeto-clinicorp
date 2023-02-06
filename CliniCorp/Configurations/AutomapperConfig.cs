@@ -11,6 +11,7 @@ namespace CliniCorp.Configurations
             CreateMap<Consulta, CreateConsultaViewModel>().ReverseMap();
             CreateMap<Consulta, DetalhesConsultaViewModel>().ReverseMap();
             CreateMap<Consulta, ListConsultaViewModel>().ReverseMap();
+            CreateMap<Consulta, RemarcarConsultaViewModel>().ReverseMap();
 
             CreateMap<Medico, MedicoViewModel>().ReverseMap();
             CreateMap<Medico, ListMedicoViewModel>().ReverseMap();

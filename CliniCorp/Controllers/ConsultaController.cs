@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
 using CliniCorp.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
@@ -51,29 +52,39 @@ namespace CliniCorp.Controllers
         }
 
         [HttpPut("cancel")]
-        public IActionResult updateStatus(Consulta consulta)
+        //testar
+        public IActionResult updateStatus(CancelarConsultaViewModel consultaModel)
         {
-            var query = _consultarepository.AtualizarStatus(consulta.Id);
+            var query = _consultarepository.BuscarporId(consultaModel.Id);
 
             if (query == null) return BadRequest("consulta não existente");
 
-            _consultarepository.AtualizarStatus(consulta);
+            var consultaret = _mapper.Map<Consulta>(consultaModel);
+            _consultarepository.CancelarConsulta(consultaret);
 
-            return Ok(consulta);
+            return Ok(consultaret);
 
         }
 
-        [HttpPut("updatedate")]
-        public IActionResult updatedate(Consulta consulta)
+        [HttpPut("updatedate/{id}")]
+        //ok
+        public IActionResult updatedate(RemarcarConsultaViewModel consultaModel, int id)
         {
-            var query = _consultarepository.Detalhes(consulta.Id);
+            try
+            {
+                var busca = _consultarepository.BuscarporId(id);
+         
+                var consulta = _mapper.Map<Consulta>(consultaModel);
 
-            if (query == null) return BadRequest("consulta não existente");
+                _consultarepository.RemarcarConsulta(consulta, id);
 
-            _consultarepository.AtualizarDataConsulta(consulta);
+                return Ok(consulta);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
 
-            return Ok(consulta);
         }
-
     }
 }

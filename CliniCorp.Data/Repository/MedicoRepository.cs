@@ -31,6 +31,12 @@ namespace CliniCorp.Data.Repository
 
         }
 
+        public Medico buscarMedico(int id)
+        {
+            var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
+            return medico;
+        }
+
         public async Task<Medico> AdicionarMedico(Medico medicoobj)
         {
             try
@@ -63,8 +69,17 @@ namespace CliniCorp.Data.Repository
 
         public Medico ListarTodosPacientesdoMedico(int id)
         {
-            var medico = _context.Medicos.First(c => c.Id == id);
-            return medico;
+            var query = from c in _context.Consultas
+                        join p in _context.Pacientes on c.Paciente.Id equals p.Id
+                        where c.Medico.Id == id
+                        select new  
+                        {
+                            p.Nome,
+                            p.Cpf,
+                            p.DataNascimento
+                        };
+            return (Medico)query;
         }
+
     }
 }
