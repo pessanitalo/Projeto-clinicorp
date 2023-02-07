@@ -71,19 +71,7 @@ namespace CliniCorp.Controllers
         [HttpGet("medicospacientes/{id}")]
         public IActionResult medicosPacintes(int id)
         {
-
-            //var query = from c in _context.Consultas
-            //            join p in _context.Pacientes on c.Paciente.Id equals p.Id
-            //            where c.Medico.Id == id
-            //            select new
-            //            {
-            //                p.Nome,
-            //                p.Cpf,
-            //                p.DataNascimento
-            //            };
-            //return Ok(query);
-
-            var busca =  _medicorepository.ListarTodosPacientesdoMedico(id);
+            var busca = _medicorepository.ListarTodosPacientesdoMedico(id);
             return Ok(busca);
 
         }

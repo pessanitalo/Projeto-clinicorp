@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CliniCorp.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230201003748_inicio")]
-    partial class inicio
+    [Migration("20230207134031_alteracao-entidades")]
+    partial class alteracaoentidades
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace CliniCorp.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataConsulta")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("smalldatetime");
 
                     b.Property<string>("DescricaoConsulta")
                         .IsRequired()
@@ -105,7 +105,7 @@ namespace CliniCorp.Data.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)

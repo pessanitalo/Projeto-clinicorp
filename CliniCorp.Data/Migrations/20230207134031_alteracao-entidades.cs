@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CliniCorp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class inicio : Migration
+    public partial class alteracaoentidades : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace CliniCorp.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     Cpf = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
-                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "date", nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
@@ -48,7 +48,7 @@ namespace CliniCorp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DataConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataConsulta = table.Column<DateTime>(type: "smalldatetime", nullable: false),
                     DescricaoConsulta = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     StatusConsulta = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),

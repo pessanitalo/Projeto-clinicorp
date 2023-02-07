@@ -18,6 +18,10 @@ namespace CliniCorp.Data.Mappings
                     .HasColumnType("varchar")
                     .HasMaxLength(11);
 
+            builder.Property(p => p.DataNascimento)
+                   .HasColumnType("date");
+                   
+
             builder.Property(p => p.Email)
                     .HasColumnType("varchar")
                     .HasMaxLength(50);

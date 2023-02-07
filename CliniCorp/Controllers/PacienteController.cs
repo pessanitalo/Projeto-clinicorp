@@ -13,9 +13,9 @@ namespace CliniCorp.Controllers
         private readonly IPacienteRepository _Pacienterepository;
         private readonly IMapper _mapper;
 
-        public PacienteController(IPacienteRepository repository, IMapper mapper)
+        public PacienteController(IPacienteRepository pacienterepository, IMapper mapper)
         {
-            _Pacienterepository = repository;
+            _Pacienterepository = pacienterepository;
             _mapper = mapper;
         }
 
@@ -41,12 +41,12 @@ namespace CliniCorp.Controllers
             }
         }
 
-        [HttpGet("pesquisarpaciente/{nome}")]
-        public async Task<IActionResult> pesquisarpaciente(string nome)
+        [HttpGet("pesquisarpaciente/{nome}/{cpf}")]
+        public async Task<IActionResult> pesquisarpaciente(string nome, string cpf)
         {
             try
             {
-                var paciente = await _Pacienterepository.buscarPacientePorNome(nome);
+                var paciente = await _Pacienterepository.buscarPacientePorNome(nome,cpf);
                 return Ok(paciente);
             }
             catch (Exception ex)

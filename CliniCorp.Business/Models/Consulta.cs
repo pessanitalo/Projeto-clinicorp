@@ -1,7 +1,10 @@
-﻿namespace ProjetoDemo
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProjetoDemo
 {
     public class Consulta
     {
+        [Key]
         public int Id { get; set; }
         public DateTime DataConsulta { get; set; }
         public string DescricaoConsulta { get; set; }

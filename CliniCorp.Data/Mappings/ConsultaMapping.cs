@@ -23,6 +23,11 @@ namespace CliniCorp.Data.Mappings
                 .HasColumnType("varchar")
                 .HasMaxLength(50);
 
+            builder.Property(p => p.DataConsulta)
+                .IsRequired()
+                .HasColumnType("smalldatetime");
+               
+
             // 1 : 1 => Consulta: Paciente
             builder.HasOne(f => f.Paciente);
 

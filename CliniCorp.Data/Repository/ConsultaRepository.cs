@@ -9,6 +9,7 @@ namespace CliniCorp.Data.Repository
     {
         private readonly DataContext _context;
 
+
         public ConsultaRepository(DataContext context)
         {
             _context = context;
@@ -87,20 +88,19 @@ namespace CliniCorp.Data.Repository
         }
         public Consulta BuscarporId(int id)
         {
-
             try
             {
                 var ret = _context.Consultas.First(X => X.Id == id);
 
-                if(ret == null) throw new Exception("Consulta não encontrado.");
+                if (ret == null) throw new Exception("Consulta não encontrado.");
 
                 return ret;
             }
             catch (Exception ex)
             {
-               throw new Exception(ex.Message);
+                throw new Exception(ex.Message);
             }
-            
+
         }
     }
 }

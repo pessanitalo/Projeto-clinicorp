@@ -3,7 +3,6 @@ using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
-using System.Collections.Generic;
 
 namespace CliniCorp.Data.Repository
 {
@@ -26,8 +25,7 @@ namespace CliniCorp.Data.Repository
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message);
+               throw new Exception(ex.Message);
             }
 
         }

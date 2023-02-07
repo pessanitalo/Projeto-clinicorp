@@ -31,7 +31,7 @@ namespace CliniCorp.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DataConsulta")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("smalldatetime");
 
                     b.Property<string>("DescricaoConsulta")
                         .IsRequired()
@@ -102,7 +102,7 @@ namespace CliniCorp.Data.Migrations
                         .HasColumnType("varchar");
 
                     b.Property<DateTime>("DataNascimento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)

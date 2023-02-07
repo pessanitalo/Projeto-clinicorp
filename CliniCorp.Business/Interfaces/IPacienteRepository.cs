@@ -7,6 +7,6 @@ namespace CliniCorp.Business.Interfaces
     {
         Task<IEnumerable<Paciente>> ListarPacientes();
         Task<Paciente> Adicionarpaciente(Paciente paciente);
-        Task<Paciente> buscarPacientePorNome(string nome);
+        Task<Paciente> buscarPacientePorNome(string nome, string cpf);
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProjetoDemo;
+﻿using CliniCorp.Business.Models;
+using ProjetoDemo;
 
 namespace CliniCorp.Business.Interfaces
 {
@@ -7,7 +8,8 @@ namespace CliniCorp.Business.Interfaces
         Task<Medico> AdicionarMedico(Medico medico);
         Task<IEnumerable<Medico>> ListarMedicos();
         Task<Medico> buscarMedicoPorNome(string nome);
-        //Montar a query para adicnionar os pacientes
-        Medico ListarTodosPacientesdoMedico(int id);
+
+        IEnumerable<ListMedicoPaientes> ListarTodosPacientesdoMedico(int id);
+        Medico buscarMedico(int id);
     }
 }
