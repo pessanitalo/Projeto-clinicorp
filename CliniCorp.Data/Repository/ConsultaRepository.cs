@@ -14,20 +14,21 @@ namespace CliniCorp.Data.Repository
         {
             _context = context;
         }
-
         public async Task<IEnumerable<Consulta>> ListarTodos()
         {
             return await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
         }
         public async Task<Consulta> Adicionar(Consulta consulta)
         {
-            var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
-            var medico = buscarMedico(consulta.Medico.Id);
-
-            if (medico == null) throw new Exception("Médico não encontrado.");
-
             try
             {
+                VerificarHorario(consulta.Medico.Id, consulta.DataConsulta);
+
+                var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
+                var medico = buscarMedico(consulta.Medico.Id);
+
+                if (medico == null) throw new Exception("Médico não encontrado.");
+
                 var consultaNova = new Consulta
                 {
                     Id = 0,
@@ -101,6 +102,26 @@ namespace CliniCorp.Data.Repository
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public bool VerificarHorario(int id, DateTime novaConsulta)
+        {
+            var query = _context.Consultas.Where(c => c.Medico.Id.Equals(id)).ToList();
+
+            for (int i = 0; i < query.Count; i++)
+            {
+                foreach (var item in query)
+                {
+                    var dataAtual = item.DataConsulta.AddHours(1);
+
+                    if (novaConsulta < dataAtual)
+                    {
+                        throw new Exception("Horário inválido.");
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }
