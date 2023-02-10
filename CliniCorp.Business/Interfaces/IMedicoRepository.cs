@@ -5,8 +5,8 @@ namespace CliniCorp.Business.Interfaces
 {
     public interface IMedicoRepository
     {
-        Task<Medico> AdicionarMedico(Medico medico);
-        Task<IEnumerable<Medico>> ListarMedicos();
+        Task<PageList<Medico>> ListarMedicos(PageParams pageParams);
+        Task<Medico> AdicionarMedico(Medico medico);        
         Task<Medico> buscarMedicoPorNome(string nome);
 
         IEnumerable<ListMedicoPaientes> ListarTodosPacientesdoMedico(int id);

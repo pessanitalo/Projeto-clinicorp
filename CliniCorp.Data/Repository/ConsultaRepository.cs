@@ -1,4 +1,5 @@
 ﻿using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
@@ -8,15 +9,17 @@ namespace CliniCorp.Data.Repository
     public class ConsultaRepository : IConsultaRepository
     {
         private readonly DataContext _context;
-
-
         public ConsultaRepository(DataContext context)
         {
             _context = context;
         }
-        public async Task<IEnumerable<Consulta>> ListarTodos()
+        public async Task<PageList<Consulta>> ListarTodos(PageParams pageParams)
         {
-            return await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
+            //var query = await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
+
+            IQueryable<Consulta> query = _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente);
+
+            return await PageList<Consulta>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
         public async Task<Consulta> Adicionar(Consulta consulta)
         {
@@ -49,12 +52,12 @@ namespace CliniCorp.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
-
         public async Task<Consulta> Detalhes(int id)
         {
             var consulta = await _context.Consultas.Include
                 (c => c.Medico)
                 .Include(c => c.Medico)
+                .Include(c => c.Paciente)
                 .FirstAsync(X => X.Id == id);
 
             return consulta;
@@ -103,7 +106,6 @@ namespace CliniCorp.Data.Repository
             }
 
         }
-
         public bool VerificarHorario(int id, DateTime novaConsulta)
         {
             var query = _context.Consultas.Where(c => c.Medico.Id.Equals(id)).ToList();

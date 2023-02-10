@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
 
+
 namespace CliniCorp.Controllers
 {
     [Route("api/[controller]")]
@@ -41,9 +42,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IEnumerable<Medico>> obterLista()
+        public async Task<IEnumerable<Medico>> obterLista([FromQuery] PageParams pageParams)
         {
-            return await _medicorepository.ListarMedicos();
+            return await _medicorepository.ListarMedicos(pageParams);
         }
 
         [HttpGet("pesquisarMedico/{id}")]
@@ -75,6 +76,5 @@ namespace CliniCorp.Controllers
             return Ok(busca);
 
         }
-
     }
 }

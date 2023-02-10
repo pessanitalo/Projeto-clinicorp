@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
@@ -20,9 +21,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("listarPacientes")]
-        public async Task<IEnumerable<Paciente>> lista()
+        public async Task<IEnumerable<Paciente>> lista([FromQuery] PageParams pageParams)
         {
-            return await _Pacienterepository.ListarPacientes();
+            return await _Pacienterepository.ListarPacientes(pageParams);
         }
 
         [HttpPost]

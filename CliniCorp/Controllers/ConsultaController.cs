@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
 using CliniCorp.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
@@ -21,9 +21,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<IEnumerable<ListConsultaViewModel>> obterLista()
+        public async Task<List<ListConsultaViewModel>> obterLista([FromQuery] PageParams pageParams)
         {
-            return _mapper.Map<IEnumerable<ListConsultaViewModel>>(await _consultarepository.ListarTodos());
+            return _mapper.Map<List<ListConsultaViewModel>>(await _consultarepository.ListarTodos(pageParams));
         }
 
         [HttpPost("created")]
