@@ -1,6 +1,6 @@
 ﻿using CliniCorp.Business.Interfaces;
+using CliniCorp.Business.Models;
 using CliniCorp.Data.Context;
-using Microsoft.CodeAnalysis.FlowAnalysis;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDemo;
 
@@ -19,8 +19,8 @@ namespace CliniCorp.Data.Repository
         {
             try
             {
-                var retorno = await _context.Pacientes.FirstOrDefaultAsync(X => X.Cpf == pacienteModel.Cpf);
-                if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
+                var retPaciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Cpf == pacienteModel.Cpf);
+                if (retPaciente != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
                 var paciente = new Paciente
                 {
@@ -52,15 +52,16 @@ namespace CliniCorp.Data.Repository
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
- 
+
         }
 
-        public async Task<IEnumerable<Paciente>> ListarPacientes()
+        public async Task<PageList<Paciente>> ListarPacientes(PageParams pageParams)
         {
-            return await _context.Pacientes.ToListAsync();
+            IQueryable<Paciente> query =  _context.Pacientes;
+
+            return await PageList<Paciente>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
 
         }
 

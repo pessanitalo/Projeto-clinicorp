@@ -15,8 +15,6 @@ namespace CliniCorp.Data.Repository
         }
         public async Task<PageList<Consulta>> ListarTodos(PageParams pageParams)
         {
-            //var query = await _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente).ToListAsync();
-
             IQueryable<Consulta> query = _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente);
 
             return await PageList<Consulta>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
@@ -37,7 +35,7 @@ namespace CliniCorp.Data.Repository
                     Id = 0,
                     DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
                     DataConsulta = consulta.DataConsulta,
-                    Status = 0,
+                    Status = (int)StatusConsulta.Agendada,
                     StatusConsulta = "Agendada",
                     Paciente = paciente,
                     Medico = medico
@@ -54,19 +52,16 @@ namespace CliniCorp.Data.Repository
         }
         public async Task<Consulta> Detalhes(int id)
         {
-            var consulta = await _context.Consultas.Include
-                (c => c.Medico)
-                .Include(c => c.Medico)
+            var consulta = await _context.Consultas.Include(c => c.Medico)
                 .Include(c => c.Paciente)
                 .FirstAsync(X => X.Id == id);
-
             return consulta;
         }
         public Consulta CancelarConsulta(Consulta consulta)
         {
             var query = BuscarporId(consulta.Id);
 
-            query.Status = 2;
+            query.Status = (int)StatusConsulta.Cancelada;
             query.StatusConsulta = "Cancelada";
 
             _context.Update(query);
@@ -78,7 +73,7 @@ namespace CliniCorp.Data.Repository
             var query = BuscarporId(id);
 
             query.DataConsulta = consulta.DataConsulta;
-            query.Status = 1;
+            query.Status = (int)StatusConsulta.Reagendada;
             query.StatusConsulta = "Reagendada";
 
             _context.Update(query);

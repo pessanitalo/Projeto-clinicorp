@@ -36,19 +36,19 @@ namespace CliniCorp.Data.Repository
             return medico;
         }
 
-        public async Task<Medico> AdicionarMedico(Medico medicoobj)
+        public async Task<Medico> AdicionarMedico(Medico medicoModel)
         {
             try
             {
-                var retorno = await _context.Medicos.FirstOrDefaultAsync(X => X.Cpf == medicoobj.Cpf);
-                if (retorno != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
+                var retMedico = await _context.Medicos.FirstOrDefaultAsync(X => X.Cpf == medicoModel.Cpf);
+                if (retMedico != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
                 var medico = new Medico
                 {
                     Id = 0,
-                    Nome = medicoobj.Nome.ToLower(),
-                    Especializacao = medicoobj.Especializacao.ToLower(),
-                    Cpf = medicoobj.Cpf,
+                    Nome = medicoModel.Nome.ToLower(),
+                    Especializacao = medicoModel.Especializacao.ToLower(),
+                    Cpf = medicoModel.Cpf,
                 };
                 _context.Medicos.Add(medico);
                 _context.SaveChanges();
@@ -61,9 +61,12 @@ namespace CliniCorp.Data.Repository
 
         }
 
-        public async Task<IEnumerable<Medico>> ListarMedicos()
+        public async Task<PageList<Medico>> ListarMedicos(PageParams pageParams)
         {
-            return await _context.Medicos.ToListAsync();
+            IQueryable<Medico> query =  _context.Medicos;
+
+            return await PageList<Medico>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
+
         }
 
         public IEnumerable<ListMedicoPaientes> ListarTodosPacientesdoMedico(int id)

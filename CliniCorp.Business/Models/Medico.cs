@@ -1,6 +1,8 @@
-﻿namespace ProjetoDemo
+﻿using CliniCorp.Business.Models;
+
+namespace ProjetoDemo
 {
-    public class Medico
+    public class Medico : Pessoa
     {
         public int Id { get; set; }
         public string Nome { get; set; }
