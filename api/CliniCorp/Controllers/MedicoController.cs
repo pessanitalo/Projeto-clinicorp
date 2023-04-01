@@ -48,9 +48,9 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("pesquisarMedico/{id}")]
-        public IEnumerable<ListMedicoPaientes> pesquisarmedico(int id)
+        public Medico pesquisarmedico(int id)
         {
-            return _medicorepository.ListarTodosPacientesdoMedico(id);
+            return _medicorepository.buscarMedico(id);
         }
 
         [HttpGet("buscarmediconome/{nome}")]
