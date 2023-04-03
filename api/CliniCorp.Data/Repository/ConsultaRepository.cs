@@ -13,6 +13,7 @@ namespace CliniCorp.Data.Repository
         {
             _context = context;
         }
+
         public async Task<PageList<Consulta>> ListarTodos(PageParams pageParams)
         {
             IQueryable<Consulta> query = _context.Consultas.Include(c => c.Medico).Include(c => c.Paciente);
@@ -26,7 +27,7 @@ namespace CliniCorp.Data.Repository
                 VerificarHorario(consulta.Medico.Id, consulta.DataConsulta);
 
                 var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
-                var medico = buscarMedico(consulta.Medico.Id);
+                var medico = await _context.Medicos.FirstOrDefaultAsync(X => X.Id == consulta.Medico.Id);
 
                 if (medico == null) throw new Exception("Médico não encontrado.");
 
@@ -50,6 +51,7 @@ namespace CliniCorp.Data.Repository
                 throw new Exception(ex.Message);
             }
         }
+
         public async Task<Consulta> Detalhes(int id)
         {
             var consulta = await _context.Consultas.Include(c => c.Medico)
@@ -79,11 +81,6 @@ namespace CliniCorp.Data.Repository
             _context.Update(query);
             _context.SaveChanges();
             return query;
-        }
-        public Medico buscarMedico(int id)
-        {
-            var medico = _context.Medicos.FirstOrDefault(x => x.Id == id);
-            return medico;
         }
         public Consulta BuscarporId(int id)
         {

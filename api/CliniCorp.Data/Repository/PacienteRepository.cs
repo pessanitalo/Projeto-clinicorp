@@ -57,6 +57,12 @@ namespace CliniCorp.Data.Repository
 
         }
 
+        public Paciente pesquisarPaciente(int id)
+        {
+            var paciente = _context.Pacientes.FirstOrDefault(x => x.Id == id);
+            return paciente;
+        }
+
         public async Task<PageList<Paciente>> ListarPacientes(PageParams pageParams)
         {
             IQueryable<Paciente> query =  _context.Pacientes;
