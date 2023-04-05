@@ -25,7 +25,7 @@ namespace CliniCorp.Data.Repository
             }
             catch (Exception ex)
             {
-               throw new Exception(ex.Message);
+                throw new Exception(ex.Message);
             }
 
         }
@@ -63,7 +63,7 @@ namespace CliniCorp.Data.Repository
 
         public async Task<PageList<Medico>> ListarMedicos(PageParams pageParams)
         {
-            IQueryable<Medico> query =  _context.Medicos;
+            IQueryable<Medico> query = _context.Medicos;
 
             return await PageList<Medico>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
 

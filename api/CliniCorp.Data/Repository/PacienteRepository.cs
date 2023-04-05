@@ -20,7 +20,7 @@ namespace CliniCorp.Data.Repository
             try
             {
                 var retPaciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Cpf == pacienteModel.Cpf);
-                if (retPaciente != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
+                if (retPaciente != null) throw new Exception("Já existe um paciente cadastrado com esse cpf.");
 
                 var paciente = new Paciente
                 {
@@ -46,7 +46,7 @@ namespace CliniCorp.Data.Repository
             {
                 var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Nome == nome && x.Cpf == cpf);
 
-                if (paciente == null) throw new Exception("Paciente não encontrado");
+                if (paciente == null) throw new Exception("Paciente não encontrado.");
 
                 return paciente;
             }
