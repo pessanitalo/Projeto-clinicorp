@@ -28,7 +28,7 @@ namespace CliniCorp.Data.Repository
 
                 var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
                 var medico = await _context.Medicos.FirstOrDefaultAsync(X => X.Id == consulta.Medico.Id);
-
+                if (paciente == null) throw new Exception("paciente não encontrado.");
                 if (medico == null) throw new Exception("Médico não encontrado.");
 
                 var consultaNova = new Consulta

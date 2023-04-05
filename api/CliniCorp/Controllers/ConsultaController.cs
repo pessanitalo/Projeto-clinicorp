@@ -42,7 +42,7 @@ namespace CliniCorp.Controllers
 
         }
 
-        [HttpGet("detalhes/{id}")]
+        [HttpGet("detalhes/{id:int}")]
         public async Task<IActionResult> detalhes(int id)
         {
             var consulta = _mapper.Map<DetalhesConsultaViewModel>(await _consultarepository.Detalhes(id));
@@ -67,7 +67,7 @@ namespace CliniCorp.Controllers
 
         }
 
-        [HttpPut("updatedate/{id}")]
+        [HttpPut("updatedate/{id:int}")]
         //ok
         public IActionResult updatedate(RemarcarConsultaViewModel consultaModel, int id)
         {

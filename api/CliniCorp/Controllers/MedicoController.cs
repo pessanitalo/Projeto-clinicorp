@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CliniCorp.Business.Interfaces;
 using CliniCorp.Business.Models;
-using CliniCorp.Data.Context;
 using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
@@ -15,13 +14,11 @@ namespace CliniCorp.Controllers
     public class MedicoController : ControllerBase
     {
         private readonly IMedicoRepository _medicorepository;
-        private readonly DataContext _context;
         private readonly IMapper _mapper;
 
-        public MedicoController(IMedicoRepository medicorepository, DataContext context, IMapper mapper)
+        public MedicoController(IMedicoRepository medicorepository, IMapper mapper)
         {
             _medicorepository = medicorepository;
-            _context = context;
             _mapper = mapper;
         }
 
@@ -47,7 +44,7 @@ namespace CliniCorp.Controllers
             return await _medicorepository.ListarMedicos(pageParams);
         }
 
-        [HttpGet("pesquisarMedico/{id}")]
+        [HttpGet("pesquisarMedico/{id:int}")]
         public Medico pesquisarmedico(int id)
         {
             return _medicorepository.buscarMedico(id);
@@ -69,7 +66,7 @@ namespace CliniCorp.Controllers
 
         }
 
-        [HttpGet("medicospacientes/{id}")]
+        [HttpGet("medicospacientes/{id:int}")]
         public IActionResult medicosPacintes(int id)
         {
             var busca = _medicorepository.ListarTodosPacientesdoMedico(id);
