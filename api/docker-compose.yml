@@ -2,11 +2,11 @@ version: '3.4'
 
 services:
   clinicorp:
-    image: clinicorp
+    image: clinicorp-api
     container_name: clinicorp-api
     build:
       context: .
-      dockerfile: CliniCorp/Dockerfile
+      dockerfile: Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
     ports:
