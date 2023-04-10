@@ -51,6 +51,7 @@ namespace CliniCorp.Controllers
             try
             {
                 var paciente = await _Pacienterepository.buscarPacientePorNome(nome,cpf);
+                if (paciente == null) return NotFound("Paciente não encontrado.");
                 return Ok(paciente);
             }
             catch (Exception ex)

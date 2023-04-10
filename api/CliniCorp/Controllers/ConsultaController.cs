@@ -5,6 +5,7 @@ using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
+
 namespace CliniCorp.Controllers
 {
     [Route("api/[controller]")]
@@ -46,7 +47,7 @@ namespace CliniCorp.Controllers
         public async Task<IActionResult> detalhes(int id)
         {
             var consulta = _mapper.Map<DetalhesConsultaViewModel>(await _consultarepository.Detalhes(id));
-            if (consulta == null) return BadRequest("consulta não existente");
+            if (consulta == null) return NotFound("consulta não existente");
 
             return Ok(consulta);
         }
@@ -55,10 +56,10 @@ namespace CliniCorp.Controllers
         //testar
         public IActionResult updateStatus(CancelarConsultaViewModel consultaModel)
         {
-            //corrigir
+
             var query = _consultarepository.BuscarporId(consultaModel.Id);
 
-            if (query == null) return BadRequest("consulta não existente");
+            if (query == null) return NotFound("consulta não existente");
 
             var consultaret = _mapper.Map<Consulta>(consultaModel);
             _consultarepository.CancelarConsulta(consultaret);
@@ -73,9 +74,10 @@ namespace CliniCorp.Controllers
         {
             try
             {
-                //corrigir
+
                 var busca = _consultarepository.BuscarporId(id);
-         
+                if (busca == null) return NotFound("consulta não existente");
+
                 var consulta = _mapper.Map<Consulta>(consultaModel);
 
                 _consultarepository.RemarcarConsulta(consulta, id);

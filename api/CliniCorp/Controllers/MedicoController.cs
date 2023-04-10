@@ -45,9 +45,11 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("pesquisarMedico/{id:int}")]
-        public Medico pesquisarmedico(int id)
+        public IActionResult pesquisarmedico(int id)
         {
-            return _medicorepository.buscarMedico(id);
+            var medico = _medicorepository.buscarMedico(id);
+            if (medico == null) return NotFound("Médico não encontrado.");
+            return Ok(medico);
         }
 
         [HttpGet("buscarmediconome/{nome}")]
@@ -56,6 +58,7 @@ namespace CliniCorp.Controllers
             try
             {
                 var busca = await _medicorepository.buscarMedicoPorNome(nome);
+                if (busca == null) return NotFound("Médico não encontrado.");
 
                 return Ok(busca);
             }
@@ -70,6 +73,8 @@ namespace CliniCorp.Controllers
         public IActionResult medicosPacintes(int id)
         {
             var busca = _medicorepository.ListarTodosPacientesdoMedico(id);
+            if(busca == null) return NotFound("Não foram encontrados pacientes para esse médico.");
+
             return Ok(busca);
 
         }
