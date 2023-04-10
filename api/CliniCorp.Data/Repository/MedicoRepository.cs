@@ -17,17 +17,9 @@ namespace CliniCorp.Data.Repository
 
         public async Task<Medico> buscarMedicoPorNome(string nome)
         {
-            try
-            {
-                var medico = await _context.Medicos.FirstAsync(x => x.Nome == nome);
-                if (medico == null) throw new Exception("Médico não encontrado.");
-                return medico;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
+            var medico = await _context.Medicos.FirstAsync(x => x.Nome == nome);
+            if (medico == null) throw new Exception("Médico não encontrado.");
+            return medico;
         }
 
         public Medico buscarMedico(int id)
@@ -38,27 +30,20 @@ namespace CliniCorp.Data.Repository
 
         public async Task<Medico> AdicionarMedico(Medico medicoModel)
         {
-            try
-            {
-                var retMedico = await _context.Medicos.FirstOrDefaultAsync(X => X.Cpf == medicoModel.Cpf);
-                if (retMedico != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
-                var medico = new Medico
-                {
-                    Id = 0,
-                    Nome = medicoModel.Nome.ToLower(),
-                    Especializacao = medicoModel.Especializacao.ToLower(),
-                    Cpf = medicoModel.Cpf,
-                };
-                _context.Medicos.Add(medico);
-                _context.SaveChanges();
-                return medico;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            var retMedico = await _context.Medicos.FirstOrDefaultAsync(X => X.Cpf == medicoModel.Cpf);
+            if (retMedico != null) throw new Exception("Já existe médico cadastrado com esse cpf.");
 
+            var medico = new Medico
+            {
+                Id = 0,
+                Nome = medicoModel.Nome.ToLower(),
+                Especializacao = medicoModel.Especializacao.ToLower(),
+                Cpf = medicoModel.Cpf,
+            };
+            _context.Medicos.Add(medico);
+            _context.SaveChanges();
+            return medico;
         }
 
         public async Task<PageList<Medico>> ListarMedicos(PageParams pageParams)

@@ -22,34 +22,27 @@ namespace CliniCorp.Data.Repository
         }
         public async Task<Consulta> Adicionar(Consulta consulta)
         {
-            try
+
+            VerificarHorario(consulta.Medico.Id, consulta.DataConsulta);
+
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
+            var medico = await _context.Medicos.FirstOrDefaultAsync(X => X.Id == consulta.Medico.Id);
+            if (paciente == null) throw new Exception("paciente não encontrado.");
+            if (medico == null) throw new Exception("Médico não encontrado.");
+
+            var consultaNova = new Consulta
             {
-                VerificarHorario(consulta.Medico.Id, consulta.DataConsulta);
-
-                var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
-                var medico = await _context.Medicos.FirstOrDefaultAsync(X => X.Id == consulta.Medico.Id);
-                if (paciente == null) throw new Exception("paciente não encontrado.");
-                if (medico == null) throw new Exception("Médico não encontrado.");
-
-                var consultaNova = new Consulta
-                {
-                    Id = 0,
-                    DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
-                    DataConsulta = consulta.DataConsulta,
-                    Status = (int)StatusConsulta.Agendada,
-                    StatusConsulta = "Agendada",
-                    Paciente = paciente,
-                    Medico = medico
-                };
-                _context.Add(consultaNova);
-                _context.SaveChanges();
-                return consultaNova;
-            }
-
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+                Id = 0,
+                DescricaoConsulta = consulta.DescricaoConsulta.ToLower(),
+                DataConsulta = consulta.DataConsulta,
+                Status = (int)StatusConsulta.Agendada,
+                StatusConsulta = "Agendada",
+                Paciente = paciente,
+                Medico = medico
+            };
+            _context.Add(consultaNova);
+            _context.SaveChanges();
+            return consultaNova;
         }
 
         public async Task<Consulta> Detalhes(int id)
@@ -84,19 +77,11 @@ namespace CliniCorp.Data.Repository
         }
         public Consulta BuscarporId(int id)
         {
-            try
-            {
-                var ret = _context.Consultas.First(X => X.Id == id);
+            var ret = _context.Consultas.First(X => X.Id == id);
 
-                if (ret == null) throw new Exception("Consulta não encontrado.");
+            if (ret == null) throw new Exception("Consulta não encontrado.");
 
-                return ret;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-
+            return ret;
         }
         public bool VerificarHorario(int id, DateTime novaConsulta)
         {
