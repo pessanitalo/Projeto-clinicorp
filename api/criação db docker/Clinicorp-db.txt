@@ -1,0 +1,55 @@
+create database clinicorpdb;
+
+use clinicorpdb;
+
+create table [medicos] (
+[Id] int primary key not null identity,
+[Nome] varchar(50) not null,
+[Cpf] varchar(11) not null,
+[Especializacao] varchar(50) not null
+);
+
+create table [pacientes](
+[Id] int primary key not null identity,
+[Nome] varchar(50) not null,
+[Cpf] varchar(11) not null,
+[DataNascimento] date not null,
+[email] varchar(50) not null,
+);
+
+create table [consultas](
+[Id] int primary key not null identity,
+[DataConsulta] datetime not null,
+[DescricaoConsulta] varchar(1000) not null,
+[Status] int not null,
+[StatusConsulta] varchar(50) not null,
+[MedicoId] int not null,
+constraint [PK_Medicos] foreign key ([MedicoId]) references medicos ([Id]),
+[PacienteId] int not null,
+constraint [PK_Pacientes] foreign key ([PacienteId]) references pacientes ([Id])
+);
+
+INSERT INTO dbo.pacientes VALUES ('italo','76550922062','1987-04-28','italopessan@gmail.com');
+INSERT INTO dbo.pacientes VALUES ('paulo santos','82219632083','1987-03-15','paulosantos@gmail.com');
+INSERT INTO dbo.pacientes VALUES ('diego','21783760028','1987-03-28','diego@gmail.com');
+INSERT INTO dbo.pacientes VALUES ('bruna','79027300097','1987-04-15','bruna@gmail.com');
+INSERT INTO dbo.pacientes VALUES ('ricardo','99789543093','1990-04-05','bruna@gmail.com');
+
+INSERT INTO dbo.medicos VALUES ('ricardo','56703016097','clinico geral');
+INSERT INTO dbo.medicos VALUES ('patricia','31623318033','clinico geral');
+INSERT INTO dbo.medicos VALUES ('roberto','48659383036','clinico geral');
+INSERT INTO dbo.medicos VALUES ('evandro','46555607033','ortopedista');
+INSERT INTO dbo.medicos VALUES ('matheus','19649897011','ortopedista');
+INSERT INTO dbo.medicos VALUES ('carlos','54120575004','ortopedista');
+
+
+INSERT INTO dbo.consultas VALUES ('2023-04-05','Clinico geral',1, 'Agendada',1,1);
+INSERT INTO dbo.consultas VALUES ('2023-04-05','Clinico geral',1, 'Agendada',1,2);
+
+INSERT INTO dbo.consultas VALUES ('2023-04-12','Ortopedista',1, 'Agendada',4,1);
+INSERT INTO dbo.consultas VALUES ('2023-04-12','Ortopedista',1, 'Agendada',4,2);
+INSERT INTO dbo.consultas VALUES ('2023-04-13','Ortopedista',1, 'Agendada',5,1);
+INSERT INTO dbo.consultas VALUES ('2023-04-14','Ortopedista',1, 'Agendada',6,2);
+
+INSERT INTO dbo.consultas VALUES ('2023-04-15','Ortopedista',1, 'Agendada',5,4);
+INSERT INTO dbo.consultas VALUES ('2023-04-16','Ortopedista',1, 'Agendada',6,5);
