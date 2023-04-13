@@ -27,9 +27,6 @@ namespace CliniCorp.Data.Repository
 
             var paciente = await _context.Pacientes.FirstOrDefaultAsync(X => X.Id == consulta.Paciente.Id);
             var medico = await _context.Medicos.FirstOrDefaultAsync(X => X.Id == consulta.Medico.Id);
-            if (paciente == null) throw new Exception("paciente não encontrado.");
-            if (medico == null) throw new Exception("Médico não encontrado.");
-
             var consultaNova = new Consulta
             {
                 Id = 0,
@@ -49,7 +46,7 @@ namespace CliniCorp.Data.Repository
         {
             var consulta = await _context.Consultas.Include(c => c.Medico)
                 .Include(c => c.Paciente)
-                .FirstAsync(X => X.Id == id);
+                .FirstOrDefaultAsync(X => X.Id == id);
             return consulta;
         }
         public Consulta CancelarConsulta(Consulta consulta)
@@ -77,10 +74,7 @@ namespace CliniCorp.Data.Repository
         }
         public Consulta BuscarporId(int id)
         {
-            var ret = _context.Consultas.First(X => X.Id == id);
-
-            if (ret == null) throw new Exception("Consulta não encontrado.");
-
+            var ret = _context.Consultas.FirstOrDefault(X => X.Id == id);
             return ret;
         }
         public bool VerificarHorario(int id, DateTime novaConsulta)

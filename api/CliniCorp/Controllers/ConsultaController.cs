@@ -22,9 +22,16 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("list")]
-        public async Task<List<ListConsultaViewModel>> obterLista([FromQuery] PageParams pageParams)
+        public async Task<IActionResult> obterLista([FromQuery] PageParams pageParams)
         {
-            return _mapper.Map<List<ListConsultaViewModel>>(await _consultarepository.ListarTodos(pageParams));
+
+            try
+            {
+                var lista = _mapper.Map<List<ListConsultaViewModel>>(await _consultarepository.ListarTodos(pageParams));
+                return Ok(lista);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
+
         }
 
         [HttpPost("created")]
@@ -36,47 +43,48 @@ namespace CliniCorp.Controllers
                 await _consultarepository.Adicionar(consulta);
                 return Ok(consulta);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
 
         }
 
         [HttpGet("detalhes/{id:int}")]
         public async Task<IActionResult> detalhes(int id)
         {
-            var consulta = _mapper.Map<DetalhesConsultaViewModel>(await _consultarepository.Detalhes(id));
-            if (consulta == null) return NotFound("consulta não existente");
+            try
+            {
+                var consulta = _mapper.Map<DetalhesConsultaViewModel>(await _consultarepository.Detalhes(id));
+                if (consulta == null) return NotFound(new ResultViewModel<DetalhesConsultaViewModel>("Consulta não encontrada."));
 
-            return Ok(consulta);
+                return Ok(consulta);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
         [HttpPut("cancel")]
-        //testar
         public IActionResult updateStatus(CancelarConsultaViewModel consultaModel)
         {
+            try
+            {
+                var query = _consultarepository.BuscarporId(consultaModel.Id);
 
-            var query = _consultarepository.BuscarporId(consultaModel.Id);
+                if (query == null) return NotFound(new ResultViewModel<DetalhesConsultaViewModel>("Consulta não encontrada."));
 
-            if (query == null) return NotFound("consulta não existente");
+                var consultaret = _mapper.Map<Consulta>(consultaModel);
+                _consultarepository.CancelarConsulta(consultaret);
 
-            var consultaret = _mapper.Map<Consulta>(consultaModel);
-            _consultarepository.CancelarConsulta(consultaret);
-
-            return Ok(consultaret);
+                return Ok(consultaret);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
 
         }
 
         [HttpPut("updatedate/{id:int}")]
-        //ok
         public IActionResult updatedate(RemarcarConsultaViewModel consultaModel, int id)
         {
             try
             {
-
                 var busca = _consultarepository.BuscarporId(id);
-                if (busca == null) return NotFound("consulta não existente");
+                if (busca == null) return NotFound(new ResultViewModel<DetalhesConsultaViewModel>("Consulta não encontrada.")); ;
 
                 var consulta = _mapper.Map<Consulta>(consultaModel);
 
@@ -84,11 +92,7 @@ namespace CliniCorp.Controllers
 
                 return Ok(consulta);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
-
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
     }
 }

@@ -5,8 +5,6 @@ using CliniCorp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDemo;
 
-
-
 namespace CliniCorp.Controllers
 {
     [Route("api/[controller]")]
@@ -22,6 +20,17 @@ namespace CliniCorp.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("list")]
+        public async Task<IActionResult> obterLista([FromQuery] PageParams pageParams)
+        {
+            try
+            {
+                var obterLista = await _medicorepository.ListarMedicos(pageParams);
+                return Ok(obterLista);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
+        }
+
         [HttpPost]
         public async Task<IActionResult> create(CreateMedicoViewModel medicoViewModel)
         {
@@ -31,25 +40,19 @@ namespace CliniCorp.Controllers
                 await _medicorepository.AdicionarMedico(medico);
                 return Ok(medico);
             }
-            catch (Exception ex)
-            {
-
-                return StatusCode(400, ex.Message);
-            }
-        }
-
-        [HttpGet("list")]
-        public async Task<IEnumerable<Medico>> obterLista([FromQuery] PageParams pageParams)
-        {
-            return await _medicorepository.ListarMedicos(pageParams);
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
         [HttpGet("pesquisarMedico/{id:int}")]
         public IActionResult pesquisarmedico(int id)
         {
-            var medico = _medicorepository.buscarMedico(id);
-            if (medico == null) return NotFound("Médico não encontrado.");
-            return Ok(medico);
+            try
+            {
+                var medico = _medicorepository.buscarMedico(id);
+                if (medico == null) return NotFound(new ResultViewModel<MedicoViewModel>("Medico não encontrado."));
+                return Ok(medico);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
         [HttpGet("buscarmediconome/{nome}")]
@@ -58,24 +61,25 @@ namespace CliniCorp.Controllers
             try
             {
                 var busca = await _medicorepository.buscarMedicoPorNome(nome);
-                if (busca == null) return NotFound("Médico não encontrado.");
+                if (busca == null) return NotFound(new ResultViewModel<MedicoViewModel>("Medico não encontrado."));
 
                 return Ok(busca);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
 
         }
 
         [HttpGet("medicospacientes/{id:int}")]
         public IActionResult medicosPacintes(int id)
         {
-            var busca = _medicorepository.ListarTodosPacientesdoMedico(id);
-            if(busca == null) return NotFound("Não foram encontrados pacientes para esse médico.");
+            try
+            {
+                List<ListMedicoPaientes> busca = (List<ListMedicoPaientes>)_medicorepository.ListarTodosPacientesdoMedico(id);
+                if (busca.Count <= 0) return NotFound(new ResultViewModel<MedicoViewModel>("paciente não encontrado."));
 
-            return Ok(busca);
+                return Ok(busca);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
 
         }
     }

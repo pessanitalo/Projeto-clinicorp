@@ -24,9 +24,14 @@ namespace CliniCorp.Controllers
         }
 
         [HttpGet("listarPacientes")]
-        public async Task<IEnumerable<Paciente>> lista([FromQuery] PageParams pageParams)
+        public async Task<IActionResult> lista([FromQuery] PageParams pageParams)
         {
-            return await _Pacienterepository.ListarPacientes(pageParams);
+            try
+            {
+                var lista = await _Pacienterepository.ListarPacientes(pageParams);
+                return Ok(lista);
+            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
         [HttpPost]
@@ -38,11 +43,7 @@ namespace CliniCorp.Controllers
                 await _Pacienterepository.Adicionarpaciente(paciente);
                 return Ok(paciente);
             }
-            catch (Exception ex)
-            {
-
-                return StatusCode(400, ex.Message);
-            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
         [HttpGet("pesquisarpaciente/{nome}/{cpf}")]
@@ -50,14 +51,11 @@ namespace CliniCorp.Controllers
         {
             try
             {
-                var paciente = await _Pacienterepository.buscarPacientePorNome(nome,cpf);
-                if (paciente == null) return NotFound("Paciente não encontrado.");
+                var paciente = await _Pacienterepository.buscarPacientePorNome(nome, cpf);
+                if (paciente == null) return NotFound(new ResultViewModel<PacienteViewModel>("Paciente não encontrado."));
                 return Ok(paciente);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
+            catch { return StatusCode(500, "Falha interna no servidor."); }
 
         }
     }
