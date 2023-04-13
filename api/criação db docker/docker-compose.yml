@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  clinicorp:
+    image: italopessan/clinicorp-api
+    container_name: clinicorp-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+       - "5500:80" 
+    depends_on:
+      - sqlserver
+    networks:
+      - clinicorp
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: clinicorp-db
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: "Numsey#2021"
+    volumes:
+      - c:\dados\volumes\mssql:/var/opt/mssql3
+    ports:
+      - '1433:1433'
+    networks:
+      - clinicorp
+networks:
+  clinicorp:
+    driver:  bridge
