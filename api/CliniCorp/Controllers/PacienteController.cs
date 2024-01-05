@@ -46,12 +46,12 @@ namespace CliniCorp.Controllers
             catch { return StatusCode(500, "Falha interna no servidor."); }
         }
 
-        [HttpGet("pesquisarpaciente/{nome}/{cpf}")]
-        public async Task<IActionResult> pesquisarpaciente(string nome, string cpf)
+        [HttpGet("pesquisarpaciente/{cpf}")]
+        public async Task<IActionResult> pesquisarpaciente(string cpf)
         {
             try
             {
-                var paciente = await _Pacienterepository.buscarPacientePorNome(nome, cpf);
+                var paciente = await _Pacienterepository.buscarPacientePorNome(cpf);
                 if (paciente == null) return NotFound(new ResultViewModel<PacienteViewModel>("Paciente não encontrado."));
                 return Ok(paciente);
             }

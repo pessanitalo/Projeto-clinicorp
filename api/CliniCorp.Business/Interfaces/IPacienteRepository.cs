@@ -8,7 +8,7 @@ namespace CliniCorp.Business.Interfaces
     {
         Task<PageList<Paciente>> ListarPacientes(PageParams pageParams);
         Task<Paciente> Adicionarpaciente(Paciente paciente);
-        Task<Paciente> buscarPacientePorNome(string nome, string cpf);
+        Task<Paciente> buscarPacientePorNome(string cpf);
         Paciente pesquisarPaciente(int id);
     }
 }

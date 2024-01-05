@@ -31,7 +31,7 @@ export class ConsultaNovaComponent implements OnInit {
 
   errorMessage!: string;
 
-  nomePaciente!: string;
+  cpfPaciente!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -67,11 +67,11 @@ export class ConsultaNovaComponent implements OnInit {
 
 
   buscarPaciente() {
-    if(this.nomePaciente == null || this.nomePaciente.length <= 0){
+    if(this.cpfPaciente == null || this.cpfPaciente.length <= 0){
       this.toastr.warning('Campo Paciente Obrigatório', 'Ops!');
     }
     else{
-      this.pacienteService.buscarpacientePorNome(this.nomePaciente).subscribe((res) => {
+      this.pacienteService.buscarpacientePorNome(this.cpfPaciente).subscribe((res) => {
         this.paciente = res;
         this.toastr.success('Paciente adicionado com sucesso.', 'Sucesso!');
       },

@@ -34,9 +34,9 @@ namespace CliniCorp.Data.Repository
             return paciente;
         }
 
-        public async Task<Paciente> buscarPacientePorNome(string nome, string cpf)
+        public async Task<Paciente> buscarPacientePorNome(string cpf)
         {
-            var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Nome == nome && x.Cpf == cpf);
+            var paciente = await _context.Pacientes.FirstOrDefaultAsync(x => x.Cpf == cpf);
             return paciente;
         }
 
