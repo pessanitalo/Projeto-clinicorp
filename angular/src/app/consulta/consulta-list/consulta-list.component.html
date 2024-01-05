@@ -34,12 +34,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <p>Médico Responsável: <strong>{{ consulta.paciente.nome }}</strong></p>
+    <p>Consulta id: <strong>{{ consulta.id}}</strong></p>
+    <p>Médico Responsável: <strong>{{ consulta.paciente.nome }}</strong></p>
     <p>Descrição: {{consulta.descricaoConsulta}}</p>
-    <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p> -->
+    <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p>
     <div class="div">
-      <!-- <P>Dados do Paciente:</P> -->
-      <!-- <p>Nome do Paciente: {{ consulta.paciente.dataNascimento | date: 'dd/MM/yyyy'}}</p> -->
+      <P>Dados do Paciente:</P>
+      <p>Nome do Paciente: {{ consulta.paciente.dataNascimento | date: 'dd/MM/yyyy'}}</p>
     </div>
   </div>
 </ng-template>
