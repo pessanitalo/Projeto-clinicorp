@@ -78,17 +78,17 @@ namespace CliniCorp.Controllers
 
         }
 
-        [HttpPut("updatedate/{id:int}")]
-        public IActionResult updatedate(RemarcarConsultaViewModel consultaModel, int id)
+        [HttpPut("updatedate")]
+        public IActionResult updatedate(RemarcarConsultaViewModel consultaModel)
         {
             try
             {
-                var busca = _consultarepository.BuscarporId(id);
+                var busca = _consultarepository.BuscarporId(consultaModel.Id);
                 if (busca == null) return NotFound(new ResultViewModel<DetalhesConsultaViewModel>("Consulta não encontrada.")); ;
 
                 var consulta = _mapper.Map<Consulta>(consultaModel);
 
-                _consultarepository.RemarcarConsulta(consulta, id);
+                _consultarepository.RemarcarConsulta(consulta, consultaModel.Id);
 
                 return Ok(consulta);
             }
