@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th>Médico Responsável</th>
+      <th> Especialização </th>
       <th>Paciente</th>
       <th>Data da Consulta</th>
       <th>Status da Consulta</th>
@@ -12,6 +13,7 @@
   <tbody>
     <tr *ngFor="let consulta of consultas">
       <td> {{ consulta.medico.nome | uppercase}} </td>
+      <td> {{ consulta.medico.especializacao }} </td>
       <td> {{ consulta.paciente.nome }} </td>
       <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy hh:mm'}} </td>
       <td>{{ consulta.statusConsulta }}</td>

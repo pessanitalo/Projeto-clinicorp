@@ -1,16 +1,16 @@
-import { editConsulta } from './../models/editarConsulta';
+import { editConsulta } from '../models/editarConsulta';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from '../services/consulta.service';
 import { parseDate } from '../services/parseDate';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consulta-detalhes',
-  templateUrl: './consulta-detalhes.component.html',
-  styleUrls: ['./consulta-detalhes.component.css']
+  templateUrl: './consulta-remarcar.component.html',
+  styleUrls: ['./consulta-remarcar.component.css']
 })
 export class ConsultaDetalhesComponent implements OnInit {
-
 
   public consulta: editConsulta;
   public date!: Date;
@@ -20,27 +20,34 @@ export class ConsultaDetalhesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private consultaService: ConsultaService) { this.consulta = this.route.snapshot.data['consulta'] }
 
-  ngOnInit(): void {
-  
-  }
-
-  // updateStatus() {
-  //   this.consultaService.update(this.consulta.id)
-  //     .subscribe(sucesso => { console.log(sucesso) })
-  // }
+  ngOnInit(): void {}
 
   updateDate() {
     if(this.date == null){
       alert("Campo Data Obrigatório");
     }
     this.consultaService.remarcar(this.consulta.id, parseDate(this.date))
-      .subscribe(sucesso => { console.log(sucesso) })
+      .subscribe(sucesso => { this.processarSucesso(sucesso) })
   }
 
   return(){
     this.router.navigate(["/consultalist"]);
+  }
+
+  processarSucesso(response: any) {
+    let toast = this.toastr.success('Consulta Remarcada', 'Sucesso!');
+    if (toast) {
+      toast.onHidden.subscribe(() => {
+        this.router.navigate(['/consultalist'])
+      });
+    }
+  }
+
+  processarFalha(fail: any) {
+    this.toastr.error(fail.error, 'Error!');
   }
 
 }

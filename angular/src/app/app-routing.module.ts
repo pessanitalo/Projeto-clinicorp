@@ -2,7 +2,7 @@ import { ListaPacienteComponent } from './paciente/lista-paciente/lista-paciente
 import { AdicionarPacienteComponent } from './paciente/adicionar-paciente/adicionar-paciente.component';
 import { AdicionarMedicoComponent } from './medico/adicionar-medico/adicionar-medico.component';
 import { MedicoListaComponent } from './medico/medico-lista/medico-lista.component';
-import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
+import { ConsultaDetalhesComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { ConsultaListComponent } from './consulta/consulta-list/consulta-list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';

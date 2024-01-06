@@ -1,5 +1,5 @@
 import { AdicionarPacienteComponent } from './paciente/adicionar-paciente/adicionar-paciente.component';
-import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
+import { ConsultaDetalhesComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { Consulta } from './consulta/models/consulta';
 import { ConsultaResolve } from './consulta/services/consulta.resolve';
 import { ModalModule } from 'ngx-bootstrap/modal';
