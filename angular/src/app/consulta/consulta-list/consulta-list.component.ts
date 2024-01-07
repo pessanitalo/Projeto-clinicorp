@@ -2,6 +2,8 @@ import { ConsultaService } from './../services/consulta.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Consulta } from '../models/consulta';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +18,7 @@ export class ConsultaListComponent implements OnInit {
   public consulta!: Consulta;
 
   public id!: number;
+  public template!: TemplateRef<any>;
 
   errorMessage!: string;
   modalRef?: BsModalRef;
@@ -27,6 +30,8 @@ export class ConsultaListComponent implements OnInit {
   constructor(
     private consultaService: ConsultaService,
     private modalService: BsModalService,
+    private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -54,9 +59,18 @@ export class ConsultaListComponent implements OnInit {
     })
   }
 
-  updateStatus() {
+  cancelarConsulta() {
     this.consultaService.calcelar(this.consulta.id)
-      .subscribe(sucesso => { console.log(sucesso) })
+      .subscribe(sucesso => { this.processarSucesso(sucesso) })
+  }
+
+  processarSucesso(response: any) {
+    let toast = this.toastr.success('Consulta Cancelada', 'Sucesso!');
+    if (toast) {
+      toast.onHidden.subscribe(() => {
+        this.modalService.hide();
+      });
+    }
   }
 
 }
