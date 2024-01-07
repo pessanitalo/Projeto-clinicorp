@@ -69,8 +69,7 @@ namespace CliniCorp.Controllers
 
                 if (query == null) return NotFound(new ResultViewModel<DetalhesConsultaViewModel>("Consulta não encontrada."));
 
-                var consultaret = _mapper.Map<Consulta>(consultaModel);
-                _consultarepository.CancelarConsulta(consultaret);
+                var consultaret = _consultarepository.CancelarConsulta(consultaModel.Id);
 
                 return Ok(consultaret);
             }

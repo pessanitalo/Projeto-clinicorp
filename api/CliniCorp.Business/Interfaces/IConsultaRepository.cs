@@ -10,7 +10,7 @@ namespace CliniCorp.Business.Interfaces
         Task<Consulta> Adicionar(Consulta consulta);
         
         //corrigir!
-        Consulta CancelarConsulta(Consulta consulta);
+        Consulta CancelarConsulta(int id);
         Consulta RemarcarConsulta(Consulta consulta, int id);
         Consulta BuscarporId(int id);
     }

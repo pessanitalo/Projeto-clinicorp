@@ -49,9 +49,9 @@ namespace CliniCorp.Data.Repository
                 .FirstOrDefaultAsync(X => X.Id == id);
             return consulta;
         }
-        public Consulta CancelarConsulta(Consulta consulta)
+        public Consulta CancelarConsulta(int id)
         {
-            var query = BuscarporId(consulta.Id);
+            var query = BuscarporId(id);
 
             query.Status = (int)StatusConsulta.Cancelada;
             query.StatusConsulta = "Cancelada";
