@@ -40,7 +40,6 @@ export class ConsultaNovaComponent implements OnInit {
     private medicoService: MedicoService,
     private toastr: ToastrService,
     private router: Router,
-    private datepipe: DatePipe
   ) { }
 
   ngOnInit(): void {
