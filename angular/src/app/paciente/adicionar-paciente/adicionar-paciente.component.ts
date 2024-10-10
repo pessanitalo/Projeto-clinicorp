@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/consulta/models/paciente';
@@ -13,13 +13,13 @@ import { PacienteService } from '../services/paciente.service';
 })
 export class AdicionarPacienteComponent implements OnInit {
 
-  Form!: FormGroup;
+  Form!: UntypedFormGroup;
 
   paciente!: Paciente;
 
   
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private pacienteService: PacienteService,
     private toastr: ToastrService,
     private router: Router,

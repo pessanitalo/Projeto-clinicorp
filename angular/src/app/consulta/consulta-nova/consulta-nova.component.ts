@@ -3,7 +3,7 @@ import { PacienteService } from './../../paciente/services/paciente.service';
 import { Paciente } from './../models/paciente';
 import { Consulta } from './../models/consulta';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ConsultaService } from '../services/consulta.service';
 import { Medico } from '../models/medico';
 import { parseDate } from '../services/parseDate';
@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ConsultaNovaComponent implements OnInit {
 
-  Form!: FormGroup;
+  Form!: UntypedFormGroup;
 
   consulta!: Consulta;
   medico!: Medico;
@@ -34,7 +34,7 @@ export class ConsultaNovaComponent implements OnInit {
   cpfPaciente!: string;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private consultaService: ConsultaService,
     private pacienteService: PacienteService,
     private medicoService: MedicoService,
@@ -87,6 +87,7 @@ export class ConsultaNovaComponent implements OnInit {
     this.consulta.dataConsulta = parseDate(dataConsulta);
 
     this.consulta.medicoId = this.medico.id;
+    console.log(this.consulta.medicoId);
     this.consulta.pacienteId = this.paciente.id;
     
     this.consultaService.addCliente(this.consulta).subscribe(sucesso => {

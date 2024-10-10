@@ -51,7 +51,8 @@ import { ListaPacienteComponent } from './paciente/lista-paciente/lista-paciente
       positionClass: 'toast-top-center',
       preventDuplicates: true,
       progressBar: true
-  })
+  }),
+    ModalModule.forRoot()
   ],
   providers: [ConsultaResolve,BsModalService],
   bootstrap: [AppComponent]

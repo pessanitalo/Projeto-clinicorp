@@ -1,7 +1,7 @@
 import { MedicoService } from './../services/medico.service';
 import { Medico } from './../../consulta/models/medico';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class AdicionarMedicoComponent implements OnInit {
 
   medico!: Medico;
-  Form!: FormGroup;
+  Form!: UntypedFormGroup;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private medicoService: MedicoService,
     private toastr: ToastrService,
     private router: Router,
