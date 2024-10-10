@@ -2,23 +2,26 @@ import { MedicoService } from './../../medico/services/medico.service';
 import { PacienteService } from './../../paciente/services/paciente.service';
 import { Paciente } from './../models/paciente';
 import { Consulta } from './../models/consulta';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsultaService } from '../services/consulta.service';
 import { Medico } from '../models/medico';
 import { parseDate } from '../services/parseDate';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+
 
 
 @Component({
   selector: 'app-consulta-nova',
   templateUrl: './consulta-nova.component.html',
   styleUrls: ['./consulta-nova.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
+  standalone: true,
+  imports: [RouterLink,ReactiveFormsModule,FormsModule ]
 })
-export class ConsultaNovaComponent implements OnInit {
+export class ConsultaNovaComponent {
 
   Form!: FormGroup;
 
@@ -50,10 +53,10 @@ export class ConsultaNovaComponent implements OnInit {
   }
 
   buscarMedico() {
-    if(this.nome == null || this.nome.length <= 0){
+    if (this.nome == null || this.nome.length <= 0) {
       this.toastr.warning('Campo Médico Obrigatório', 'Ops!');
     }
-    else{
+    else {
       this.medicoService.buscarMedicoPorNome(this.nome).subscribe((res) => {
         this.medico = res;
         this.Sucesso(res)
@@ -61,15 +64,15 @@ export class ConsultaNovaComponent implements OnInit {
         falha => { this.processarFalha(falha) }
       )
     }
-    
+
   }
 
 
   buscarPaciente() {
-    if(this.cpfPaciente == null || this.cpfPaciente.length <= 0){
+    if (this.cpfPaciente == null || this.cpfPaciente.length <= 0) {
       this.toastr.warning('Campo Paciente Obrigatório', 'Ops!');
     }
-    else{
+    else {
       this.pacienteService.buscarpacientePorNome(this.cpfPaciente).subscribe((res) => {
         this.paciente = res;
         this.toastr.success('Paciente adicionado com sucesso.', 'Sucesso!');
@@ -77,7 +80,7 @@ export class ConsultaNovaComponent implements OnInit {
         falha => { this.processarFalha(falha) }
       )
     }
- 
+
   }
 
   adicionar() {
@@ -88,12 +91,12 @@ export class ConsultaNovaComponent implements OnInit {
 
     this.consulta.medicoId = this.medico.id;
     this.consulta.pacienteId = this.paciente.id;
-    
-    this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
-      this.processarSucesso(sucesso)
-    },
-      falha => { this.processarFalha(falha) }
-    )
+
+    // this.consultaService.addCliente(this.consulta).subscribe(sucesso => {
+    //   this.processarSucesso(sucesso)
+    // },
+    //   falha => { this.processarFalha(falha) }
+    // )
   }
 
   ErrorMessage(fieldName: string) {

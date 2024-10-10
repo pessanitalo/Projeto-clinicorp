@@ -1,11 +1,10 @@
 <div class="edit-consul">
   <div class="row g-1">
 
-    <p class="spacing-top">Remarcar Consulta: {{ consulta.dataConsulta | date: 'dd/MM/yyyy' }}</p>
+    <p class="spacing-top">Remarcar Consulta: {{ consulta.dataConsulta  }}</p>
 
     <div class="col-md-4">
-      <input type="text" class="form-control" id="date" [(ngModel)]="date" mask="d0/M0/0000"
-        [dropSpecialCharacters]="false" placeholder="Digite aqui a nova data!">
+      <input type="text" class="form-control" id="date" [(ngModel)]="date" placeholder="Digite aqui a nova data!">
 
       <button type="button" class="btn btn-primary btn-voltar" (click)="return()">voltar</button>
 

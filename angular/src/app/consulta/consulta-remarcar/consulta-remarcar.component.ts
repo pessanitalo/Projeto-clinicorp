@@ -1,14 +1,16 @@
 import { editConsulta } from '../models/editarConsulta';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ConsultaService } from '../services/consulta.service';
-import { parseDate } from '../services/parseDate';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-consulta-detalhes',
-  templateUrl: './consulta-remarcar.component.html',
-  styleUrls: ['./consulta-remarcar.component.css']
+    selector: 'app-consulta-detalhes',
+    templateUrl: './consulta-remarcar.component.html',
+    styleUrls: ['./consulta-remarcar.component.css'],
+    standalone: true,
+    imports: [RouterLink, FormsModule]
 })
 export class ConsultaDetalhesComponent implements OnInit {
 
@@ -29,8 +31,8 @@ export class ConsultaDetalhesComponent implements OnInit {
     if(this.date == null){
       alert("Campo Data Obrigatório");
     }
-    this.consultaService.remarcar(this.consulta.id, parseDate(this.date))
-      .subscribe(sucesso => { this.processarSucesso(sucesso) })
+    // this.consultaService.remarcar(this.consulta.id, parseDate(this.date))
+    //   .subscribe(sucesso => { this.processarSucesso(sucesso) })
   }
 
   return(){

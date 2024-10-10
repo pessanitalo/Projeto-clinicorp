@@ -1,9 +1,9 @@
-import { Medico } from 'src/app/consulta/models/medico';
-import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs/internal/Observable';
 import { Consulta } from '../models/consulta';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({

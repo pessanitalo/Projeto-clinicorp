@@ -12,10 +12,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let consulta of consultas">
-      <td> {{ consulta.medico.nome | uppercase}} </td>
+      <td> {{ consulta.medico.nome }} </td>
       <td> {{ consulta.medico.especializacao }} </td>
       <td> {{ consulta.paciente.nome }} </td>
-      <td> {{ consulta.dataConsulta | date: 'dd/MM/yyyy hh:mm'}} </td>
+      <td> {{ consulta.dataConsulta }} </td>
       <td>{{ consulta.statusConsulta }}</td>
       <td>
         <button type="button" class="btn btn-primary" (click)="openModal(detalhes,consulta)">Detalhes</button>
@@ -39,10 +39,10 @@
     <p>Consulta id: <strong>{{ consulta.id}}</strong></p>
     <p>Médico Responsável: <strong>{{ consulta.paciente.nome }}</strong></p>
     <p>Descrição: {{consulta.descricaoConsulta}}</p>
-    <p>Data da Consulta: {{consulta.dataConsulta | date: 'dd/MM/yyyy'}}</p>
+    <p>Data da Consulta: {{consulta.dataConsulta }}</p>
     <div class="div">
       <P>Dados do Paciente:</P>
-      <p>Nome do Paciente: {{ consulta.paciente.dataNascimento | date: 'dd/MM/yyyy'}}</p>
+      <p>Nome do Paciente: {{ consulta.paciente.dataNascimento }}</p>
     </div>
   </div>
 </ng-template>

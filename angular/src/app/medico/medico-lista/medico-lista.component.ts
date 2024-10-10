@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Medico } from 'src/app/consulta/models/medico';
 import { MedicoService } from '../services/medico.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-medico-lista',
   templateUrl: './medico-lista.component.html',
-  styleUrls: ['./medico-lista.component.css']
+  styleUrls: ['./medico-lista.component.css'],
+  standalone: true,
+  imports: [RouterLink]
 })
 export class MedicoListaComponent implements OnInit {
 

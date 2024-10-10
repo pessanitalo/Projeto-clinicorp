@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Paciente } from 'src/app/consulta/models/paciente';
 import { parseDate } from 'src/app/utils/utils';
 import { PacienteService } from '../services/paciente.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-adicionar-paciente',
-  templateUrl: './adicionar-paciente.component.html',
-  styleUrls: ['./adicionar-paciente.component.css']
+    selector: 'app-adicionar-paciente',
+    templateUrl: './adicionar-paciente.component.html',
+    styleUrls: ['./adicionar-paciente.component.css'],
+    standalone: true,
+    imports: [RouterLink,ReactiveFormsModule,]
 })
 export class AdicionarPacienteComponent implements OnInit {
 
@@ -41,10 +43,10 @@ export class AdicionarPacienteComponent implements OnInit {
     let datapaciente = this.Form.get("dataNascimento")?.value;  
     this.paciente.dataNascimento = parseDate(datapaciente);
 
-    this.pacienteService.adicionar(this.paciente)
-      .subscribe(sucesso => { this.processarSucesso(sucesso) },
-        falha => { this.processarFalha(falha) }
-      )
+    // this.pacienteService.adicionar(this.paciente)
+    //   .subscribe(sucesso => { this.processarSucesso(sucesso) },
+    //     falha => { this.processarFalha(falha) }
+    //   )
   }
 
   processarSucesso(response: any) {

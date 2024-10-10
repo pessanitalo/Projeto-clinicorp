@@ -1,9 +1,9 @@
 import { ConsultaService } from './../services/consulta.service';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { Consulta } from '../models/consulta';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
   templateUrl: './consulta-list.component.html',
   styleUrls: ['./consulta-list.component.css'],
   providers: [ConsultaService],
+  standalone: true,
+  imports: [RouterLink]
 })
-export class ConsultaListComponent implements OnInit {
+export class ConsultaListComponent {
 
   public consultas!: Consulta[];
   public consulta!: Consulta;
@@ -60,8 +62,8 @@ export class ConsultaListComponent implements OnInit {
   }
 
   cancelarConsulta() {
-    this.consultaService.calcelar(this.consulta.id)
-      .subscribe(sucesso => { this.processarSucesso(sucesso) })
+    // this.consultaService.calcelar(this.consulta.id)
+    //   .subscribe(sucesso => { this.processarSucesso(sucesso) })
   }
 
   processarSucesso(response: any) {

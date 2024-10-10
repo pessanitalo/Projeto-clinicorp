@@ -6,29 +6,20 @@
             <div class="form-group">
                 <label class="control-label">Nome</label>
                 <input class="form-control" id="nome" type="text" formControlName="nome" />
-                <span class="text-danger" *ngIf="Form.get('nome')?.invalid">
-                    {{ErrorMessage("nome")}}
-                </span>
             </div>
 
 
             <div class="form-group">
                 <label class="control-label">CPF</label>
                 <div>
-                    <input class="form-control" id="cpf" type="text" formControlName="cpf" mask="000.000.000-00" />
-                    <span class="text-danger" *ngIf="Form.get('cpf')?.invalid">
-                        {{ErrorMessage("cpf")}}
-                    </span>
+                    <input class="form-control" id="cpf" type="text" formControlName="cpf"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="control-label">CRM</label>
                 <div>
-                    <input class="form-control" id="crm" type="text" formControlName="crm" mask="0000000000.0" />
-                    <span class="text-danger" *ngIf="Form.get('crm')?.invalid">
-                        {{ErrorMessage("crm")}}
-                    </span>
+                    <input class="form-control" id="crm" type="text" formControlName="crm" />
                 </div>
             </div>
 
@@ -36,9 +27,6 @@
                 <label class="control-label">Especialização</label>
                 <div>
                     <input class="form-control" id="especializacao" type="text" formControlName="especializacao" />
-                    <span class="text-danger" *ngIf="Form.get('especializacao')?.invalid">
-                        {{ErrorMessage("especializacao")}}
-                    </span>
                 </div>
             </div>
 

@@ -1,14 +1,17 @@
 import { MedicoService } from './../services/medico.service';
 import { Medico } from './../../consulta/models/medico';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+
 
 @Component({
-  selector: 'app-adicionar-medico',
-  templateUrl: './adicionar-medico.component.html',
-  styleUrls: ['./adicionar-medico.component.css']
+    selector: 'app-adicionar-medico',
+    templateUrl: './adicionar-medico.component.html',
+    styleUrls: ['./adicionar-medico.component.css'],
+    standalone: true,
+    imports: [RouterLink,  ReactiveFormsModule,]
 })
 export class AdicionarMedicoComponent implements OnInit {
 
@@ -52,10 +55,10 @@ export class AdicionarMedicoComponent implements OnInit {
 
   adicionar() {
     this.medico = Object.assign({}, this.medico, this.Form.value);
-    this.medicoService.adicionar(this.medico)
-      .subscribe(sucesso => { this.processarSucesso(sucesso) },
-        falha => { this.processarFalha(falha) }
-      )
+    // this.medicoService.adicionar(this.medico)
+    //   .subscribe(sucesso => { this.processarSucesso(sucesso) },
+    //     falha => { this.processarFalha(falha) }
+    //   )
   }
 
   processarSucesso(response: any) {

@@ -1,13 +1,16 @@
+import { Component } from '@angular/core';
 import { PacienteService } from './../services/paciente.service';
-import { Component, OnInit } from '@angular/core';
 import { Paciente } from 'src/app/consulta/models/paciente';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-lista-paciente',
-  templateUrl: './lista-paciente.component.html',
-  styleUrls: ['./lista-paciente.component.css']
+    selector: 'app-lista-paciente',
+    templateUrl: './lista-paciente.component.html',
+    styleUrls: ['./lista-paciente.component.css'],
+    standalone: true,
+    imports: [RouterLink]
 })
-export class ListaPacienteComponent implements OnInit {
+export class ListaPacienteComponent {
 
   pacientes!: Paciente[];
 
