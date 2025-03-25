@@ -6,6 +6,7 @@ namespace CliniCorp.Data.Context
 {
     public class DataContext : DbContext
     {
+        //teste
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Consulta> Consultas { get; set; }
