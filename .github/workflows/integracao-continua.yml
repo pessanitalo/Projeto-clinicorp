@@ -19,3 +19,11 @@ jobs:
      - name: Docker Compose Build
        working-directory: ./api
        run: docker compose build
+
+     - name: Push to Docker Hub Container Registry
+       run: |
+         docker tag clinicorp-api:latest ${{ secrets.DOCKER_USERNAME }}/clinicorp-api:latest
+         docker tag clinicorp-api:latest ${{ secrets.DOCKER_USERNAME }}/clinicorp-api:${{ github.run_id }}
+
+         docker push ${{ secrets.DOCKER_USERNAME }}/clinicorp-api:latest
+         docker push ${{ secrets.DOCKER_USERNAME }}/clinicorp-api:${{ github.run_id }}
