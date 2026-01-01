@@ -8,7 +8,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      ASPNETCORE_ENVIRONMENT: Development
+     - ASPNETCORE_URLS=http://+:80
+    volumes:
+    - ./CredEmprestimoApi/Uploads:/app/Uploads  
     ports:
        - "5500:80" 
     depends_on:
